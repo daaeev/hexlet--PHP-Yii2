@@ -1,0 +1,69 @@
+/* <---HEADER---> */
+
+a {
+    text-decoration: none;
+}
+
+.navbar {
+    border-bottom: 1px solid #0000001c;
+}
+
+.navbar .navbar-brand {
+    font-size: 23px;
+}
+
+.navbar .navbar-brand:hover {
+    color: #000000;
+}
+
+.navbar .nav-menu {
+    margin-left: 30px;
+}
+
+.navbar .nav-menu .link {
+    padding-left: 25px;
+}
+
+.navbar .dropdown-toggle {
+    color: #000000;
+    background: none;
+    border: none;
+    box-shadow: none;
+}
+
+.navbar .right-block .add-menu{
+    margin-left: -55px;
+}
+
+.navbar .right-block .profile-menu {
+    margin-left: -140px;
+}
+
+.navbar .right-block .dropdown-menu .username {
+    font-weight: bold;
+}
+
+.navbar .right-block .profile-menu .user-info {
+    outline: none;
+    border: none;
+    box-shadow: none;
+    border-bottom: 1px solid #00000027;
+}
+
+.navbar .right-block .profile-menu .user-info:active {
+    background: #ffffff;
+    color: #000000
+}
+
+.navbar .right-block .profile-menu .user-info:hover {
+    background: #ffffff;
+}
+
+.navbar .right-block .profile-menu .btn-logout {
+    border-top: 1px solid #00000027;
+}
+
+.navbar .right-block .profile-menu .dropdown-item {
+    padding-top: 6px;
+    padding-bottom: 6px;
+}

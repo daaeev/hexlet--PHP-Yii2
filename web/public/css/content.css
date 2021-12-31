@@ -1,0 +1,39 @@
+/* <---CONTENT---> */
+
+body {
+    overflow-x:hidden;
+}
+
+#content {
+    margin-top: 50px;
+}
+
+.content-block h1 {
+    font-size: 32px;
+}
+
+.content-block .card-noborder {
+    border-left: none;
+    border-top: none;
+    border-right: none;
+}
+
+.content-block .card-noborder:last-child {
+    border-bottom: none;
+}
+
+.content-block .card .card-info .card-title a {
+    color: #0d6efd;
+}
+
+.content-block .card .card-info .card-title a:hover {
+    color: #0850bd;
+}
+
+.content-block .card .card-info .pub-info .author {
+    color: #0d6efd;
+}
+
+.content-block .card .card-info .pub-info .author:hover {
+    color: #0850bd;
+}

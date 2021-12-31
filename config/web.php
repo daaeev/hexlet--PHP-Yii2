@@ -6,6 +6,7 @@ $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
+    'defaultRoute' => 'site/resume',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
@@ -35,6 +36,19 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                'resume/<category:\D{0,10}>' => 'site/resume',
+                'vacancies' => 'site/vacancies',
+                'rating' => 'site/rating',
+                'account/<tab:\D{6,9}>' => 'site/account',
+                'create/resume' => 'site/create-resume',
+                'create/vacancie' => 'site/create-vacancie',
+                'profile' => 'site/profile',
+                'resume/<id:\d+>' => 'site/resume-view',
+                'vacancie/<id:\d+>' => 'site/vacancie-view',
+
+                'login' => 'authorization/login',
+                'registration' => 'authorization/registration',
+                'logout' => 'authorization/logout',
             ],
         ],
     ],
