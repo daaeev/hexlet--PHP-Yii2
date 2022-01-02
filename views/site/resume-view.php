@@ -25,12 +25,6 @@
                             HTML, CSS, JavaScript, Vue 3, Vuex, jQuery, Figma</p>
                     </div>
                 </div>
-                <div class="row mb-3">
-                    <div class="col-sm-3"><b>Награды, Сертификаты</b></div>
-                    <div class="col-sm-9 hexlet-cv-content">
-                        <p>Постоянный участник конференции "Podlodka Frontend Crew"</p>
-                    </div>
-                </div>
                 <div class="row">
                     <div class="col-sm-3"><b>Владение английским</b></div>
                     <div class="col-sm-9">Начальные знания</div>

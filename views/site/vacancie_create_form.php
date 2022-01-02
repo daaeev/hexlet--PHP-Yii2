@@ -23,7 +23,6 @@ use yii\helpers\Url;
                         <label class="col-sm-3 col-form-label">Уровень <span title="обязательно">*</span></label>
                         <div class="col-sm-9">
                             <select class="form-control select required" required="required" aria-required="true">
-                                <option value="" label=" "></option>
                                 <option selected="selected" value="junior">Джуниор</option>
                                 <option value="middle">Мидл</option>
                                 <option value="senior">Синьор</option>
@@ -37,7 +36,6 @@ use yii\helpers\Url;
                         <label class="col-sm-3 col-form-label">Сколько денег</label>
                         <div class="col-sm-9">
                             <select class="form-control select">
-                                <option value="" label=" "></option>
                                 <option selected="selected" value="junior">До вычетов</option>
                                 <option value="middle">На руки</option>
                             </select>
@@ -49,7 +47,6 @@ use yii\helpers\Url;
                         <label class="col-sm-3 col-form-label">Место работы</label>
                         <div class="col-sm-9">
                             <select class="form-control select">
-                                <option value="" label=" "></option>
                                 <option selected="selected" value="junior">Удаленно</option>
                                 <option value="middle">В офисе</option>
                                 <option value="middle">Гибрид</option>
@@ -62,7 +59,6 @@ use yii\helpers\Url;
                         <label class="col-sm-3 col-form-label">Тип занятости <span title="обязательно">*</span></label>
                         <div class="col-sm-9">
                             <select class="form-control select" required="required" aria-required="true">
-                                <option value="" label=" "></option>
                                 <option selected="selected" value="full-time">Полный день</option>
                                 <option value="part-time">Частичная занятость</option>
                                 <option value="contract">Контрактная работа</option>
