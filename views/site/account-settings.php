@@ -19,13 +19,8 @@ use yii\helpers\Url;
 
             <form action="" method="">
                 <div class="mb-3">
-                    <label class="string optional" for="user_name">Имя</label>
+                    <label class="string optional" for="user_name">Имя, фамилия</label>
                     <input type="text" class="form-control" id="user_name">
-                </div>
-
-                <div class="mb-3">
-                    <label class="string optional" for="user_last_name">Фамилия</label>
-                    <input type="text" class="form-control" id="user_last_name">
                 </div>
 
                 <div class="mb-3">

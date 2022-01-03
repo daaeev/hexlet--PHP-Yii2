@@ -233,15 +233,6 @@ use yii\helpers\Url;
                         </div>
                     </div>
                 </div>
-                <div class="mb-3">
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Направления</label>
-                        <div class="col-sm-9">
-                            <input class="form-control string" type="text">
-                            <small class="form-text text-muted">Полный стек технологий лучше указать в описании. Это поле тегов для того, чтобы ваши вакансии быстрее находили потенциальные соискатели. Здесь нужно указывать только то, про что можно сказать X-разработчик, например: android, ios, php, js, java и тд</small>
-                        </div>
-                    </div>
-                </div>
                 <div class="row mt-5">
                     <div class="col-sm d-flex mb-3">
                         <div class="me-3">

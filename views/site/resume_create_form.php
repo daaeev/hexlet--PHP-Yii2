@@ -37,15 +37,6 @@ use yii\helpers\Url;
                 </div>
                 <div class="mb-3">
                     <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Hexlet</label>
-                        <div class="col-sm-9">
-                            <input class="form-control"type="text">
-                            <small class="form-text text-muted">Ссылка на профиль: https://ru.hexlet.io/u/mokevnin</small>
-                        </div>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <div class="form-group row">
                         <label class="col-sm-3 col-form-label">GitHub <span title="обязательно">*</span></label>
                         <div class="col-sm-9">
                             <input class="form-control" required="required" type="text">

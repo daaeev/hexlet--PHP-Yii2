@@ -30,10 +30,6 @@
                     <div class="col-sm-9">Начальные знания</div>
                 </div>
                 <div class="row mt-3 mb-4">
-                    <div class="col-sm-3"><b>Hexlet</b></div>
-                    <div class="col-sm-9"><a rel="noopener" href="#">https://ru.hexlet.io/u/anonymous</a></div>
-                </div>
-                <div class="row mt-3 mb-4">
                     <div class="col-sm-3"><b>Github</b></div>
                     <div class="col-sm-9"><a rel="noopener" href="#">https://github.com/anonymous</a></div>
                 </div>
@@ -45,22 +41,7 @@
                     <div class="col-sm-3"><b>Достижения</b></div>
                     <div class="col-sm-9">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio eveniet quam sequi, dolor eaque iure doloribus ipsa excepturi. Mollitia cumque voluptatibus quisquam ipsum qui sint ab fugit. Et consectetur laboriosam ducimus veniam dicta quis deleniti, non molestias rerum dolore officia! Mollitia quos eligendi est dignissimos dolore, suscipit perferendis fuga alias doloremque veniam. Placeat optio, nulla saepe quia sed quis, ab dolore est doloribus suscipit maiores, reprehenderit sequi? Nihil voluptatibus mollitia quia doloremque quo, assumenda eligendi consectetur voluptas eius quaerat aperiam modi hic fuga aliquam! Harum, ut. Nostrum voluptatem delectus, praesentium, ullam culpa totam quo quos repellat, velit in nisi dolorem!</div>
                 </div>
-                <div class="mt-3">
-                    <hr class="my-2"><a class="d-block small text-muted" data-bs-toggle="collapse" href="#new_resume_comment">Добавить комментарий</a>
-                    <div class="collapse" id="new_resume_comment">
-
-                        <form class="simple_form new_resume_comment" id="new_resume_comment" accept-charset="UTF-8" method="post">
-                            <div class="mb-3">
-                                <div class="form-group text required resume_comment_content"><textarea
-                                        class="form-control text required" required="required" aria-required="true"
-                                        name="resume_comment[content]" id="resume_comment_content"></textarea><small
-                                        class="form-text text-muted">Длина не может превышать 200 символов</small></div>
-                            </div>
-                            <div class="mb-3"><input type="submit" name="commit" value="Создать" class="btn btn-primary"
-                                    data-disable-with="Создать"></div>
-                        </form>
-                    </div>
-                </div>
+                <hr>
             </div>
 
             <div class="lead mb-3">Рекомендации</div>
