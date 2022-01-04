@@ -26,6 +26,11 @@ MainAsset::register($this);
                 <a class="link link-dark" href="<?= Url::to('/resume/all') ?>">Резюме</a>
                 <a class="link link-dark" href="<?= Url::to('/vacancies') ?>">Вакансии</a>
                 <a class="link link-dark" href="<?= Url::to('/rating') ?>">Рейтинг</a>
+
+                <?php //if (Yii::$app->user->can('adminPanel')): ?>
+                    <a class="link link-dark" href="<?= Url::to('/admin/user') ?>">Админ панель</a>
+                <?php //endif ?>
+
             </div>
         </div>
 
