@@ -25,6 +25,11 @@ $config = [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
+        'user' => [
+            'loginUrl' => '/login',
+            'identityClass' => 'app\models\User',
+            'enableAutoLogin' => true,
+        ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [

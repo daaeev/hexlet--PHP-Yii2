@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\web\IdentityInterface;
 
 /**
  * This is the model class for table "user".
@@ -18,7 +19,7 @@ use Yii;
  * @property Notifications[] $notifications
  * @property Resume[] $resumes
  */
-class User extends \yii\db\ActiveRecord
+class User extends \yii\db\ActiveRecord implements IdentityInterface
 {
     /**
      * {@inheritdoc}
@@ -53,6 +54,31 @@ class User extends \yii\db\ActiveRecord
             'status' => 'Status',
             'contribution' => 'Contribution',
         ];
+    }
+
+    public static function findIdentity($id)
+    {
+        return static::findOne($id);
+    }
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public static function findIdentityByAccessToken($token, $type = null)
+    {
+        // TODO...
+    }
+
+    public function getAuthKey()
+    {
+        // TODO...
+    }
+
+    public function validateAuthKey($authKey)
+    {
+        // TODO...
     }
 
     /**
