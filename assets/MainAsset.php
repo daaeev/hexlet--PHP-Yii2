@@ -16,7 +16,9 @@ class MainAsset extends AssetBundle
         'public/css/header.css',
     ];
     public $js = [
-        '//code.jquery.com/jquery-3.6.0.min.js',
         '//cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js',
+    ];
+    public $depends = [
+        'yii\web\JqueryAsset',
     ];
 }
