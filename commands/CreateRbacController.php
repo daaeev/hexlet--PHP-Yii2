@@ -14,6 +14,10 @@ class CreateRbacController extends Controller
     public function actionCreateRoles()
     {
         $auth = Yii::$app->authManager;
+
+        $user = $auth->createRole('user');
+        $user->description = 'Обычный пользователь сайта. Статус - 0';
+        $auth->add($user);
         
         $admin = $auth->createRole('admin');
         $admin->description = 'Админ - Задаёт роли другим пользователям. Статус - 1';
