@@ -2,13 +2,14 @@
 
 namespace app\commands;
 
+use app\models\User;
 use app\rules\AdminPanelRule;
 use app\rules\AssignmentRule;
 use app\rules\ModerationRule;
 use Yii;
 use yii\console\Controller;
 
-class CreateRbacObjects extends Controller
+class CreateRbacController extends Controller
 {
     public function actionCreateRoles()
     {
@@ -80,6 +81,10 @@ class CreateRbacObjects extends Controller
     {
         $auth = Yii::$app->authManager;
         $admin = $auth->getRole('admin');
+        
+        $user = User::findOne($id);
+        $user->status = 1;
+        $user->save();
 
         $auth->assign($admin, $id);
     }
