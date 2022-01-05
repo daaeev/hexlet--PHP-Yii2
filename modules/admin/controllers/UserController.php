@@ -2,35 +2,18 @@
 
 namespace app\modules\admin\controllers;
 
+use app\components\helpers\interface\RoleHelperInterface;
 use app\models\User;
 use app\models\UserSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
+use Yii;
 
 /**
  * UserController implements the CRUD actions for User model.
  */
 class UserController extends Controller
 {
-    /**
-     * @inheritDoc
-     */
-    public function behaviors()
-    {
-        return array_merge(
-            parent::behaviors(),
-            [
-                'verbs' => [
-                    'class' => VerbFilter::className(),
-                    'actions' => [
-                        'delete' => ['POST'],
-                    ],
-                ],
-            ]
-        );
-    }
-
     /**
      * Lists all User models.
      * @return mixed
@@ -60,59 +43,51 @@ class UserController extends Controller
     }
 
     /**
-     * Creates a new User model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
+     * Страница выбора ролей для пользователя
+     * @param int $id ID пользователя, роль которого следует изменить
      * @return mixed
+     * @throws InvalidArgumentException если файл вида или шаблона не найден
      */
-    public function actionCreate()
+    public function actionRole($id)
     {
-        $model = new User();
+        $helper = Yii::$container->get(RoleHelperInterface::class);
+        $roles = $helper->getRoles();
 
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+        // Если post-данные формы приняты, выполнить функционал присваивания роли,
+        // инаце - отобразить страницу role
+        if ($role = Yii::$app->request->post('role')) {
+            $user = User::findOne($id);
+
+            // Состояние статуса до выполнения функционала присваивания роли.
+            // При возникновении ошибки - статус пользователя вернётся к этому состоянию
+            $userPrevStatus = $user->status;
+
+            // Если пользователь был найден, то присвоить роль и изменить его статус,
+            // иначе - создать flash-сессию с название ошибки и перейти на страницу index
+            if ($user) {
+
+                // Если присваивание роли и изменение статуса проходит без ошибок - 
+                // перейти на страницу view текущего пользователя,
+                // иначе - откатить все действия, создать flash-сессию с описанием ошибки и
+                // перейти на страницу view текущего пользователя
+                try {
+                    $helper->assignRole($role, $id);
+                    $helper->setUserStatus($user, $role);
+                } catch (\Exception $e) {
+                    Yii::$app->authManager->revokeAll($id);
+                    $user->status = $userPrevStatus;
+                    $user->save();
+                    Yii::$app->session->setFlash('warning', $e->getMessage());
+                }
+
+                return $this->redirect(['/admin/user/view', 'id' => $id]);
+            } else {
+                Yii::$app->session->setFlash('error', 'Пользователь с id ' . $id . ' не найден');
+                return $this->render('index');
             }
-        } else {
-            $model->loadDefaultValues();
         }
 
-        return $this->render('create', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
-     * Updates an existing User model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $id ID
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionUpdate($id)
-    {
-        $model = $this->findModel($id);
-
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
-     * Deletes an existing User model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param int $id ID
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionDelete($id)
-    {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
+        return $this->render('role', compact('id', 'roles'));
     }
 
     /**
