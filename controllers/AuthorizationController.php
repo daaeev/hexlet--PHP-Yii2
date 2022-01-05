@@ -2,13 +2,16 @@
 
 namespace app\controllers;
 
+use app\models\auth\RegistrationForm;
 use yii\web\Controller;
-use yii;
+use Yii;
 use yii\helpers\Url;
+use yii\filters\AccessControl;
+use app\models\auth\LoginForm;
 
 class AuthorizationController extends Controller
 {
-    public $layout = 'auth';
+    public $layout = 'main';
 
     public function behaviors()
     {
@@ -33,12 +36,24 @@ class AuthorizationController extends Controller
 
     public function actionLogin()
     {
-        return $this->render('login');
+        $model = new LoginForm;
+
+        if ($model->load(Yii::$app->request->post(), 'LoginForm') && $model->login()) {
+            return $this->redirect(Url::home());
+        }
+
+        return $this->render('login', compact('model'));
     }
 
     public function actionRegistration()
     {
-        return $this->render('registration');
+        $model = new RegistrationForm();
+
+        if ($model->load(Yii::$app->request->post(), 'RegistrationForm') && $model->register()) {
+            return $this->redirect(Url::home());
+        }
+
+        return $this->render('registration', compact('model'));
     }
     
     public function actionLogout()

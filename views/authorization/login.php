@@ -1,36 +1,30 @@
+<?php
+
+use yii\bootstrap4\ActiveForm;
+use yii\helpers\Url;
+?>
 <!-- CONTENT -->
 <div class="row my-4">
     <div class="col-lg-5 col-md-8 mx-auto">
         <h2>Войти</h2>
-        <form action="" method="post">
+        <?php $form = ActiveForm::begin() ?>
             <div class="form-inputs">
                 <div class="mb-3">
-                    <div class="form-group">
-                        <label for="user_email">Email</label>
-                        <input class="form-control" autocomplete="email" autofocus="autofocus" type="email">
-                    </div>
+                    <?= $form->field($model, 'email')->input('email', ['autofocus' => 'autofocus', 'autocomplete' => 'email'])->label('Email *') ?>
                 </div>
                 <div class="mb-3">
-                    <div class="form-group">
-                        <label for="user_password">Пароль</label>
-                        <input class="form-control" autocomplete="current-password" type="password">
-                    </div>
+                    <?= $form->field($model, 'password')->input('password', ['autocomplete' => 'current-password'])->label('Пароль *') ?>
                 </div>
                 <div class="mb-3">
-                    <fieldset class="form-group">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="1">
-                            <label class="form-check-label">Запомнить меня</label>
-                        </div>
-                    </fieldset>
+                    <?= $form->field($model, 'remember_me')->checkbox(['value' => 1])->label('Запомнить меня') ?>
                 </div>
             </div>
-            <div class="form-actions mb-3">
+            <div class="mb-3">
                 <input type="submit" name="commit" value="Войти" class="btn btn-primary" data-disable-with="Войти">
             </div>
-        </form>
+        <?php ActiveForm::end() ?>
 
-        <a href="#">Регистрация</a><br>
+        <a href="<?= Url::to('/registration') ?>">Регистрация</a><br>
         <a href="#">Забыли пароль?</a><br>
         <a rel="nofollow" data-method="post" href="#">Войти с помощью: GitHub</a><br>
     </div>

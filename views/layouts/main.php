@@ -27,27 +27,27 @@ MainAsset::register($this);
                 <a class="link link-dark" href="<?= Url::to('/vacancies') ?>">Вакансии</a>
                 <a class="link link-dark" href="<?= Url::to('/rating') ?>">Рейтинг</a>
 
-                <?php //if (Yii::$app->user->can('adminPanel')): ?>
+                <?php if (Yii::$app->user->can('adminPanel')): ?>
                     <a class="link link-dark" href="<?= Url::to('/admin/user') ?>">Админ панель</a>
-                <?php //endif ?>
+                <?php endif ?>
 
             </div>
         </div>
 
-    <?php //if (Yii::$app->user->isGuest): ?>
+    <?php if (Yii::$app->user->isGuest): ?>
 
         <div class="right-block d-flex align-items-center">
             <ul class="nav nav-pills">
                 <li class="nav-item">
-                    <a class="nav-link link-dark" href="#">Войти</a>
+                    <a class="nav-link link-dark" href="<?= Url::to('/login') ?>">Войти</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link link-dark" href="#">Регистрация </a>
+                    <a class="nav-link link-dark" href="<?= Url::to('/registration') ?>">Регистрация </a>
                 </li>
             </ul>
         </div>
 
-    <?php //else: ?>
+    <?php else: ?>
 
         <div class="right-block d-flex align-items-center">
             <a class="notify-link block-element link-dark" href="<?= Url::to('/account/notify') ?>"><i class="bi bi-bell"></i></a>
@@ -80,7 +80,7 @@ MainAsset::register($this);
             </div>
         </div>
 
-    <?php //endif ?>
+    <?php endif ?>
 
     </header>
 
