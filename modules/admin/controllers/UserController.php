@@ -51,7 +51,6 @@ class UserController extends Controller
     public function actionRole($id)
     {
         $helper = Yii::$container->get(RoleHelperInterface::class);
-        $roles = $helper->getRoles();
 
         // Если post-данные формы приняты, выполнить функционал присваивания роли,
         // инаце - отобразить страницу role
@@ -86,6 +85,8 @@ class UserController extends Controller
                 return $this->render('index');
             }
         }
+        
+        $roles = $helper->getRoles();
 
         return $this->render('role', compact('id', 'roles'));
     }
