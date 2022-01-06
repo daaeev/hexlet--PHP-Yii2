@@ -16,17 +16,24 @@ interface RoleHelperInterface
      * Присваивание роли пользователю с заданым id
      * @param string $role_name
      * @param int $user_id
-     * @return null
-     * @throws \Exception если присвоение пройдет неуспешно
+     * @return bool
+     * @throws \Exception если возникнут ошибки при присвоении роли пользователю
      */
-    public function assignRole(string $role_name, int $user_id);
+    public function assignRole(string $role_name, int $user_id): bool;
 
     /**
      * Изменение статуса пользователя в бд, исходя из роли
      * @param User $user
      * @param string $role_name
-     * @return null
+     * @return bool
      * @throws \Exception если валидация статуса пройдет неуспешно
      */
-    public function setUserStatus(User $user, string $role_name);
+    public function setUserStatus(User $user, string $role_name): bool;
+
+    /**
+     * Метод для получения объекта authManager.
+     * Создан для облегчения тестирования
+     * @return ManagerInterface|MockObject
+     */
+    public function getAuthManager();
 }

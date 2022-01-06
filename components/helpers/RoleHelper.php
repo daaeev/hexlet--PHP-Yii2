@@ -5,6 +5,7 @@ namespace app\components\helpers;
 use app\components\helpers\interface\RoleHelperInterface;
 use app\models\User;
 use Exception;
+use PHPUnit\Framework\MockObject\MockObject;
 use yii\helpers\ArrayHelper;
 use yii\rbac\ManagerInterface;
 
@@ -14,9 +15,9 @@ use yii\rbac\ManagerInterface;
 class RoleHelper implements RoleHelperInterface
 {
     /**
-     * @param ManagerInterface $authManager
+     * @param ManagerInterface|MockObject $authManager
      */
-    public function __construct(protected ManagerInterface $authManager)
+    public function __construct(protected ManagerInterface|MockObject $authManager)
     {
     }
 
@@ -25,26 +26,38 @@ class RoleHelper implements RoleHelperInterface
         return ArrayHelper::map($this->authManager->roles, 'name', 'name');
     }
 
-    public function assignRole(string $role_name, int $user_id)
+    public function assignRole(string $role_name, int $user_id): bool
     {
         $auth = $this->authManager;
 
-        $auth->revokeAll($user_id);
+        if (!$auth->revokeAll($user_id)) {
+            throw new Exception('Удаление имеющихся ролей пользователя прошло неудачно');
+        }
+        
         $role = $auth->getRole($role_name);
+
+        if (!$role) {
+            throw new Exception('Роль с названием ' . $role_name . ' не найдена');
+        }
 
         try {
             $auth->assign($role, $user_id);
         } catch (\Exception) {
             throw new Exception('Присвоение роли прошло неудачно');
         }
+
+        return true;
     }
 
-    public function setUserStatus(User $user, string $role_name)
+    public function setUserStatus(User $user, string $role_name): bool
     {
         $user->status = $this->getStatusByRole($role_name);
+
         if (!$user->save()) {
             throw new Exception('Присвоение статуса прошло неудачно');
         }
+
+        return true;
     }
 
     /**
@@ -67,5 +80,10 @@ class RoleHelper implements RoleHelperInterface
             default:
                 throw new Exception('Роль ' . $role_name . ' не существует');
         }
+    }
+
+    public function getAuthManager()
+    {
+        return $this->authManager;
     }
 }
