@@ -2,11 +2,19 @@
 
 namespace app\controllers;
 
+use app\filters\NeededVariables;
 use yii\web\Controller;
 
 class SiteController extends Controller
 {
     public $layout = 'main';
+
+    public function behaviors()
+    {
+        return [
+            NeededVariables::class,
+        ];
+    }
 
     public function actionResume($category = null)
     {
