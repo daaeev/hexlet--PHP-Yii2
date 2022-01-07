@@ -1,6 +1,15 @@
 <?php
 
+use yii\bootstrap4\ActiveForm;
 use yii\helpers\Url;
+
+$english_levels = [
+    'Не знаю' => 'Не знаю',
+    'Начальные знания' => 'Начальные знания',
+    'Читаю профессиональную литературу' => 'Читаю профессиональную литературу',
+    'Могу проходить интервью' => 'Могу проходить интервью',
+    'Свободно владею' => 'Свободно владею',
+];
 
 ?>
 <!-- CONTENT -->
@@ -17,64 +26,64 @@ use yii\helpers\Url;
         <div class="col-md-9">
             <h2 class="h2 mb-4">Новое резюме</h2>
 
-            <form action="" method="">
+            <?php $form = ActiveForm::begin() ?>
                 <div class="mb-3">
-                    <div class="form-group row">
+                    <div class="row">
                         <label class="col-sm-3 col-form-label">Название <span title="обязательно">*</span></label>
                         <div class="col-sm-9">
-                            <input class="form-control string" required="required" type="text">
+                            <?= $form->field($model, 'name')->input('text')->label(false) ?>
                             <small class="form-text text-muted">PHP-программист, Android-разработчик, ...</small>
                         </div>
                     </div>
                 </div>
                 <div class="mb-3">
-                    <div class="form-group row">
+                    <div class="row">
                         <label class="col-sm-3 col-form-label">Владение английским <span title="обязательно">*</span></label>
                         <div class="col-sm-9">
-                            <input class="form-control string" required="required" type="text">
+                            <?= $form->field($model, 'english_level')->dropdownList($english_levels)->label(false) ?>
                         </div>
                     </div>
                 </div>
                 <div class="mb-3">
-                    <div class="form-group row">
+                    <div class="row">
                         <label class="col-sm-3 col-form-label">GitHub <span title="обязательно">*</span></label>
                         <div class="col-sm-9">
-                            <input class="form-control" required="required" type="text">
+                            <?= $form->field($model, 'github')->input('text')->label(false) ?>
                             <small class="form-text text-muted">Ссылка на профиль: https://ru.github.io/u/mokevnin</small>
                         </div>
                     </div>
                 </div>
                 <div class="mb-3">
-                    <div class="form-group row">
+                    <div class="row">
                         <label class="col-sm-3 col-form-label">Контакт</label>
                         <div class="col-sm-9">
-                            <input class="form-control" type="text">
+                            <?= $form->field($model, 'contact')->input('text')->label(false) ?>
                             <small class="form-text text-muted">Предпочитаемый способ связи (емайл, линкендин, телеграмм и т.п.)</small>
                         </div>
                     </div>
                 </div>
                 <div class="mb-3">
-                    <div class="form-group row">
+                    <div class="row">
                         <label class="col-sm-3 col-form-label">Описание <span title="обязательно">*</span></label>
                         <div class="col-sm-9">
-                            <textarea class="form-control" required="required" rows="10" placeholder="Редактор поддерживает маркдаун"></textarea>
+                            <?= $form->field($model, 'description')->textarea(['placeholder' => 'Редактор поддерживает маркдаун', 'rows' => 10])->label(false) ?>
                         </div>
                     </div>
                 </div>
                 <div class="mb-3">
-                    <div class="form-group row">
+                    <div class="row">
                         <label class="col-sm-3 col-form-label">Навыки <span title="обязательно">*</span></label>
                         <div class="col-sm-9">
-                            <textarea class="form-control" required="required" rows="5" placeholder="Редактор поддерживает маркдаун"></textarea>
+                            <?= $form->field($model, 'skills')->textarea(['placeholder' => 'Редактор поддерживает маркдаун', 'rows' => 5])->label(false) ?>
                             <small class="form-text text-muted">Знаю PHP, пользуюсь Vim, Работал с AWS</small>
                         </div>
                     </div>
                 </div>
                 <div class="mb-3">
-                    <div class="form-group row">
+                    <div class="row">
                         <label class="col-sm-3 col-form-label">Достижения</label>
                         <div class="col-sm-9">
-                            <textarea class="form-control" rows="10" placeholder="Редактор поддерживает маркдаун"></textarea>
+                            <?= $form->field($model, 'achievements')->textarea(['placeholder' => 'Редактор поддерживает маркдаун', 'rows' => 10])->label(false) ?>
                             <small class="form-text text-muted">Образование, работа, награды, сертификаты, участие в олимпиадах, курсы.</small>
                         </div>
                     </div>
@@ -85,14 +94,14 @@ use yii\helpers\Url;
                             <input type="submit" name="publish" value="Опубликовать" class="btn btn-success" data-disable-with="Опубликовать">
                         </div>
                         <div class="me-3">
-                            <input type="submit" name="hide" value="В черновик" class="btn btn-outline-primary"  data-disable-with="В черновик">
+                            <input type="submit" name="draft" value="В черновик" class="btn btn-outline-primary" data-disable-with="В черновик">
                         </div>
                     </div>
                     <div class="col-sm d-flex justify-content-end mb-3">
-                        <a class="btn btn-outline-secondary" href="#">Отмена</a>
+                        <a class="btn btn-outline-secondary" href="<?= Url::home() ?>">Отмена</a>
                     </div>
                 </div>
-            </form>
+            <?php ActiveForm::end() ?>
         </div>
     </div>
 </div>

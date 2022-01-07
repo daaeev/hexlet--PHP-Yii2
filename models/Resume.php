@@ -25,6 +25,10 @@ use Yii;
  */
 class Resume extends \yii\db\ActiveRecord
 {
+    const STATUS_NOT_CONFIRMED = 0;
+    const STATUS_CONFIRMED = 1;
+    const STATUS_ON_DRAFT = 2;
+
     /**
      * {@inheritdoc}
      */
@@ -41,6 +45,10 @@ class Resume extends \yii\db\ActiveRecord
         return [
             [['title', 'description', 'skills', 'achievements'], 'string'],
             [['pub_date', 'author_id', 'views', 'status'], 'integer'],
+            ['status', 'default', 'value' => self::STATUS_NOT_CONFIRMED],
+            ['pub_date', 'default', 'value' => time()],
+            ['views', 'default', 'value' => 0],
+            ['author_id', 'default', 'value' => Yii::$app->view->params['user']->id],
             [['english', 'github', 'contact'], 'string', 'max' => 255],
             [['author_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['author_id' => 'id']],
         ];

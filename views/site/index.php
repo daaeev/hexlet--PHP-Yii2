@@ -1,7 +1,12 @@
+<?php
+
+use app\widgets\Alert;
+?>
 <!-- CONTENT -->
 <div class="container-md" id="content">
     <div class="row">
         <div class="col-md-9 content-block">
+            <?= Alert::widget() ?>
             <h1>Резюме программистов</h1>
 
             <div class="nav nav-pills justify-content-center mt-5">
