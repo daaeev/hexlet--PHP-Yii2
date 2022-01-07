@@ -3,6 +3,9 @@
 namespace app\modules\admin\controllers;
 
 use app\components\helpers\interface\RoleHelperInterface;
+use app\exceptions\DBDataDeleteException;
+use app\exceptions\DBDataSaveException;
+use app\exceptions\UndefinedRoleException;
 use app\models\User;
 use app\models\UserSearch;
 use yii\web\Controller;
@@ -72,7 +75,11 @@ class UserController extends Controller
                 try {
                     $helper->assignRole($role, $id);
                     $helper->setUserStatus($user, $role);
-                } catch (\Exception $e) {
+                } catch (
+                    DBDataDeleteException|
+                    UndefinedRoleException|
+                    DBDataSaveException $e
+                ) {
                     Yii::$app->authManager->revokeAll($id);
                     $user->status = $userPrevStatus;
                     $user->save();

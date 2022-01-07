@@ -3,8 +3,10 @@
 namespace app\components\helpers;
 
 use app\components\helpers\interface\RoleHelperInterface;
+use app\exceptions\DBDataDeleteException;
+use app\exceptions\DBDataSaveException;
+use app\exceptions\UndefinedRoleException;
 use app\models\User;
-use Exception;
 use PHPUnit\Framework\MockObject\MockObject;
 use yii\helpers\ArrayHelper;
 use yii\rbac\ManagerInterface;
@@ -15,7 +17,7 @@ use yii\rbac\ManagerInterface;
 class RoleHelper implements RoleHelperInterface
 {
     /**
-     * @param ManagerInterface|MockObject $authManager
+     * @param ManagerInterface $authManager
      */
     public function __construct(protected ManagerInterface|MockObject $authManager)
     {
@@ -31,19 +33,19 @@ class RoleHelper implements RoleHelperInterface
         $auth = $this->authManager;
 
         if (!$auth->revokeAll($user_id)) {
-            throw new Exception('Удаление имеющихся ролей пользователя прошло неудачно');
+            throw new DBDataDeleteException('Удаление имеющихся ролей пользователя прошло неудачно');
         }
         
         $role = $auth->getRole($role_name);
 
         if (!$role) {
-            throw new Exception('Роль с названием ' . $role_name . ' не найдена');
+            throw new UndefinedRoleException('Роль с названием ' . $role_name . ' не найдена');
         }
 
         try {
             $auth->assign($role, $user_id);
         } catch (\Exception) {
-            throw new Exception('Присвоение роли прошло неудачно');
+            throw new DBDataSaveException('Присвоение роли прошло неудачно');
         }
 
         return true;
@@ -54,7 +56,7 @@ class RoleHelper implements RoleHelperInterface
         $user->status = $this->getStatusByRole($role_name);
 
         if (!$user->save()) {
-            throw new Exception('Присвоение статуса прошло неудачно');
+            throw new DBDataSaveException('Присвоение статуса прошло неудачно');
         }
 
         return true;
@@ -64,7 +66,7 @@ class RoleHelper implements RoleHelperInterface
      * Возвращает номер статуса определенной роли
      * @param string $role_name
      * @return int status
-     * @throws \Exception если роль не существует
+     * @throws UndefinedRoleException если роль не существует
      */
     protected function getStatusByRole(string $role_name): int
     {
@@ -78,7 +80,7 @@ class RoleHelper implements RoleHelperInterface
             case 'banned':
                 return 3;
             default:
-                throw new Exception('Роль ' . $role_name . ' не существует');
+                throw new UndefinedRoleException('Роль ' . $role_name . ' не существует');
         }
     }
 

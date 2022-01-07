@@ -2,8 +2,9 @@
 
 namespace app\models\forms;
 
+use app\exceptions\DBDataSaveException;
+use app\exceptions\ValidationFailedException;
 use app\models\User;
-use Exception;
 use PHPUnit\Framework\MockObject\MockObject;
 use yii\base\Model;
 
@@ -39,7 +40,8 @@ class AccountSettingsForm extends Model
      * (никнейм и описание) в бд
      * @param User $user экземпляр модели пользователя
      * @return bool если операция прошла успешно
-     * @throws Exception если валидация или сохранение данных пройдёт неуспешно
+     * @throws ValidationFailedException если Валидация данных пройдёт неуспешно
+     * @throws DBDataSaveException если сохранение данных пройдёт неуспешно
      */
     public function saveUserSettings(User|MockObject $user): bool
     {
@@ -51,9 +53,9 @@ class AccountSettingsForm extends Model
                 return true;
             }
 
-            throw new Exception('Сохранение данных в бд прошло неуспешно. Побробуйте ещё раз');
+            throw new DBDataSaveException('Сохранение данных в бд прошло неуспешно. Побробуйте ещё раз');
         }
 
-        throw new Exception('Данные из формы не прошли валидацию. Проверьте введённые данные');
+        throw new ValidationFailedException('Данные из формы не прошли валидацию. Проверьте введённые данные');
     }
 }

@@ -2,9 +2,10 @@
 
 namespace app\controllers;
 
+use app\exceptions\DBDataSaveException;
+use app\exceptions\ValidationFailedException;
 use app\filters\NeededVariables;
 use app\models\forms\AccountSettingsForm;
-use Exception;
 use yii\web\Controller;
 use Yii;
 
@@ -77,7 +78,7 @@ class SiteController extends Controller
             try {
                 $model->saveUserSettings($this->view->params['user']);
                 Yii::$app->session->setFlash('success', 'Данные успешно изменены');
-            } catch (Exception $e) {
+            } catch (DBDataSaveException|ValidationFailedException $e) {
                 Yii::$app->session->setFlash('error', $e->getMessage());
             }
         }

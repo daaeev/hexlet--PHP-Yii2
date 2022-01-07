@@ -17,7 +17,9 @@ interface RoleHelperInterface
      * @param string $role_name
      * @param int $user_id
      * @return bool
-     * @throws \Exception если возникнут ошибки при присвоении роли пользователю
+     * @throws DBDataDeleteException если удаление ролей пользователя продёт неуспешно
+     * @throws UndefinedRoleException если роль не будет найдена в бд
+     * @throws DBDataSaveException если присвоение роли пройдёт неуспешно
      */
     public function assignRole(string $role_name, int $user_id): bool;
 
@@ -26,7 +28,7 @@ interface RoleHelperInterface
      * @param User $user
      * @param string $role_name
      * @return bool
-     * @throws \Exception если валидация статуса пройдет неуспешно
+     * @throws DBDataSaveException если валидация или сохранение статуса пройдёт неуспешно
      */
     public function setUserStatus(User $user, string $role_name): bool;
 
