@@ -68,8 +68,8 @@ MainAsset::register($this);
                 </button>
                 <ul class="dropdown-menu profile-menu" aria-labelledby="dropdownMenuButton1">
                     <li class="dropdown-item user-info">
-                        <span class="username"><?= $this->params['user']->name ?></span><br>
-                        <span class="email"><?= $this->params['user']->email ?></span>
+                        <span class="username"><?= htmlspecialchars($this->params['user']->name) ?></span><br>
+                        <span class="email"><?= htmlspecialchars($this->params['user']->email) ?></span>
                     </li>
                     <li><a class="dropdown-item" href="<?= Url::to('/profile') ?>">Мой профиль</a></li>
                     <li><a class="dropdown-item" href="<?= Url::to('/account/resume') ?>">Мои резюме</a></li>
