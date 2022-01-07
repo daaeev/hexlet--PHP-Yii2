@@ -1,5 +1,7 @@
 <?php
 
+use app\widgets\Alert;
+use yii\bootstrap4\ActiveForm;
 use yii\helpers\Url;
 
 ?>
@@ -17,21 +19,21 @@ use yii\helpers\Url;
         <div class="col-md-9">
             <h2 class="h2 mb-4">Настройки</h2>
 
-            <form action="" method="">
+            <?= Alert::widget() ?>
+
+            <?php $form = ActiveForm::begin() ?>
                 <div class="mb-3">
-                    <label class="string optional" for="user_name">Имя, фамилия</label>
-                    <input type="text" class="form-control" id="user_name">
+                    <?= $form->field($model, 'user_name')->input('text', ['value' => htmlspecialchars($this->params['user']->name)]) ?>
                 </div>
 
                 <div class="mb-3">
-                    <label class="string optional" for="about">Обо мне</label>
-                    <textarea type="text" class="form-control" id="about"></textarea>
+                    <?= $form->field($model, 'contribution')->textarea(['value' => htmlspecialchars($this->params['user']->contribution)]) ?>
                 </div>
 
                 <div class="mb-3">
-                    <input type="button" class="btn btn-primary" value="Изменить">
+                    <input type="submit" class="btn btn-primary" value="Изменить">
                 </div>
-            </form>
+            <?php ActiveForm::end() ?>
         </div>
     </div>
 </div>
