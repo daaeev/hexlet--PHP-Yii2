@@ -11,7 +11,7 @@ use yii\rbac\Role;
 
 class RoleHelperTest extends TestCase
 {
-    public $object;
+    public RoleHelper $object;
 
     public function setUp(): void
     {

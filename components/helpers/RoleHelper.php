@@ -49,7 +49,7 @@ class RoleHelper implements RoleHelperInterface
         return true;
     }
 
-    public function setUserStatus(User $user, string $role_name): bool
+    public function setUserStatus(User|MockObject $user, string $role_name): bool
     {
         $user->status = $this->getStatusByRole($role_name);
 
