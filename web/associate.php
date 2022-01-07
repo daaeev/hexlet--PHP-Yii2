@@ -4,7 +4,6 @@ use app\components\helpers\interface\RoleHelperInterface;
 use app\components\helpers\RoleHelper;
 use yii\rbac\DbManager;
 use yii\rbac\ManagerInterface;
-use Parsedown;
 
 $container = Yii::$container;
 
