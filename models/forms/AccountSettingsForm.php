@@ -4,11 +4,18 @@ namespace app\models\forms;
 
 use app\models\User;
 use Exception;
+use PHPUnit\Framework\MockObject\MockObject;
 use yii\base\Model;
 
 class AccountSettingsForm extends Model
 {
+    /**
+     * Никнейм пользователя на сайте.
+     * Если пользователь в форме не указал его,
+     * значение будет равно Anonymous
+     */
     public $user_name;
+    
     public $contribution;
 
     public function rules()
@@ -28,12 +35,13 @@ class AccountSettingsForm extends Model
     }
 
     /**
-     * Метод сохраняет данные пользователя из формы в бд
+     * Метод сохраняет данные пользователя из формы 
+     * (никнейм и описание) в бд
      * @param User $user экземпляр модели пользователя
      * @return bool если операция прошла успешно
      * @throws Exception если валидация или сохранение данных пройдёт неуспешно
      */
-    public function saveUserSettings(User $user): bool
+    public function saveUserSettings(User|MockObject $user): bool
     {
         if ($this->validate()) {
             $user->name = $this->user_name;
