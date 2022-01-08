@@ -5,8 +5,10 @@ namespace app\tests\unit\components;
 use PHPUnit\Framework\TestCase;
 use yii\rbac\DbManager;
 use app\components\helpers\RoleHelper;
+use app\exceptions\DBDataDeleteException;
+use app\exceptions\DBDataSaveException;
+use app\exceptions\UndefinedRoleException;
 use app\tests\unit\classes\UserRemake;
-use Exception;
 use yii\rbac\Role;
 
 class RoleHelperTest extends TestCase
@@ -53,7 +55,7 @@ class RoleHelperTest extends TestCase
     {
         $user_id = 1;
 
-        $this->expectException(Exception::class);
+        $this->expectException(DBDataDeleteException::class);
 
         $this->object->getAuthManager()
             ->expects($this->once())
@@ -68,7 +70,7 @@ class RoleHelperTest extends TestCase
     {
         $user_id = 1;
 
-        $this->expectException(Exception::class);
+        $this->expectException(UndefinedRoleException::class);
 
         $this->object->getAuthManager()
             ->expects($this->once())
@@ -107,7 +109,7 @@ class RoleHelperTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->expectException(Exception::class);
+        $this->expectException(UndefinedRoleException::class);
         $this->object->setUserStatus($user, $role_name);
     }
 
@@ -123,7 +125,7 @@ class RoleHelperTest extends TestCase
             ->method('save')
             ->will($this->returnValue(false));
 
-        $this->expectException(Exception::class);
+        $this->expectException(DBDataSaveException::class);
         $this->object->setUserStatus($user, $role_name);
     }
 }

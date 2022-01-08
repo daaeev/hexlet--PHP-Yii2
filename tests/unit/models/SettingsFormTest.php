@@ -2,10 +2,11 @@
 
 namespace app\tests\unit\models;
 
+use app\exceptions\DBDataSaveException;
+use app\exceptions\ValidationFailedException;
 use app\models\forms\AccountSettingsForm;
 use Codeception\PHPUnit\TestCase;
 use app\tests\unit\classes\UserRemake;
-use Exception;
 
 class SettingsFormTest extends TestCase
 {
@@ -38,7 +39,7 @@ class SettingsFormTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->expectException(Exception::class);
+        $this->expectException(ValidationFailedException::class);
 
         $this->object->saveUserSettings($user);
     }
@@ -54,7 +55,7 @@ class SettingsFormTest extends TestCase
             ->method('save')
             ->will($this->returnValue(false));
 
-        $this->expectException(Exception::class);
+        $this->expectException(DBDataSaveException::class);
 
         $this->object->saveUserSettings($user);
     }
