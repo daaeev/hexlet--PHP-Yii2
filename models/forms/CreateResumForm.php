@@ -6,6 +6,7 @@ use app\exceptions\DBDataSaveException;
 use app\exceptions\ValidationFailedException;
 use app\models\Resume;
 use Parsedown;
+use PHPUnit\Framework\MockObject\MockObject;
 use yii\base\Model;
 
 class CreateResumForm extends Model
@@ -52,7 +53,7 @@ class CreateResumForm extends Model
      * @throws ValidationFailedException если валидация данных пройдёт неуспешно
      * @throws DBDataSaveException если сохранение данных пройдёт неуспешно
      */
-    public function createResum(Resume $resume, Parsedown $parser): bool
+    public function createResum(Resume|MockObject $resume, Parsedown $parser): bool
     {
         if (!$this->validate()) {
             throw new ValidationFailedException('Валидация данных прошла неуспешно');
