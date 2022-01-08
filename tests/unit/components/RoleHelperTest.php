@@ -1,6 +1,6 @@
 <?php
 
-namespace app\tests\unit;
+namespace app\tests\unit\components;
 
 use PHPUnit\Framework\TestCase;
 use yii\rbac\DbManager;

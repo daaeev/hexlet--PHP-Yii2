@@ -1,6 +1,6 @@
 <?php
 
-namespace app\tests\unit;
+namespace app\tests\unit\models;
 
 use app\models\forms\AccountSettingsForm;
 use Codeception\PHPUnit\TestCase;
