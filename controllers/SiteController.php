@@ -7,7 +7,9 @@ use app\exceptions\ValidationFailedException;
 use app\filters\NeededVariables;
 use app\models\forms\AccountSettingsForm;
 use app\models\forms\CreateResumForm;
+use app\models\forms\CreateVacancieForm;
 use app\models\Resume;
+use app\models\Vacancie;
 use yii\web\Controller;
 use Yii;
 use yii\helpers\Url;
@@ -125,8 +127,6 @@ class SiteController extends Controller
      * @return Response если операция создания резюме пройдёт успешно, 
      * выполнится редирект на главную страницу
      * @throws InvalidArgumentException если файл вида или шаблона не найден
-     * @throws ValidationFailedException если валидация данных модели пройдёт неуспешно
-     * @throws DBDataSaveException если сохранение данных модели в бд пройдёт неуспешно
      * @throws InvalidConfigException if a dependency cannot be resolved or if a dependency cannot be fulfilled.
      * @throws NotInstantiableException If resolved to an abstract class or an interface (since 2.0.9)
      */
@@ -146,7 +146,7 @@ class SiteController extends Controller
 
             try {
                 Yii::$container->invoke([$model, 'createResum'], ['resume' => $resume]);
-                $flash_message = 'Ожидайте подтверждения корректность резюме. После подтверждения вы увидите своё резюме вв списке';
+                $flash_message = 'Ожидайте подтверждения корректности резюме. После вы увидите своё резюме в списке';
 
                 if ($status == Resume::STATUS_ON_DRAFT) {
                     $flash_message = 'Ваше резюме сохранено в черновик';
@@ -164,9 +164,33 @@ class SiteController extends Controller
         return $this->render('resume_create_form', compact('model'));
     }
 
+    /**
+     * Экшен рендерит страницу с формой создания вакансии.
+     * @return string результат рендеринга
+     * @return Response если операция создания вакансии пройдёт успешно, 
+     * выполнится редирект на страницу просмотра вакансий
+     * @throws InvalidArgumentException если файл вида или шаблона не найден
+     * @throws InvalidConfigException if a dependency cannot be resolved or if a dependency cannot be fulfilled.
+     * @throws NotInstantiableException If resolved to an abstract class or an interface (since 2.0.9)
+     */
     public function actionCreateVacancie()
     {
-        return $this->render('vacancie_create_form');
+        $model = new CreateVacancieForm;
+
+        if ($model->load(Yii::$app->request->post(), 'CreateVacancieForm')) {
+            $vacancie = new Vacancie;
+
+            try {
+                Yii::$container->invoke([$model, 'createVacancie'], ['vacancie' => $vacancie]);
+                Yii::$app->session->setFlash('success', 'Ожидайте подтверждения корректности вакансии. После вы увидите свою вакансию в списке');
+            } catch (ValidationFailedException|DBDataSaveException $e) {
+                Yii::$app->session->setFlash('error', $e->getMessage());
+            }
+
+            return $this->redirect(Url::to('/vacancies'));
+        }
+
+        return $this->render('vacancie_create_form', compact('model'));
     }
 
     public function actionProfile()

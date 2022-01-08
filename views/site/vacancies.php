@@ -1,7 +1,13 @@
+<?php
+
+use app\widgets\Alert;
+
+?>
 <!-- CONTENT -->
 <div class="container-md" id="content">
     <div class="row">
         <div class="col-md-9 content-block">
+            <?= Alert::widget() ?>
             <h1>Вакансии для разработчиков</h1>
 
             <div class="mt-5 card-block">

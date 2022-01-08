@@ -91,14 +91,6 @@
                 <div class="col-sm-3"><b>Зарплата</b></div>
                 <div class="col-sm-9">от 350 до 700 € (На руки)</div>
             </div>
-            <div class="row mb-3">
-                <div class="col-sm-3"><b>Направления</b></div>
-                <div class="col-sm-9">
-                    <a href="#">js</a>
-                    <a href="#">node.js</a>
-                    <a href="#">React</a>
-                </div>
-            </div>
             <div class="alert bg-light shadow-sm text-muted">При отклике на вакансию указывайте, что вы от Хекслета =)</div>
             <h2 class="h3 mt-5 mb-4">Похожие вакансии</h2>
             <div class="lead"><a href="#">Джуниор React в городеМосква</a></div>

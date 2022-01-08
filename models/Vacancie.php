@@ -39,6 +39,9 @@ use Yii;
  */
 class Vacancie extends \yii\db\ActiveRecord
 {
+    const STATUS_NOT_CONFIRMED = 0;
+    const STATUS_CONFIRMED = 1;
+
     /**
      * {@inheritdoc}
      */
@@ -57,6 +60,9 @@ class Vacancie extends \yii\db\ActiveRecord
             [['experience', 'about_company', 'about_project', 'duties', 'requirements', 'conditions', 'technologies'], 'string'],
             [['level', 'money', 'type_of_place', 'type_of_work', 'currency', 'position', 'city', 'address', 'company', 'company_site', 'contact_name', 'contact_number', 'contact_email', 'contact_telegram'], 'string', 'max' => 255],
             [['author_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['author_id' => 'id']],
+            ['status', 'default', 'value' => self::STATUS_NOT_CONFIRMED],
+            ['pub_date', 'default', 'value' => time()],
+            ['author_id', 'default', 'value' => Yii::$app->view->params['user']->id],
         ];
     }
 
