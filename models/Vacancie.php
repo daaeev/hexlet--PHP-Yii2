@@ -23,6 +23,7 @@ use Yii;
  * @property string|null $contact_name
  * @property string|null $contact_number
  * @property string|null $contact_email
+ * @property string|null $contact_telegram
  * @property string|null $experience
  * @property string|null $about_company
  * @property string|null $about_project
@@ -54,7 +55,7 @@ class Vacancie extends \yii\db\ActiveRecord
         return [
             [['money_from', 'money_to', 'pub_date', 'status', 'author_id'], 'integer'],
             [['experience', 'about_company', 'about_project', 'duties', 'requirements', 'conditions', 'technologies'], 'string'],
-            [['level', 'money', 'type_of_place', 'type_of_work', 'currency', 'position', 'city', 'address', 'company', 'company_site', 'contact_name', 'contact_number', 'contact_email'], 'string', 'max' => 255],
+            [['level', 'money', 'type_of_place', 'type_of_work', 'currency', 'position', 'city', 'address', 'company', 'company_site', 'contact_name', 'contact_number', 'contact_email', 'contact_telegram'], 'string', 'max' => 255],
             [['author_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['author_id' => 'id']],
         ];
     }
