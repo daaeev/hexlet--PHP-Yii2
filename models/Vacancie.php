@@ -32,6 +32,9 @@ use Yii;
  * @property string|null $technologies
  * @property int|null $pub_date
  * @property int|null $status
+ * @property int|null $author_id
+ *
+ * @property User $author
  */
 class Vacancie extends \yii\db\ActiveRecord
 {
@@ -49,9 +52,10 @@ class Vacancie extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['money_from', 'money_to', 'pub_date', 'status'], 'integer'],
+            [['money_from', 'money_to', 'pub_date', 'status', 'author_id'], 'integer'],
             [['experience', 'about_company', 'about_project', 'duties', 'requirements', 'conditions', 'technologies'], 'string'],
             [['level', 'money', 'type_of_place', 'type_of_work', 'currency', 'position', 'city', 'address', 'company', 'company_site', 'contact_name', 'contact_number', 'contact_email'], 'string', 'max' => 255],
+            [['author_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['author_id' => 'id']],
         ];
     }
 
@@ -86,6 +90,17 @@ class Vacancie extends \yii\db\ActiveRecord
             'technologies' => 'Technologies',
             'pub_date' => 'Pub Date',
             'status' => 'Status',
+            'author_id' => 'Author ID',
         ];
+    }
+
+    /**
+     * Gets query for [[Author]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAuthor()
+    {
+        return $this->hasOne(User::className(), ['id' => 'author_id']);
     }
 }
