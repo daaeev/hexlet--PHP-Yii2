@@ -136,6 +136,8 @@ class SiteController extends Controller
 
         if ($model->load(Yii::$app->request->post(), 'CreateResumForm')) {
             $resume = new Resume;
+
+            // if (Yii::$app->request->post('publish'))
             $status = Resume::STATUS_NOT_CONFIRMED;
 
             if (Yii::$app->request->post('draft')) {
@@ -146,6 +148,8 @@ class SiteController extends Controller
 
             try {
                 Yii::$container->invoke([$model, 'createResum'], ['resume' => $resume]);
+
+                // if ($status == Resume::STATUS_NOT_CONFIRMED)
                 $flash_message = 'Ожидайте подтверждения корректности резюме. После вы увидите своё резюме в списке';
 
                 if ($status == Resume::STATUS_ON_DRAFT) {
