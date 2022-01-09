@@ -5,7 +5,7 @@ namespace app\tests\unit\models;
 use app\exceptions\DBDataSaveException;
 use app\exceptions\ValidationFailedException;
 use app\models\forms\CreateResumForm;
-use app\tests\unit\classes\ResumeRemake;
+use app\tests\unit\classes\ModelMock;
 use Codeception\PHPUnit\TestCase;
 use Parsedown;
 
@@ -22,7 +22,7 @@ class CreateResumTest extends TestCase
 
     public function testValidaionFailed()
     {
-        $resume = $this->getMockBuilder(ResumeRemake::class)
+        $resume = $this->getMockBuilder(ModelMock::class)
             ->disableOriginalConstructor()
             ->getMock();
         
@@ -33,8 +33,8 @@ class CreateResumTest extends TestCase
 
     public function testDataSaveFailed()
     {
-        $resume = $this->getMockBuilder(ResumeRemake::class)
-            ->onlyMethods(['save'])
+        $resume = $this->getMockBuilder(ModelMock::class)
+            ->addMethods(['save'])
             ->disableOriginalConstructor()
             ->getMock();
         
@@ -55,8 +55,8 @@ class CreateResumTest extends TestCase
 
     public function testCreatResumeSuccess()
     {
-        $resume = $this->getMockBuilder(ResumeRemake::class)
-            ->onlyMethods(['save'])
+        $resume = $this->getMockBuilder(ModelMock::class)
+            ->addMethods(['save'])
             ->disableOriginalConstructor()
             ->getMock();
         

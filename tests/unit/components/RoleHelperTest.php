@@ -8,7 +8,7 @@ use app\components\helpers\RoleHelper;
 use app\exceptions\DBDataDeleteException;
 use app\exceptions\DBDataSaveException;
 use app\exceptions\UndefinedRoleException;
-use app\tests\unit\classes\UserRemake;
+use app\tests\unit\classes\ModelMock;
 use yii\rbac\Role;
 
 class RoleHelperTest extends TestCase
@@ -90,8 +90,8 @@ class RoleHelperTest extends TestCase
     public function testSetUserStatusSuccess()
     {
         $role_name = 'admin';
-        $user = $this->getMockBuilder(UserRemake::class)
-            ->onlyMethods(['save'])
+        $user = $this->getMockBuilder(ModelMock::class)
+            ->addMethods(['save'])
             ->disableOriginalConstructor()
             ->getMock();
         
@@ -105,7 +105,7 @@ class RoleHelperTest extends TestCase
     public function testUndefinedRoleStatus()
     {
         $role_name = 'undefined role';
-        $user = $this->getMockBuilder(UserRemake::class)
+        $user = $this->getMockBuilder(ModelMock::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -116,8 +116,8 @@ class RoleHelperTest extends TestCase
     public function testUnSuccessValidation()
     {
         $role_name = 'admin';
-        $user = $this->getMockBuilder(UserRemake::class)
-            ->onlyMethods(['save'])
+        $user = $this->getMockBuilder(ModelMock::class)
+            ->addMethods(['save'])
             ->disableOriginalConstructor()
             ->getMock();
         

@@ -5,8 +5,8 @@ namespace app\tests\unit\models;
 use app\exceptions\DBDataSaveException;
 use app\exceptions\ValidationFailedException;
 use app\models\forms\AccountSettingsForm;
+use app\tests\unit\classes\ModelMock;
 use Codeception\PHPUnit\TestCase;
-use app\tests\unit\classes\UserRemake;
 
 class SettingsFormTest extends TestCase
 {
@@ -19,8 +19,8 @@ class SettingsFormTest extends TestCase
 
     public function testSaveDataSuccess()
     {
-        $user = $this->getMockBuilder(UserRemake::class)
-            ->onlyMethods(['save'])
+        $user = $this->getMockBuilder(ModelMock::class)
+            ->addMethods(['save'])
             ->disableOriginalConstructor()
             ->getMock();
         
@@ -35,7 +35,7 @@ class SettingsFormTest extends TestCase
     {
         $this->object->user_name = 'An';
 
-        $user = $this->getMockBuilder(UserRemake::class)
+        $user = $this->getMockBuilder(ModelMock::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -46,8 +46,8 @@ class SettingsFormTest extends TestCase
 
     public function testSaveDataInDbFailed()
     {
-        $user = $this->getMockBuilder(UserRemake::class)
-            ->onlyMethods(['save'])
+        $user = $this->getMockBuilder(ModelMock::class)
+            ->addMethods(['save'])
             ->disableOriginalConstructor()
             ->getMock();
         
