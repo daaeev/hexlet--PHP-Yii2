@@ -1,7 +1,10 @@
 <?php
 
+use app\components\helpers\ViewHelper;
 use app\widgets\Alert;
+use yii\bootstrap4\LinkPager;
 use yii\helpers\Url;
+use yii\i18n\Formatter;
 
 ?>
 <!-- CONTENT -->
@@ -21,28 +24,44 @@ use yii\helpers\Url;
             <div class="mt-5 card-block">
 
                 <!-- CARD -->
-                <div class="card card-noborder border-8 flex-row mb-4 pb-4">
-                    <div class="social-info col-md-2 text-center text-nowrap me-3 small">
-                        <p class="text-muted mb-0 h2 fw-lighter">1</p>
-                        <p>Ответ</p>
-                        
-                        <p class="text-muted mb-0 h2 fw-lighter">1</p>
-                        <p>Просмотр</p>
-                    </div>
+                    <?php if ($data['resumes']): ?>
 
-                    <div class="card-info">
-                        <h5 class="card-title"><a href="#">Lorem ipsum dolor sit amet</a></h5>
-                        <p class="card-subtitle">Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur blanditiis delectus eos accusamus quibusdam molestias officiis. Placeat, delectus assumenda. Rerum repudiandae labore aperiam nisi non perspiciatis pariatur vel numquam ab.</p>
+                        <?php foreach ($data['resumes'] as $resume): ?>
+                            <div class="card card-noborder border-8 flex-row mb-4 pb-4">
+                                <div class="social-info col-md-2 text-center text-nowrap me-3 small">
+                                    <p class="text-muted mb-0 h2 fw-lighter"><?= count($resume->comments) ?></p>
+                                    <p><?= ViewHelper::numToWord(count($resume->comments), ['ответ', 'ответа', 'ответов']) ?></p>
+                                    
+                                    <p class="text-muted mb-0 h2 fw-lighter"><?= $resume->views ?></p>
+                                    <p><?= ViewHelper::numToWord($resume->views, ['просмотр', 'просмотра', 'просмотров']) ?></p>
+                                </div>
 
-                        <div class="pub-info text-end mt-4 small">
-                            <span class="pub-date text-muted me-3">2 дня назад</span>
-                            <a class="author" href="#">Акакий Епик</a>
-                        </div>
-                    </div>
-                </div>
+                                <div class="card-info w-100">
+                                    <h5 class="card-title"><a href="/resume/<?= $resume->id ?>"><?= $resume->title ?></a></h5>
+                                    <p class="card-subtitle"><?= substr($resume->description, 0, 350) ?>...</p>
+
+                                    <div class="pub-info text-end mt-4 small">
+                                        <span class="pub-date text-muted me-3"><?= (new Formatter)->asRelativeTime($resume->pub_date) ?></span>
+                                        <a class="author" href="#"><?= $resume->author->name ?></a>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endforeach ?>
+
+                    <?php else: ?>
+                        <p class="text-center bg-light py-4 fw-light">Список пуст</p>
+                    <?php endif ?>
                 <!-- CARD -->
 
             </div>
+
+            <?= LinkPager::widget([
+                    'pagination' => $data['pagination'],
+                    'options' => [
+                        'class' => 'd-flex justify-content-center'
+                    ]
+                ]);
+            ?>
         </div>
 
         <aside class="col-md-3">

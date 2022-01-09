@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\components\helpers\interface\ResumeGetInterface;
 use app\exceptions\DBDataSaveException;
 use app\exceptions\ValidationFailedException;
 use app\filters\NeededVariables;
@@ -25,9 +26,29 @@ class SiteController extends Controller
         ];
     }
 
-    public function actionResume($category = null)
+    /**
+     * Главная страница приложения на которой
+     * отображаются резюме программистов
+     * @param string $category название категории резюме,
+     * которые нужно получить (all, new, popular, norecomend).
+
+     * Под каждую категории существует соответствующий метод в класс-хелпере,
+     * реализующий интерфейс ResumeGetInterface. 
+     * 
+     * Имя вызываемого методе генерируется 
+     * приводя первый символ категории в верхний регистр
+     * и добавляя префикс 'get' -- all = getAll()
+     * @return string результат рендеринга
+     * @throws InvalidArgumentException если файл вида или шаблона не найден
+     */
+    public function actionResume($category = 'all')
     {
-        return $this->render('index');
+        $helper = Yii::$container->get(ResumeGetInterface::class);
+
+        $function_name = 'get' . ucfirst($category);
+        $data = $helper->$function_name();
+
+        return $this->render('index', compact('data'));
     }
 
     public function actionResumeView($id)
