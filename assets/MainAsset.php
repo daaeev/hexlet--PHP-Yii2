@@ -17,6 +17,7 @@ class MainAsset extends AssetBundle
     ];
     public $js = [
         '//cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js',
+        'public/js/LinksCustomiser.js',
     ];
     public $depends = [
         'yii\web\JqueryAsset',

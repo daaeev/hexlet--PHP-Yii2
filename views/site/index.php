@@ -1,6 +1,8 @@
 <?php
 
 use app\widgets\Alert;
+use yii\helpers\Url;
+
 ?>
 <!-- CONTENT -->
 <div class="container-md" id="content">
@@ -10,10 +12,10 @@ use app\widgets\Alert;
             <h1>Резюме программистов</h1>
 
             <div class="nav nav-pills justify-content-center mt-5">
-                <a href="#" class="nav-item nav-link link-dark active">Все</a>
-                <a href="#" class="nav-item nav-link link-dark">Популрные</a>
-                <a href="#" class="nav-item nav-link link-dark">Новые</a>
-                <a href="#" class="nav-item nav-link link-dark">Без рекомендация</a>
+                <a href="<?= Url::to('/resume/all') ?>" class="nav-item nav-link link-dark resume-all">Все</a>
+                <a href="<?= Url::to('/resume/popular') ?>" class="nav-item nav-link link-dark resume-popular">Популрные</a>
+                <a href="<?= Url::to('/resume/new') ?>" class="nav-item nav-link link-dark resume-new">Новые</a>
+                <a href="<?= Url::to('/resume/norecomend') ?>" class="nav-item nav-link link-dark resume-norecomend">Без рекомендация</a>
             </div>
 
             <div class="mt-5 card-block">
