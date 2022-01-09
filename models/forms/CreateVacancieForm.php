@@ -6,6 +6,7 @@ use app\exceptions\DBDataSaveException;
 use app\exceptions\ValidationFailedException;
 use app\models\Vacancie;
 use Parsedown;
+use PHPUnit\Framework\MockObject\MockObject;
 use yii\base\Model;
 
 class CreateVacancieForm extends Model
@@ -86,7 +87,7 @@ class CreateVacancieForm extends Model
      * @throws ValidationFailedException если валидация данных пройдёт неуспешно
      * @throws DBDataSaveException если сохранение данных пройдёт неуспешно
      */
-    public function createVacancie(Vacancie $vacancie, Parsedown $parser): bool
+    public function createVacancie(Vacancie|MockObject $vacancie, Parsedown $parser): bool
     {
         if (!$this->validate()) {
             throw new ValidationFailedException('Валидация данных прошла неуспешно');
