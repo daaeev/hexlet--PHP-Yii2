@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\components\helpers\interface\ResumeGetInterface;
+use app\components\helpers\interface\VacancieGetInterface;
 use app\exceptions\DBDataSaveException;
 use app\exceptions\ValidationFailedException;
 use app\filters\NeededVariables;
@@ -61,9 +62,18 @@ class SiteController extends Controller
         return $this->render('vacancie-view');
     }
 
+    /**
+     * Метод отвечает за рендер страницы со всеми вакансиями
+     * @return string результат рендеринга
+     * @throws InvalidArgumentException если файл вида или шаблона не найден
+     */
     public function actionVacancies()
     {
-        return $this->render('vacancies');
+        $helper = Yii::$container->get(VacancieGetInterface::class);
+
+        $data = $helper->getAll();
+
+        return $this->render('vacancies', compact('data'));
     }
 
     public function actionRating()

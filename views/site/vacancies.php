@@ -1,6 +1,9 @@
 <?php
 
 use app\widgets\Alert;
+use yii\bootstrap4\LinkPager;
+use yii\helpers\Url;
+use yii\i18n\Formatter;
 
 ?>
 <!-- CONTENT -->
@@ -11,19 +14,34 @@ use app\widgets\Alert;
             <h1>Вакансии для разработчиков</h1>
 
             <div class="mt-5 card-block">
+                <?php if ($data['vacancies']): ?>
 
-                <!-- CARD -->
-                <div class="card-noborder border-8 mb-4 p-3 pb-4">
-                    <div class="card-info">
-                        <span class="pub-date text-muted me-3 small">2 дня назад</span>
-                        <h5 class="card-title"><a href="#">Lorem ipsum dolor sit amet - Company</a></h5>
-                        <p class="card-tasks mb-1">Do something for our company</p>
-                        <p class="card-skills fw-bold">Skill, skill, skill</p>
-                    </div>
-                </div>
-                <!-- CARD -->
+                    <!-- CARD -->
+                        <?php foreach ($data['vacancies'] as $vacancie): ?>
+                            <div class="card card-noborder border-8 mb-4 p-3 pb-4">
+                                <div class="card-info">
+                                    <span class="pub-date text-muted me-3 small"><?= (new Formatter)->asRelativeTime($vacancie->pub_date) ?></span>
+                                    <h5 class="card-title"><a href="/vacancie/<?= $vacancie->id ?>"><?= $vacancie->position ?> - <?= $vacancie->company ?></a></h5>
+                                    <p class="card-tasks mb-1"><?= substr($vacancie->duties, 0, 350) ?>...</p>
+                                    <p class="card-skills fw-bold"><?= $vacancie->requirements ?></p>
+                                </div>
+                            </div>
+                        <?php endforeach ?>
+                    <!-- CARD -->
+
+                <?php else: ?>
+                        <p class="text-center bg-light py-4 fw-light">Список вакансий пуст</p>
+                <?php endif ?>
 
             </div>
+
+            <?= LinkPager::widget([
+                    'pagination' => $data['pagination'],
+                    'options' => [
+                        'class' => 'd-flex justify-content-center'
+                    ]
+                ]);
+            ?>
         </div>
 
         <!-- ASIDE -->
