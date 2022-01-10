@@ -12,6 +12,7 @@ use app\models\forms\CreateResumForm;
 use app\models\forms\CreateVacancieForm;
 use app\models\Resume;
 use app\models\Vacancie;
+use Parsedown;
 use yii\web\Controller;
 use Yii;
 use yii\helpers\Url;
@@ -187,6 +188,7 @@ class SiteController extends Controller
 
         if ($model->load(Yii::$app->request->post(), 'CreateResumForm')) {
             $resume = new Resume;
+            $parser = Yii::$container->get(Parsedown::class);
 
             // if (Yii::$app->request->post('publish'))
             $status = Resume::STATUS_NOT_CONFIRMED;
@@ -198,7 +200,7 @@ class SiteController extends Controller
             $resume->status = $status;
 
             try {
-                Yii::$container->invoke([$model, 'createResum'], ['resume' => $resume]);
+                $model->createResum($resume, $parser);
 
                 // if ($status == Resume::STATUS_NOT_CONFIRMED)
                 $flash_message = 'Ожидайте подтверждения корректности резюме. После вы увидите своё резюме в списке';
@@ -234,9 +236,10 @@ class SiteController extends Controller
 
         if ($model->load(Yii::$app->request->post(), 'CreateVacancieForm')) {
             $vacancie = new Vacancie;
+            $parser = Yii::$container->get(Parsedown::class);
 
             try {
-                Yii::$container->invoke([$model, 'createVacancie'], ['vacancie' => $vacancie]);
+                $model->createVacancie($vacancie, $parser);
                 Yii::$app->session->setFlash('success', 'Ожидайте подтверждения корректности вакансии. После вы увидите свою вакансию в списке');
             } catch (ValidationFailedException|DBDataSaveException $e) {
                 Yii::$app->session->setFlash('error', $e->getMessage());
