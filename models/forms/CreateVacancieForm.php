@@ -40,8 +40,8 @@ class CreateVacancieForm extends Model
         return [
             [['level', 'type_of_work', 'currency', 'position', 'city', 'company', 'duties'], 'required'],
             [['money_from', 'money_to'], 'integer'],
-            [['experience', 'about_company', 'about_project', 'duties', 'requirements', 'conditions', 'technologies'], 'string'],
-            [['level', 'money', 'type_of_place', 'type_of_work', 'currency', 'position', 'city', 'address', 'company', 'contact_name', 'contact_number', 'company_site', 'contact_telegram', 'contact_email'], 'string', 'max' => 255],
+            [['experience', 'about_company', 'about_project', 'duties', 'requirements', 'conditions'], 'string'],
+            [['level', 'money', 'type_of_place', 'type_of_work', 'currency', 'position', 'city', 'address', 'company', 'contact_name', 'contact_number', 'company_site', 'contact_telegram', 'contact_email', 'technologies'], 'string', 'max' => 255],
             [['company_site', 'contact_telegram'], 'url'],
             ['contact_email', 'email'],
         ];
@@ -109,6 +109,7 @@ class CreateVacancieForm extends Model
         $vacancie->contact_number = $this->contact_number;
         $vacancie->contact_telegram = $this->contact_telegram;
         $vacancie->contact_email = $this->contact_email;
+        $vacancie->technologies = $this->technologies;
 
         $vacancie->experience = $parser->line($this->experience);
         $vacancie->about_company = $parser->line($this->about_company);
@@ -116,7 +117,6 @@ class CreateVacancieForm extends Model
         $vacancie->duties = $parser->line($this->duties);
         $vacancie->requirements = $parser->line($this->requirements);
         $vacancie->conditions = $parser->line($this->conditions);
-        $vacancie->technologies = $parser->line($this->technologies);
 
         if (!$vacancie->save()) {
             throw new DBDataSaveException('Сохранение данных в бд прошло неуспешно');

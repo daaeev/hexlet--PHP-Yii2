@@ -35,7 +35,7 @@ class m220103_143712_create_vacancie_table extends Migration
             'duties' => $this->text(),
             'requirements' => $this->text(),
             'conditions' => $this->text(),
-            'technologies' => $this->text(),
+            'technologies' => $this->string(),
         
             'pub_date' => $this->bigInteger(),
             'status' => $this->tinyInteger()->defaultValue(0),

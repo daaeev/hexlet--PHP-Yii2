@@ -240,7 +240,7 @@ $currencies = [
                     <div class="row">
                         <label class="col-sm-3 col-form-label">Технологии</label>
                         <div class="col-sm-9">
-                            <?= $form->field($model, 'technologies')->textarea(['rows' => "10", 'placeholder' => "Редактор поддержиает маркдаун"])->label(false) ?>
+                            <?= $form->field($model, 'technologies')->input('text')->label(false) ?>
                             <small class="form-text text-muted">То что указывают компании: json, ajax, ...</small>
                         </div>
                     </div>
