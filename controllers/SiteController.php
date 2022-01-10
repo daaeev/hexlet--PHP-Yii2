@@ -54,7 +54,7 @@ class SiteController extends Controller
 
     /**
      * Метод отвечает за страницу для просмотра определенного резюме
-     * @param int $id идентификатор записи в БД
+     * @param int $id идентификатор записи в таблице resume
      * @return string результат рендеринга
      * @throws InvalidArgumentException если файл вида или шаблона не найден
      */
@@ -67,9 +67,19 @@ class SiteController extends Controller
         return $this->render('resume-view', compact('resume'));
     }
 
+    /**
+     * Метод отвечает за страницу для просмотра определенненной вакансии
+     * @param int $id идентификатор записи в таблице vacancie
+     * @return string результат рендеринга
+     * @throws InvalidArgumentException если файл вида или шаблона не найден
+     */
     public function actionVacancieView($id)
     {
-        return $this->render('vacancie-view');
+        $helper = Yii::$container->get(VacancieGetInterface::class);
+
+        $vacancie = $helper->findById($id);
+
+        return $this->render('vacancie-view', compact('vacancie'));
     }
 
     /**

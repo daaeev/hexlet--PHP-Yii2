@@ -3,6 +3,7 @@
 namespace app\components\helpers;
 
 use app\components\helpers\interface\VacancieGetInterface;
+use app\exceptions\IDNotFoundException;
 use app\models\Vacancie;
 use yii\data\Pagination;
 use yii\db\ActiveQuery;
@@ -25,6 +26,19 @@ class VacancieGetHelper implements VacancieGetInterface
         $data = $this->getPaginationData($query, 'vacancies');
 
         return $data;
+    }
+
+    public function findById(int $id): Vacancie|array
+    {
+        $model = Vacancie::find()
+            ->where(['status' => Vacancie::STATUS_CONFIRMED, 'id' => $id])
+            ->one();
+        
+        if ($model) {
+            return $model;
+        }
+
+        throw new IDNotFoundException;
     }
 
     /**

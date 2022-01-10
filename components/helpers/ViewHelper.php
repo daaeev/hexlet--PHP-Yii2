@@ -40,26 +40,43 @@ class ViewHelper
     /**
      * Метод генерирует название вакансии,
      * используя такие данные, как: 
-     * уровень знаний, должность, информация про зарплату
+     * уровень знаний, должность, информация о зарплате
      * и название компании.
      * @param Vacancie|array $vac запись из таблицы vacancie
      * @return string сгенерированное название вакансии
      */
     public static function createVacancieTitle(Vacancie|array $vac): string
     {
-        $title = "$vac->level $vac->position";
+        $title = "$vac->level $vac->position ";
+        $title .= self::createSalaryTitle($vac);
+        $title .= " - $vac->company";
+
+        return $title;
+    }
+
+    /**
+     * Метод генерирует строку
+     * из данных вакансии о зарплате
+     * @param Vacancie|array $vac запись из таблицы vacancie
+     * @return string сгенерированное строке из данных о зарплате
+     */
+    public static function createSalaryTitle(Vacancie|array $vac): string
+    {
+        $title = '';
 
         if (isset($vac->money_from) && isset($vac->money_to)) {
-            $title .= " от $vac->money_from до $vac->money_to $vac->currency";
+            $title .= "от $vac->money_from до $vac->money_to";
         } else if (isset($vac->money_from)) {
-            $title .= " от $vac->money_from $vac->currency";
+            $title .= "от $vac->money_from";
         } else if (isset($vac->money_to)) {
-            $title .= " до $vac->money_to $vac->currency";
-        } else {
-            $title .= " зарплата договорная $vac->currency";
+            $title .= "до $vac->money_to";
         }
-        
-        $title .= " - $vac->company";
+
+        if ($title && $vac->money) {
+            $title .= " $vac->currency ($vac->money)";
+        } else if ($title) {
+            $title .= " $vac->currency";
+        }
 
         return $title;
     }

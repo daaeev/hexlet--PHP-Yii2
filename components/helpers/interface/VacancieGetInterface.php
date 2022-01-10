@@ -2,6 +2,8 @@
 
 namespace app\components\helpers\interface;
 
+use app\models\Vacancie;
+
 interface VacancieGetInterface
 {
     /**
@@ -9,4 +11,12 @@ interface VacancieGetInterface
      * @return array массив из проверенных резюме с пагинацией ['vacancies' => [...], 'pagination' => [...]]
      */
     public function getAll(): array;
+
+    /**
+     * Возвращает запись из таблицы vacancie
+     * с определенным идентификатором
+     * @param int $id идентификатор записи
+     * @return Vacancie|array запись из таблицы vacancie
+     */
+    public function findById(int $id): Vacancie|array;
 }
