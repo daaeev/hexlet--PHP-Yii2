@@ -3,7 +3,6 @@
 use app\components\helpers\ViewHelper;
 
 ?>
-'level', 'type_of_work', 'currency', 'position', 'city', 'company', 'duties'
 <!-- CONTENT -->
 <div class="container-md" id="content">
     <div class="row">
