@@ -2,6 +2,8 @@
 
 namespace app\components\helpers\interface;
 
+use app\models\Resume;
+
 interface ResumeGetInterface
 {
     /**
@@ -29,4 +31,12 @@ interface ResumeGetInterface
      * @return array массив из проверенных резюме с пагинацией ['resumes' => [...], 'pagination' => [...]]
      */
     public function getNorecomend(): array;
+
+    /**
+     * Возвращает запись из таблицы resume
+     * с определенным идентификатором
+     * @param int $id идентификатор записи
+     * @return Resume|array запись из таблицы resume
+     */
+    public function findById(int $id): Resume|array;
 }

@@ -3,6 +3,7 @@
 namespace app\components\helpers;
 
 use app\components\helpers\interface\ResumeGetInterface;
+use app\exceptions\IDNotFoundException;
 use app\models\Resume;
 use yii\data\Pagination;
 use yii\db\ActiveQuery;
@@ -93,6 +94,20 @@ class ResumeGetHelper implements ResumeGetInterface
         $data = $this->getPaginationData($query, 'resume/all');
 
         return $data;
+    }
+
+    public function findById(int $id): Resume|array
+    {
+        $model = Resume::find()
+            ->with('author', 'comments.author', 'comments.comments.author')
+            ->where(['status' => Resume::STATUS_CONFIRMED, 'id' => $id])
+            ->one();
+        
+        if ($model) {
+            return $model;
+        }
+
+        throw new IDNotFoundException;
     }
 
     /**
