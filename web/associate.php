@@ -1,5 +1,7 @@
 <?php
 
+use app\components\helpers\DBValidator;
+use app\components\helpers\interface\DBValidatorInterface;
 use app\components\helpers\interface\ResumeGetInterface;
 use app\components\helpers\interface\RoleHelperInterface;
 use app\components\helpers\interface\VacancieGetInterface;
@@ -15,6 +17,7 @@ $container->setSingleton(RoleHelperInterface::class, RoleHelper::class);
 $container->setSingleton(ManagerInterface::class, DbManager::class);
 $container->setSingleton(ResumeGetInterface::class, ResumeGetHelper::class);
 $container->setSingleton(VacancieGetInterface::class, VacancieGetHelper::class);
+$container->setSingleton(DBValidatorInterface::class, DBValidator::class);
 
 $markDownParser = new Parsedown;
 $container->set(Parsedown::class, $markDownParser);

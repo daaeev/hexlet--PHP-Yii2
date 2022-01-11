@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\components\helpers\interface\DBValidatorInterface;
 use app\components\helpers\interface\ResumeGetInterface;
 use app\components\helpers\interface\VacancieGetInterface;
 use app\exceptions\DBDataSaveException;
@@ -58,11 +59,13 @@ class SiteController extends Controller
 
     /**
      * Метод отвечает за страницу для просмотра определенного резюме.
+     * 
      * Происходит создание моделей для форм комментариев разных типов
-     * (рекомендации, комментарии к рекомендациям)
+     * (рекомендации, комментарии к рекомендациям) и передача их в файл вида
      * @param int $id идентификатор записи в таблице resume
      * @return string результат рендеринга
      * @throws InvalidArgumentException если файл вида или шаблона не найден
+     * @throws IDNotFoundException если запись не найдена
      */
     public function actionResumeView($id)
     {
@@ -82,10 +85,13 @@ class SiteController extends Controller
 
     /**
      * Метод отвечает за операцию создания комментариев.
+     * 
      * После выполнения задачи производится редирект на предыдущую страницу,
      * которую посещал пользователь (предположительно, страница с резюме).
-     * Через GET-запрос на вход присылаются данные про резюме и
+     * 
+     * Через GET-запрос на вход присылаются данные о резюме и
      * родительский комментарий, если создаётся комментарий к рекомендации.
+     * Данные передаются в метод создания комментария
      * @param int $resume_id id записи в таблице resume
      * @param int $parent_comment_id id записи в таблице comments,
      * (id родительского комментария)
@@ -100,7 +106,8 @@ class SiteController extends Controller
             try {
                 $comment = new Comment;
                 $parser = Yii::$container->get(Parsedown::class);
-                $model->createComment($comment, $parser, $resume_id, $parent_comment_id);
+                $validator = Yii::$container->get(DBValidatorInterface::class);
+                $model->createComment($comment, $parser, $validator, $resume_id, $parent_comment_id);
             } catch (DBDataSaveException|ValidationFailedException|IDNotFoundException $e) {
                 Yii::$app->session->setFlash('error', $e->getMessage());
             }
@@ -115,9 +122,12 @@ class SiteController extends Controller
 
     /**
      * Метод отвечает за страницу для просмотра определенненной вакансии
+     * 
+     * Осуществляется поиск вакансии из таблицы vacancie с id = $id
      * @param int $id идентификатор записи в таблице vacancie
      * @return string результат рендеринга
      * @throws InvalidArgumentException если файл вида или шаблона не найден
+     * @throws IDNotFoundException если запись не найдена
      */
     public function actionVacancieView($id)
     {
@@ -130,6 +140,8 @@ class SiteController extends Controller
 
     /**
      * Метод отвечает за рендер страницы со всеми вакансиями
+     * 
+     * Осуществляется получение всех вакансий и передача их в файл вида
      * @return string результат рендеринга
      * @throws InvalidArgumentException если файл вида или шаблона не найден
      */
@@ -169,6 +181,14 @@ class SiteController extends Controller
 
     /**
      * Экшен для отображния формы с настройками пользователя
+     * 
+     * Если имеются соответствующие POST-данные, 
+     * то производится заполнение модели данными
+     * и вызов соответствующего метода изменения 
+     * данных пользователя в БД.
+     * 
+     * При положительном/отрицательном исходе изменении данных,
+     * создаётся flash-сессия с соответствующим сообщением
      * @return string результат рендеринга
      * @throws InvalidArgumentException если файл вида или шаблона не найден
      */
@@ -220,6 +240,19 @@ class SiteController extends Controller
 
     /**
      * Экшен рендерит страницу с формой создания резюме.
+     * 
+     * Если имеются соответствующие POST-данные, 
+     * то производится заполнение модели данными
+     * и вызов соответствующего метода создания 
+     * резюме в БД.
+     * 
+     * Статус резюме (Не подтверждено / В черновик)
+     * определяется до вызова метода(создания резюме) 
+     * и присваивается непосредственно экземпляру Resume
+     * для упрощения создания flash-сессии с соответствующим сообщением
+     * 
+     * При положительном/отрицательном исходе создания резюме,
+     * создаётся flash-сессия с соответствующим сообщением
      * @return string результат рендеринга
      * @return Response если операция создания резюме пройдёт успешно, 
      * выполнится редирект на главную страницу
@@ -268,6 +301,14 @@ class SiteController extends Controller
 
     /**
      * Экшен рендерит страницу с формой создания вакансии.
+     * 
+     * Если имеются соответствующие POST-данные, 
+     * то производится заполнение модели данными
+     * и вызов соответствующего метода создания 
+     * вакансии в БД.
+     * 
+     * При положительном/отрицательном исходе создания вакансии,
+     * создаётся flash-сессия с соответствующим сообщением
      * @return string результат рендеринга
      * @return Response если операция создания вакансии пройдёт успешно, 
      * выполнится редирект на страницу просмотра вакансий

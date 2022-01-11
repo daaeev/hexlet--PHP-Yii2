@@ -37,6 +37,7 @@ interface ResumeGetInterface
      * с определенным идентификатором
      * @param int $id идентификатор записи
      * @return Resume|array запись из таблицы resume
+     * @throws IDNotFoundException если запись не найдена
      */
     public function findById(int $id): Resume|array;
 }
