@@ -37,12 +37,12 @@ use yii\i18n\Formatter;
                                 </div>
 
                                 <div class="card-info w-100">
-                                    <h5 class="card-title"><a href="/resume/<?= $resume->id ?>"><?= $resume->title ?></a></h5>
-                                    <p class="card-subtitle"><?= substr($resume->description, 0, 350) ?>...</p>
+                                    <h5 class="card-title"><a href="/resume/<?= $resume->id ?>"><?= htmlspecialchars($resume->title) ?></a></h5>
+                                    <p class="card-subtitle"><?= htmlspecialchars(substr($resume->description, 0, 350)) ?>...</p>
 
                                     <div class="pub-info text-end mt-4 small">
                                         <span class="pub-date text-muted me-3"><?= (new Formatter)->asRelativeTime($resume->pub_date) ?></span>
-                                        <a class="author" href="#"><?= $resume->author->name ?></a>
+                                        <a class="author" href="#"><?= htmlspecialchars($resume->author->name) ?></a>
                                     </div>
                                 </div>
                             </div>

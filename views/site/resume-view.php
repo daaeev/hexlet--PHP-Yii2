@@ -17,42 +17,42 @@ use yii\i18n\Formatter;
                 </div>
                 <div class="row mb-3">
                     <div class="col-sm-3"><b>Имя</b></div>
-                    <div class="col-sm-9"><a href="#"><?= $resume->author->name ?></a></div>
+                    <div class="col-sm-9"><a href="#"><?= htmlspecialchars($resume->author->name) ?></a></div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-sm-3"><b>Описание</b></div>
                     <div class="col-sm-9">
-                        <p><?= $resume->description ?></p>
+                        <p><?= htmlspecialchars($resume->description) ?></p>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-sm-3"><b>Навыки</b></div>
                     <div class="col-sm-9">
-                        <p><?= $resume->skills ?></p>
+                        <p><?= htmlspecialchars($resume->skills) ?></p>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-3"><b>Владение английским</b></div>
                     <div class="col-sm-9">
-                        <p><?= $resume->english ?></p>
+                        <p><?= htmlspecialchars($resume->english) ?></p>
                     </div>
                 </div>
                 <div class="row mt-3 mb-4">
                     <div class="col-sm-3"><b>Github</b></div>
-                    <div class="col-sm-9"><a rel="noopener" href="<?= $resume->github ?>"><?= $resume->github ?></a></div>
+                    <div class="col-sm-9"><a rel="noopener" href="<?= $resume->github ?>"><?= htmlspecialchars($resume->github) ?></a></div>
                 </div>
 
                 <?php if ($resume->contact) : ?>
                     <div class="row mt-3 mb-4">
                         <div class="col-sm-3"><b>Контакт</b></div>
-                        <div class="col-sm-9"><?= $resume->contact ?></div>
+                        <div class="col-sm-9"><?= htmlspecialchars($resume->contact) ?></div>
                     </div>
                 <?php endif ?>
 
                 <?php if ($resume->achievements) : ?>
                     <div class="row mt-3 mb-4">
                         <div class="col-sm-3"><b>Достижения</b></div>
-                        <div class="col-sm-9"><?= $resume->achievements ?></div>
+                        <div class="col-sm-9"><?= htmlspecialchars($resume->achievements) ?></div>
                     </div>
                 <?php endif ?>
 
@@ -66,7 +66,7 @@ use yii\i18n\Formatter;
                     <div class="card mb-4" id="answer-344">
                         <div class="card-header small mb-2 d-flex">
                             <div class="me-auto d-flex">
-                                <span class="fw-bold"><a href="#"><?= $comment->author->name ?></a></span>
+                                <span class="fw-bold"><a href="#"><?= htmlspecialchars($comment->author->name) ?></a></span>
                                 <span class="mx-2 fw-light text-muted"><?= (new Formatter)->asRelativeTime($comment->pub_date) ?></span>
                             </div>
                         </div>
@@ -79,7 +79,7 @@ use yii\i18n\Formatter;
                             </div>
                             <div class="w-100">
                                 <div class="mb-3">
-                                    <p><?= $comment->content ?></p>
+                                    <p><?= htmlspecialchars($comment->content) ?></p>
                                 </div>
                                 <hr class="my-2">
 
@@ -89,9 +89,9 @@ use yii\i18n\Formatter;
                                             <div class="d-flex">
                                                 <div class="me-auto">
                                                     <span class="me-2">
-                                                        <p><?= $childComment->content ?></p>
+                                                        <p><?= htmlspecialchars($childComment->content) ?></p>
                                                     </span>
-                                                    <span class="me-1"><a href="#"><?= $childComment->author->name ?></a></span>
+                                                    <span class="me-1"><a href="#"><?= htmlspecialchars($childComment->author->name) ?></a></span>
                                                     <span class="small text-muted"><?= (new Formatter)->asRelativeTime($childComment->pub_date) ?></span>
                                                 </div>
                                             </div>

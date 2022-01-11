@@ -22,9 +22,9 @@ use yii\i18n\Formatter;
                             <div class="card card-noborder border-8 mb-4 p-3 pb-4">
                                 <div class="card-info">
                                     <span class="pub-date text-muted me-3 small"><?= (new Formatter)->asRelativeTime($vacancie->pub_date) ?></span>
-                                    <h5 class="card-title"><a href="/vacancie/<?= $vacancie->id ?>"><?= ViewHelper::createVacancieTitle($vacancie) ?></a></h5>
-                                    <p class="card-tasks mb-1"><?= substr($vacancie->duties, 0, 350) ?>...</p>
-                                    <p class="card-skills fw-bold"><?= $vacancie->duties ?></p>
+                                    <h5 class="card-title"><a href="/vacancie/<?= $vacancie->id ?>"><?= htmlspecialchars(ViewHelper::createVacancieTitle($vacancie)) ?></a></h5>
+                                    <p class="card-tasks mb-1"><?= htmlspecialchars(substr($vacancie->duties, 0, 350)) ?>...</p>
+                                    <p class="card-skills fw-bold"><?= htmlspecialchars($vacancie->duties) ?></p>
                                 </div>
                             </div>
                         <?php endforeach ?>

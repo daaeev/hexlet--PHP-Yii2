@@ -17,6 +17,4 @@ $container->setSingleton(ResumeGetInterface::class, ResumeGetHelper::class);
 $container->setSingleton(VacancieGetInterface::class, VacancieGetHelper::class);
 
 $markDownParser = new Parsedown;
-$markDownParser->setSafeMode(true);
-
 $container->set(Parsedown::class, $markDownParser);
