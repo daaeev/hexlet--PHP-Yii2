@@ -27,6 +27,13 @@ class CreateCommentForm extends Model
         ];
     }
 
+    public function attributeLabels()
+    {
+        return [
+            'content' => 'Содержимое комментария',
+        ];
+    }
+
     /**
      * Операция создания комментария.
      * Перед непосредственным сохранением в БД, метод проводит
