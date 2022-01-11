@@ -2,6 +2,7 @@
 
 namespace app\models\forms;
 
+use app\components\helpers\interface\DBValidatorInterface;
 use app\exceptions\DBDataSaveException;
 use app\exceptions\IDNotFoundException;
 use app\exceptions\ValidationFailedException;
@@ -37,14 +38,14 @@ class CreateCommentForm extends Model
     /**
      * Операция создания комментария.
      * Перед непосредственным сохранением в БД, метод проводит
-     * несколько проверок, таких как: 
+     * несколько проверок при помощи валидатора $validator: 
      * 
-     * валидация текста,
-     * проверка существования резюме с идентификатором $resume_id,
-     * проверка существования комментария с идентификатором $parent_comment_id,
+     * Проверка существования резюме с идентификатором $resume_id.
      * 
+     * Проверка существования комментария с идентификатором $parent_comment_id,
      * если создаётся комментарий к рекомендации.
      * @param Comment $comment экземпляр модели Comment
+     * @param DBValidatorInterface $validator валидатор для сравнения данных из БД (облегчает тестирование)
      * @param Parsedown $parser экземпляр парсера маркдаун разметки
      * @param int $resume_id идентификатор резюме
      * @param int|null $parent_comment_id идентификатор родительского комментария
@@ -54,7 +55,7 @@ class CreateCommentForm extends Model
      * @throws IDNotFoundException если запись с определенным идентификатором не существует
      * (при проверке существования)
      */
-    public function createComment(Comment $comment, Parsedown $parser, int $resume_id, int $parent_comment_id = null): bool
+    public function createComment(Comment $comment, Parsedown $parser, DBValidatorInterface $validator, int $resume_id, int $parent_comment_id = null): bool
     {
         $is_comment = $parent_comment_id ? true : false;
 
@@ -66,11 +67,11 @@ class CreateCommentForm extends Model
             throw new ValidationFailedException('Валидация данных прошла неуспешно');
         }
 
-        if (!Resume::find()->where(['id' => $resume_id, 'status' => Resume::STATUS_CONFIRMED])->exists()) {
+        if (!$validator->resumeExist($resume_id)) {
             throw new IDNotFoundException('Резюме с id ' . $resume_id . ' не существует');
         }
 
-        if ($is_comment && !Comment::find()->where(['id' => $parent_comment_id])->exists()) {
+        if ($is_comment && $validator->commentExist($parent_comment_id)) {
             throw new IDNotFoundException('Комментария с id ' . $parent_comment_id . ' не существует');
         }
 
