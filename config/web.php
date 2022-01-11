@@ -60,6 +60,9 @@ $config = [
                 'resume/<id:\d+>' => 'site/resume-view',
                 'vacancie/<id:\d+>' => 'site/vacancie-view',
 
+                'create-comment/<resume_id:\d+>/<parent_comment_id:\d+>' => 'site/create-comment',
+                'create-comment/<resume_id:\d+>' => 'site/create-comment',
+
                 'login' => 'authorization/login',
                 'registration' => 'authorization/registration',
                 'logout' => 'authorization/logout',

@@ -41,6 +41,9 @@ class Comment extends \yii\db\ActiveRecord
             [['author_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['author_id' => 'id']],
             [['parent_comment_id'], 'exist', 'skipOnError' => true, 'targetClass' => Comment::className(), 'targetAttribute' => ['parent_comment_id' => 'id']],
             [['resume_id'], 'exist', 'skipOnError' => true, 'targetClass' => Resume::className(), 'targetAttribute' => ['resume_id' => 'id']],
+            ['author_id', 'default', 'value' => Yii::$app->view->params['user']->id],
+            ['pub_date', 'default', 'value' => time()],
+            ['likes', 'default', 'value' => 0],
         ];
     }
 

@@ -1,7 +1,15 @@
+<?php
+
+use app\widgets\Alert;
+use yii\bootstrap4\ActiveForm;
+use yii\i18n\Formatter;
+
+?>
 <!-- CONTENT -->
 <div class="container-md" id="content">
     <div class="row">
         <div class="col-md-9 content-block">
+            <?= Alert::widget() ?>
             <div class="mb-5">
                 <div class="d-flex">
                     <h4 class="mb-4 me-3">Основное</h4>
@@ -34,11 +42,7 @@
                     <div class="col-sm-9"><a rel="noopener" href="<?= $resume->github ?>"><?= $resume->github ?></a></div>
                 </div>
 
-                <?php
-
-                                                                                            use yii\i18n\Formatter;
-
-if ($resume->contact) : ?>
+                <?php if ($resume->contact) : ?>
                     <div class="row mt-3 mb-4">
                         <div class="col-sm-3"><b>Контакт</b></div>
                         <div class="col-sm-9"><?= $resume->contact ?></div>
@@ -99,16 +103,18 @@ if ($resume->contact) : ?>
 
                                 <a class="d-block small text-muted" data-bs-toggle="collapse" href="#answer-<?= $comment->id ?>">Добавить комментарий</a>
                                 <div class="collapse" id="answer-<?= $comment->id ?>">
-                                    <form id="new_answer_comment">
+
+                                    <?php $form = ActiveForm::begin(['action' => "/create-comment/$resume->id/$comment->id"]) ?>
                                         <div class="mb-3">
-                                            <textarea class="form-control"></textarea>
+                                            <?= $form->field($comment_form, 'content')->textarea()->label(false) ?>
                                             <small class="form-text text-muted">Длина не может превышать 200 символов</small>
                                         </div>
 
                                         <div class="mb-3">
                                             <input type="submit" name="commit" value="Создать" class="btn btn-primary" data-disable-with="Создать">
                                         </div>
-                                    </form>
+                                    <?php ActiveForm::end() ?>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -119,14 +125,15 @@ if ($resume->contact) : ?>
                 <p class="text-center bg-light py-4 fw-light">Список пуст</p>
             <?php endif ?>
 
-            <form id="new_resume_answer">
+            <?php $form = ActiveForm::begin(['action' => "/create-comment/$resume->id"]) ?>
                 <div class="mb-3">
-                    <textarea class="form-control text required" rows="12" placeholder="Оставьте ваши рекомендации по улучшению резюме. Редактор поддерживает маркдаун" id="resume_answer_content"></textarea>
+                    <?= $form->field($answer_form, 'content')->textarea(['rows' => "12", 'placeholder' => "Оставьте ваши рекомендации по улучшению резюме. Редактор поддерживает маркдаун"])->label(false) ?>
                 </div>
                 <div class="mb-3">
                     <input type="submit" value="Создать" class="btn btn-primary" data-disable-with="Создать">
                 </div>
-            </form>
+            <?php ActiveForm::end() ?>
+
         </div>
 
         <!-- ASIDE -->

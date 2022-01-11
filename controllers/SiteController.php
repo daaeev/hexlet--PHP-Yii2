@@ -5,9 +5,12 @@ namespace app\controllers;
 use app\components\helpers\interface\ResumeGetInterface;
 use app\components\helpers\interface\VacancieGetInterface;
 use app\exceptions\DBDataSaveException;
+use app\exceptions\IDNotFoundException;
 use app\exceptions\ValidationFailedException;
 use app\filters\NeededVariables;
+use app\models\Comment;
 use app\models\forms\AccountSettingsForm;
+use app\models\forms\CreateCommentForm;
 use app\models\forms\CreateResumForm;
 use app\models\forms\CreateVacancieForm;
 use app\models\Resume;
@@ -54,7 +57,9 @@ class SiteController extends Controller
     }
 
     /**
-     * Метод отвечает за страницу для просмотра определенного резюме
+     * Метод отвечает за страницу для просмотра определенного резюме.
+     * Происходит создание моделей для форм комментариев разных типов
+     * (рекомендации, комментарии к рекомендациям)
      * @param int $id идентификатор записи в таблице resume
      * @return string результат рендеринга
      * @throws InvalidArgumentException если файл вида или шаблона не найден
@@ -63,9 +68,49 @@ class SiteController extends Controller
     {
         $helper = Yii::$container->get(ResumeGetInterface::class);
 
+        // Модель для формы создания рекомендаций
+        $answer_form = new CreateCommentForm;
+
+        // Модель для формы создания комментария к комментарию
+        $comment_form = new CreateCommentForm;
+        $comment_form->scenario = CreateCommentForm::SCENARIO_COMMENT_TO_ANSWER;
+
         $resume = $helper->findById($id);
 
-        return $this->render('resume-view', compact('resume'));
+        return $this->render('resume-view', compact('resume', 'answer_form', 'comment_form'));
+    }
+
+    /**
+     * Метод отвечает за операцию создания комментариев.
+     * После выполнения задачи производится редирект на предыдущую страницу,
+     * которую посещал пользователь (предположительно, страница с резюме).
+     * Через GET-запрос на вход присылаются данные про резюме и
+     * родительский комментарий, если создаётся комментарий к рекомендации.
+     * @param int $resume_id id записи в таблице resume
+     * @param int $parent_comment_id id записи в таблице comments,
+     * (id родительского комментария)
+     * @return string результат рендеринга
+     * @throws InvalidArgumentException если файл вида или шаблона не найден
+     */
+    public function actionCreateComment(int $resume_id, int $parent_comment_id = null)
+    {
+        $model = new CreateCommentForm;
+
+        if ($model->load(Yii::$app->request->post(), 'CreateCommentForm')) {
+            try {
+                $comment = new Comment;
+                $parser = Yii::$container->get(Parsedown::class);
+                $model->createComment($comment, $parser, $resume_id, $parent_comment_id);
+            } catch (DBDataSaveException|ValidationFailedException|IDNotFoundException $e) {
+                Yii::$app->session->setFlash('error', $e->getMessage());
+            }
+
+            return $this->redirect(Yii::$app->request->referrer);
+        }
+
+        Yii::$app->session->setFlash('warning', 'Что-то пошло не так...');
+
+        return $this->redirect(Yii::$app->request->referrer);
     }
 
     /**
