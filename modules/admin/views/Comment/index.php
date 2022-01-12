@@ -14,11 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a('Create Comment', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php  echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -28,13 +24,16 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'author_id',
-            'resume_id',
-            'likes',
-            'pub_date',
+            //'resume_id',
+            //'likes',
+            //'pub_date',
             //'parent_comment_id',
-            //'content:ntext',
+            'content:ntext',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{view} {delete}',
+            ],
         ],
     ]); ?>
 
