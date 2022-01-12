@@ -14,11 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a('Create Vacancie', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -27,19 +23,19 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
-            'level',
-            'money',
-            'type_of_place',
-            'type_of_work',
+            //'level',
+            //'money',
+            //'type_of_place',
+            //'type_of_work',
             //'money_from',
             //'money_to',
             //'currency',
             //'position',
-            //'city',
+            'city',
             //'address',
-            //'company',
+            'company',
             //'company_site',
-            //'contact_name',
+            'contact_name',
             //'contact_number',
             //'contact_email:email',
             //'experience:ntext',
@@ -50,9 +46,12 @@ $this->params['breadcrumbs'][] = $this->title;
             //'conditions:ntext',
             //'technologies:ntext',
             //'pub_date',
-            //'status',
+            'status',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{view}',
+            ],
         ],
     ]); ?>
 

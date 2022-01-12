@@ -19,6 +19,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'title') ?>
 
+    <?php // echo $form->field($model, 'english') ?>
+
     <?php // echo $form->field($model, 'description') ?>
 
     <?php // echo $form->field($model, 'skills') ?>

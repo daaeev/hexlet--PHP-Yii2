@@ -2,35 +2,17 @@
 
 namespace app\modules\admin\controllers;
 
+use app\exceptions\IDNotFoundException;
 use app\models\Vacancie;
 use app\models\VacancieSearch;
 use yii\web\Controller;
-use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
+use Yii;
 
 /**
  * VacancieController implements the CRUD actions for Vacancie model.
  */
 class VacancieController extends Controller
 {
-    /**
-     * @inheritDoc
-     */
-    public function behaviors()
-    {
-        return array_merge(
-            parent::behaviors(),
-            [
-                'verbs' => [
-                    'class' => VerbFilter::className(),
-                    'actions' => [
-                        'delete' => ['POST'],
-                    ],
-                ],
-            ]
-        );
-    }
-
     /**
      * Lists all Vacancie models.
      * @return mixed
@@ -50,7 +32,7 @@ class VacancieController extends Controller
      * Displays a single Vacancie model.
      * @param int $id ID
      * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
+     * @throws IDNotFoundException if the model cannot be found
      */
     public function actionView($id)
     {
@@ -60,59 +42,26 @@ class VacancieController extends Controller
     }
 
     /**
-     * Creates a new Vacancie model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
+     * Метод отвечает за изменение статуса вакансии
+     * с идентификатором $id.
+     * @param int $id идентификатор вакансии из таблицы vacancie
+     * @param int $status устанавливаемый статус
+     * @return Response the current response object
      */
-    public function actionCreate()
+    public function actionSetStatus($id, $status)
     {
-        $model = new Vacancie();
+        try {
+            $resume = $this->findModel($id);
+            $resume->status = $status;
 
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+            if ($resume->save(false)) {
+                Yii::$app->session->setFlash('success', 'Статус успешно изменен');
             }
-        } else {
-            $model->loadDefaultValues();
+        } catch (IDNotFoundException $e) {
+            Yii::$app->session->setFlash('error', $e->getMessage());
         }
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
-     * Updates an existing Vacancie model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $id ID
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionUpdate($id)
-    {
-        $model = $this->findModel($id);
-
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
-     * Deletes an existing Vacancie model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param int $id ID
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionDelete($id)
-    {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
+        
+        return $this->redirect(['view', 'id' => $id]);
     }
 
     /**
@@ -120,7 +69,7 @@ class VacancieController extends Controller
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param int $id ID
      * @return Vacancie the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
+     * @throws IDNotFoundException if the model cannot be found
      */
     protected function findModel($id)
     {
@@ -128,6 +77,6 @@ class VacancieController extends Controller
             return $model;
         }
 
-        throw new NotFoundHttpException('The requested page does not exist.');
+        throw new IDNotFoundException('Вакансии с id ' . $id . ' не существет');
     }
 }

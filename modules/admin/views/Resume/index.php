@@ -24,13 +24,20 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'title:ntext',
+            //'english',
+            //'github',
+            //'contact',
             'description:ntext',
+            //'skills:ntext',
+            //'achievements:ntext',
+            //'pub_date',
             [
                 'attribute'=>'author_id',
                 'content' => function ($data) {
                     return '<a href="/admin/user/view?id=' . $data->author_id . '">' . $data->author_id . '</a>';
                 }
             ],
+            //'views',
             'status',
 
             [

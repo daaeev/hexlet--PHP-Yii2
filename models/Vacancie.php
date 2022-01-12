@@ -41,6 +41,7 @@ class Vacancie extends \yii\db\ActiveRecord
 {
     const STATUS_NOT_CONFIRMED = 0;
     const STATUS_CONFIRMED = 1;
+    const STATUS_BANNED = 2;
 
     /**
      * {@inheritdoc}

@@ -17,13 +17,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'level') ?>
+    <?php // echo $form->field($model, 'level') ?>
 
-    <?= $form->field($model, 'money') ?>
+    <?php // echo $form->field($model, 'money') ?>
 
-    <?= $form->field($model, 'type_of_place') ?>
+    <?php // echo $form->field($model, 'type_of_place') ?>
 
-    <?= $form->field($model, 'type_of_work') ?>
+    <?php // echo $form->field($model, 'type_of_work') ?>
 
     <?php // echo $form->field($model, 'money_from') ?>
 
@@ -37,11 +37,11 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'address') ?>
 
-    <?php // echo $form->field($model, 'company') ?>
+    <?php echo $form->field($model, 'company') ?>
 
     <?php // echo $form->field($model, 'company_site') ?>
 
-    <?php // echo $form->field($model, 'contact_name') ?>
+    <?php echo $form->field($model, 'contact_name') ?>
 
     <?php // echo $form->field($model, 'contact_number') ?>
 
@@ -63,7 +63,7 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'pub_date') ?>
 
-    <?php // echo $form->field($model, 'status') ?>
+    <?php echo $form->field($model, 'status') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
