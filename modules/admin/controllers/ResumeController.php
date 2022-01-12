@@ -2,35 +2,18 @@
 
 namespace app\modules\admin\controllers;
 
+use app\exceptions\IDNotFoundException;
 use app\models\Resume;
 use app\models\ResumeSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
+use Yii;
 
 /**
  * ResumeController implements the CRUD actions for Resume model.
  */
 class ResumeController extends Controller
 {
-    /**
-     * @inheritDoc
-     */
-    public function behaviors()
-    {
-        return array_merge(
-            parent::behaviors(),
-            [
-                'verbs' => [
-                    'class' => VerbFilter::className(),
-                    'actions' => [
-                        'delete' => ['POST'],
-                    ],
-                ],
-            ]
-        );
-    }
-
     /**
      * Lists all Resume models.
      * @return mixed
@@ -50,7 +33,7 @@ class ResumeController extends Controller
      * Displays a single Resume model.
      * @param int $id ID
      * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
+     * @throws IDNotFoundException if the model cannot be found
      */
     public function actionView($id)
     {
@@ -60,59 +43,26 @@ class ResumeController extends Controller
     }
 
     /**
-     * Creates a new Resume model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
+     * Метод отвечает за изменение статуса резюме
+     * с идентификатором $id.
+     * @param int $id идентификатор резюме из таблицы resume
+     * @param int $status устанавливаемый статус
+     * @return Response the current response object
      */
-    public function actionCreate()
+    public function actionSetStatus($id, $status)
     {
-        $model = new Resume();
+        try {
+            $resume = $this->findModel($id);
+            $resume->status = $status;
 
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+            if ($resume->save(false)) {
+                Yii::$app->session->setFlash('success', 'Статус успешно изменен');
             }
-        } else {
-            $model->loadDefaultValues();
+        } catch (IDNotFoundException $e) {
+            Yii::$app->session->setFlash('error', $e->getMessage());
         }
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
-     * Updates an existing Resume model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $id ID
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionUpdate($id)
-    {
-        $model = $this->findModel($id);
-
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
-     * Deletes an existing Resume model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param int $id ID
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionDelete($id)
-    {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
+        
+        return $this->redirect(['view', 'id' => $id]);
     }
 
     /**
@@ -120,7 +70,7 @@ class ResumeController extends Controller
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param int $id ID
      * @return Resume the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
+     * @throws IDNotFoundException if the model cannot be found
      */
     protected function findModel($id)
     {
@@ -128,6 +78,6 @@ class ResumeController extends Controller
             return $model;
         }
 
-        throw new NotFoundHttpException('The requested page does not exist.');
+        throw new IDNotFoundException('Резюме с id ' . $id . ' не существет');
     }
 }

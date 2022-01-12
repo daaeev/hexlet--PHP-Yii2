@@ -14,11 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a('Create Resume', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -28,18 +24,19 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'title:ntext',
-            'english',
-            'github',
-            'contact',
-            //'description:ntext',
-            //'skills:ntext',
-            //'achievements:ntext',
-            //'pub_date',
-            //'author_id',
-            //'views',
-            //'status',
+            'description:ntext',
+            [
+                'attribute'=>'author_id',
+                'content' => function ($data) {
+                    return '<a href="/admin/user/view?id=' . $data->author_id . '">' . $data->author_id . '</a>';
+                }
+            ],
+            'status',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{view}',
+            ],
         ],
     ]); ?>
 

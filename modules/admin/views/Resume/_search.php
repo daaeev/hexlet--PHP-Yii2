@@ -19,12 +19,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'title') ?>
 
-    <?= $form->field($model, 'english') ?>
-
-    <?= $form->field($model, 'github') ?>
-
-    <?= $form->field($model, 'contact') ?>
-
     <?php // echo $form->field($model, 'description') ?>
 
     <?php // echo $form->field($model, 'skills') ?>
@@ -33,11 +27,11 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'pub_date') ?>
 
-    <?php // echo $form->field($model, 'author_id') ?>
+    <?php echo $form->field($model, 'author_id') ?>
 
     <?php // echo $form->field($model, 'views') ?>
 
-    <?php // echo $form->field($model, 'status') ?>
+    <?php echo $form->field($model, 'status') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

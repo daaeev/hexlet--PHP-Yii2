@@ -28,6 +28,7 @@ class Resume extends \yii\db\ActiveRecord
     const STATUS_NOT_CONFIRMED = 0;
     const STATUS_CONFIRMED = 1;
     const STATUS_ON_DRAFT = 2;
+    const STATUS_BANNED = 3;
 
     /**
      * {@inheritdoc}
