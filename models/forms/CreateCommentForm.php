@@ -78,7 +78,7 @@ class CreateCommentForm extends Model
 
         $comment->resume_id = $resume_id;
         $comment->parent_comment_id = $parent_comment_id;
-        $comment->content = $is_comment ? $this->content : $parser->line($this->content);
+        $comment->content = $is_comment ? htmlspecialchars($this->content) : $parser->line($this->content);
 
         if (!$comment->save()) {
             throw new DBDataSaveException('Сохранение комментария в базу данных прошло неуспешно');

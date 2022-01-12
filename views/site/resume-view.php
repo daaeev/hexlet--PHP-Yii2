@@ -22,13 +22,13 @@ use yii\i18n\Formatter;
                 <div class="row mb-3">
                     <div class="col-sm-3"><b>Описание</b></div>
                     <div class="col-sm-9">
-                        <p><?= htmlspecialchars($resume->description) ?></p>
+                        <p><?= $resume->description ?></p>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-sm-3"><b>Навыки</b></div>
                     <div class="col-sm-9">
-                        <p><?= htmlspecialchars($resume->skills) ?></p>
+                        <p><?= $resume->skills ?></p>
                     </div>
                 </div>
                 <div class="row">
@@ -52,7 +52,7 @@ use yii\i18n\Formatter;
                 <?php if ($resume->achievements) : ?>
                     <div class="row mt-3 mb-4">
                         <div class="col-sm-3"><b>Достижения</b></div>
-                        <div class="col-sm-9"><?= htmlspecialchars($resume->achievements) ?></div>
+                        <div class="col-sm-9"><?= $resume->achievements ?></div>
                     </div>
                 <?php endif ?>
 
@@ -79,7 +79,7 @@ use yii\i18n\Formatter;
                             </div>
                             <div class="w-100">
                                 <div class="mb-3">
-                                    <p><?= htmlspecialchars($comment->content) ?></p>
+                                    <p><?= $comment->content ?></p>
                                 </div>
                                 <hr class="my-2">
 
@@ -89,7 +89,7 @@ use yii\i18n\Formatter;
                                             <div class="d-flex">
                                                 <div class="me-auto">
                                                     <span class="me-2">
-                                                        <p><?= htmlspecialchars($childComment->content) ?></p>
+                                                        <p><?= $childComment->content ?></p>
                                                     </span>
                                                     <span class="me-1"><a href="#"><?= htmlspecialchars($childComment->author->name) ?></a></span>
                                                     <span class="small text-muted"><?= (new Formatter)->asRelativeTime($childComment->pub_date) ?></span>

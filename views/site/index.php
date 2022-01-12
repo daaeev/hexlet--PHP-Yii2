@@ -38,7 +38,7 @@ use yii\i18n\Formatter;
 
                                 <div class="card-info w-100">
                                     <h5 class="card-title"><a href="/resume/<?= $resume->id ?>"><?= htmlspecialchars($resume->title) ?></a></h5>
-                                    <p class="card-subtitle"><?= htmlspecialchars(substr($resume->description, 0, 350)) ?>...</p>
+                                    <p class="card-subtitle"><?= strip_tags(substr($resume->description, 0, 350)) ?>...</p>
 
                                     <div class="pub-info text-end mt-4 small">
                                         <span class="pub-date text-muted me-3"><?= (new Formatter)->asRelativeTime($resume->pub_date) ?></span>

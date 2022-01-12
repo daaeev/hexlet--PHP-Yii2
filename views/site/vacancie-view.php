@@ -37,7 +37,7 @@ use app\components\helpers\ViewHelper;
                 <div class="row mb-3">
                     <div class="col-sm-3"><b>Опыт</b></div>
                     <div class="col-sm-9">
-                        <?= htmlspecialchars($vacancie->experience) ?>
+                        <?= $vacancie->experience ?>
                     </div>
                 </div>
             <?php endif ?>
@@ -45,14 +45,14 @@ use app\components\helpers\ViewHelper;
             <?php if ($vacancie->about_company): ?>
                 <div class="row mb-3">
                     <div class="col-sm-3"><b>О компании</b></div>
-                    <div class="col-sm-9"><?= htmlspecialchars($vacancie->about_company) ?></div>
+                    <div class="col-sm-9"><?= $vacancie->about_company ?></div>
                 </div>
             <?php endif ?>
 
             <?php if ($vacancie->about_project): ?>
                 <div class="row mb-3">
                     <div class="col-sm-3"><b>О проекте</b></div>
-                    <div class="col-sm-9"><?= htmlspecialchars($vacancie->about_project) ?></div>
+                    <div class="col-sm-9"><?= $vacancie->about_project ?></div>
                 </div>
             <?php endif ?>
 
@@ -66,7 +66,7 @@ use app\components\helpers\ViewHelper;
             <div class="row mb-3">
                 <div class="col-sm-3"><b>Обязанности</b></div>
                 <div class="col-sm-9">
-                    <?= htmlspecialchars($vacancie->duties) ?>
+                    <?= $vacancie->duties ?>
                 </div>
             </div>
 
@@ -74,7 +74,7 @@ use app\components\helpers\ViewHelper;
                 <div class="row mb-3">
                     <div class="col-sm-3"><b>Требования</b></div>
                     <div class="col-sm-9">
-                        <?= htmlspecialchars($vacancie->requirements) ?>
+                        <?= $vacancie->requirements ?>
                     </div>
                 </div>
             <?php endif ?>
@@ -83,7 +83,7 @@ use app\components\helpers\ViewHelper;
                 <div class="row mb-3">
                     <div class="col-sm-3"><b>Условия и Бонусы</b></div>
                     <div class="col-sm-9">
-                        <?= htmlspecialchars($vacancie->conditions) ?>
+                        <?= $vacancie->conditions ?>
                     </div>
                 </div>
             <?php endif ?>

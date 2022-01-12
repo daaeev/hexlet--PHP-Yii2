@@ -23,8 +23,8 @@ use yii\i18n\Formatter;
                                 <div class="card-info">
                                     <span class="pub-date text-muted me-3 small"><?= (new Formatter)->asRelativeTime($vacancie->pub_date) ?></span>
                                     <h5 class="card-title"><a href="/vacancie/<?= $vacancie->id ?>"><?= htmlspecialchars(ViewHelper::createVacancieTitle($vacancie)) ?></a></h5>
-                                    <p class="card-tasks mb-1"><?= htmlspecialchars(substr($vacancie->duties, 0, 350)) ?>...</p>
-                                    <p class="card-skills fw-bold"><?= htmlspecialchars($vacancie->duties) ?></p>
+                                    <p class="card-tasks mb-1"><?= strip_tags(substr($vacancie->duties, 0, 350)) ?>...</p>
+                                    <p class="card-skills fw-bold"><?= htmlspecialchars($vacancie->technologies) ?></p>
                                 </div>
                             </div>
                         <?php endforeach ?>

@@ -20,4 +20,5 @@ $container->setSingleton(VacancieGetInterface::class, VacancieGetHelper::class);
 $container->setSingleton(DBValidatorInterface::class, DBValidator::class);
 
 $markDownParser = new Parsedown;
+$markDownParser->setSafeMode(true);
 $container->set(Parsedown::class, $markDownParser);
