@@ -9,6 +9,7 @@ use app\exceptions\ValidationFailedException;
 use app\models\Comment;
 use app\models\Resume;
 use Parsedown;
+use PHPUnit\Framework\MockObject\MockObject;
 use yii\base\Model;
 
 /**
@@ -55,15 +56,15 @@ class CreateCommentForm extends Model
      * @throws IDNotFoundException если запись с определенным идентификатором не существует
      * (при проверке существования)
      */
-    public function createComment(Comment $comment, Parsedown $parser, DBValidatorInterface $validator, int $resume_id, int $parent_comment_id = null): bool
+    public function createComment(Comment|MockObject $comment, Parsedown $parser, DBValidatorInterface|MockObject $validator, int $resume_id, int $parent_comment_id = null): bool
     {
         $is_comment = $parent_comment_id ? true : false;
 
-        if ($this->validate()) {
-            if ($is_comment && (iconv_strlen($this->content) > 200)) {
-                throw new ValidationFailedException('Валидация данных прошла неуспешно');
-            }
-        } else {
+        if (!$this->validate()) {
+            throw new ValidationFailedException('Валидация данных прошла неуспешно');
+        }
+            
+        if ($is_comment && (iconv_strlen($this->content) > 200)) {
             throw new ValidationFailedException('Валидация данных прошла неуспешно');
         }
 
@@ -71,13 +72,13 @@ class CreateCommentForm extends Model
             throw new IDNotFoundException('Резюме с id ' . $resume_id . ' не существует');
         }
 
-        if ($is_comment && $validator->commentExist($parent_comment_id)) {
+        if ($is_comment && !$validator->commentExist($parent_comment_id)) {
             throw new IDNotFoundException('Комментария с id ' . $parent_comment_id . ' не существует');
         }
 
         $comment->resume_id = $resume_id;
         $comment->parent_comment_id = $parent_comment_id;
-        $comment->content = $is_comment ? htmlspecialchars($this->content) : $parser->line($this->content);
+        $comment->content = $is_comment ? $this->content : $parser->line($this->content);
 
         if (!$comment->save()) {
             throw new DBDataSaveException('Сохранение комментария в базу данных прошло неуспешно');
