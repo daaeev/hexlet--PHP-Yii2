@@ -34,7 +34,8 @@ interface RoleHelperInterface
 
     /**
      * Метод для получения объекта authManager.
-     * Создан для облегчения тестирования
+     * Создан для облегчения работы с 
+     * мок-объектом при тестировании
      * @return ManagerInterface|MockObject
      */
     public function getAuthManager();

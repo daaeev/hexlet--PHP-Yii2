@@ -11,6 +11,7 @@ use app\models\UserSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use Yii;
+use yii\rbac\ManagerInterface;
 
 /**
  * UserController implements the CRUD actions for User model.
@@ -53,7 +54,8 @@ class UserController extends Controller
      */
     public function actionRole($id)
     {
-        $helper = Yii::$container->get(RoleHelperInterface::class);
+        $authManager = Yii::$container->get(ManagerInterface::class);
+        $helper = Yii::$container->get(RoleHelperInterface::class, [$authManager]);
 
         // Если post-данные формы приняты, выполнить функционал присваивания роли,
         // инаце - отобразить страницу role
@@ -80,7 +82,7 @@ class UserController extends Controller
                     UndefinedRoleException|
                     DBDataSaveException $e
                 ) {
-                    Yii::$app->authManager->revokeAll($id);
+                    $authManager->revokeAll($id);
                     $user->status = $userPrevStatus;
                     $user->save();
                     Yii::$app->session->setFlash('warning', $e->getMessage());
