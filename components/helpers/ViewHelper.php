@@ -2,7 +2,9 @@
 
 namespace app\components\helpers;
 
+use app\exceptions\BadParametrsException;
 use app\models\Vacancie;
+use PHPUnit\Framework\MockObject\MockObject;
 
 /**
  * Статичный класс, который используется исключительно в файлах вида
@@ -42,14 +44,14 @@ class ViewHelper
      * используя такие данные, как: 
      * уровень знаний, должность, информация о зарплате
      * и название компании.
-     * @param Vacancie|array $vac запись из таблицы vacancie
+     * @param Vacancie|MockObject $vac запись из таблицы vacancie
      * @return string сгенерированное название вакансии
      */
-    public static function createVacancieTitle(Vacancie|array $vac): string
+    public static function createVacancieTitle(Vacancie|MockObject $vac): string
     {
-        $title = "$vac->level $vac->position ";
-        $title .= self::createSalaryTitle($vac);
-        $title .= " - $vac->company";
+        $title = "$vac->level $vac->position";
+        $title .= self::createSalaryTitle($vac) ? ' ' . self::createSalaryTitle($vac) . ' ' : ' ';
+        $title .= "- $vac->company";
 
         return $title;
     }
@@ -57,10 +59,10 @@ class ViewHelper
     /**
      * Метод генерирует строку
      * из данных вакансии о зарплате
-     * @param Vacancie|array $vac запись из таблицы vacancie
+     * @param Vacancie|MockObject $vac запись из таблицы vacancie
      * @return string сгенерированное строке из данных о зарплате
      */
-    public static function createSalaryTitle(Vacancie|array $vac): string
+    public static function createSalaryTitle(Vacancie|MockObject $vac): string
     {
         $title = '';
 
