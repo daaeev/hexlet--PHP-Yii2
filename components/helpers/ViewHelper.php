@@ -2,7 +2,6 @@
 
 namespace app\components\helpers;
 
-use app\exceptions\BadParametrsException;
 use app\models\Vacancie;
 use PHPUnit\Framework\MockObject\MockObject;
 

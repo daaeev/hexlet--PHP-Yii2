@@ -8,7 +8,7 @@ interface VacancieGetInterface
 {
     /**
      * Возвращает массив со всеми проверенными вакансиями
-     * @return array массив из проверенных резюме с пагинацией ['vacancies' => [...], 'pagination' => [...]]
+     * @return array массив из проверенных резюме с пагинацией ['elements' => [...], 'pagination' => [...]]
      */
     public function getAll(): array;
 

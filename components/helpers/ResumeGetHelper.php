@@ -2,6 +2,7 @@
 
 namespace app\components\helpers;
 
+use app\components\helpers\interface\GetPaginationDataTrait;
 use app\components\helpers\interface\ResumeGetInterface;
 use app\exceptions\IDNotFoundException;
 use app\models\Resume;
@@ -16,6 +17,8 @@ use yii\db\ActiveQuery;
 class ResumeGetHelper implements ResumeGetInterface
 {
     public int $pageSize = 20;
+
+    use GetPaginationDataTrait;
 
     public function getAll(): array
     {
@@ -108,26 +111,5 @@ class ResumeGetHelper implements ResumeGetInterface
         }
 
         throw new IDNotFoundException;
-    }
-
-    /**
-     * Метод преобразует обычный запрос queryBuilder`a
-     * с использованием пагинации
-     * @param ActiveQuery $query экземпляр запроса
-     * @param string $route путь к экшену с определенной категорией.
-     * Не указывая путь для пагинации, при переходе на след. страницу,
-     * адрес будет похож на 'site/resume', контроллер/экшен
-     * @return array данные из бд с использованием пагинации
-     */
-    protected function getPaginationData(ActiveQuery $query, string $route): array
-    {
-        $countQuery = $query->count();
-        $pagination = new Pagination(['totalCount' => $countQuery, 'pageSize' => $this->pageSize, 'route' => $route]);
-
-        $resumes = $query->offset($pagination->offset)
-            ->limit($pagination->limit)
-            ->all();
-
-        return compact('pagination', 'resumes');
     }
 }

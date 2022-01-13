@@ -24,9 +24,9 @@ use yii\i18n\Formatter;
             <div class="mt-5 card-block">
 
                 <!-- CARD -->
-                    <?php if ($data['resumes']): ?>
+                    <?php if ($data['elements']): ?>
 
-                        <?php foreach ($data['resumes'] as $resume): ?>
+                        <?php foreach ($data['elements'] as $resume): ?>
                             <div class="card card-noborder border-8 flex-row mb-4 pb-4">
                                 <div class="social-info col-md-2 text-center text-nowrap me-3 small">
                                     <p class="text-muted mb-0 h2 fw-lighter"><?= count($resume->comments) ?></p>

@@ -15,10 +15,10 @@ use yii\i18n\Formatter;
             <h1>Вакансии для разработчиков</h1>
 
             <div class="mt-5 card-block">
-                <?php if ($data['vacancies']): ?>
+                <?php if ($data['elements']): ?>
 
                     <!-- CARD -->
-                        <?php foreach ($data['vacancies'] as $vacancie): ?>
+                        <?php foreach ($data['elements'] as $vacancie): ?>
                             <div class="card card-noborder border-8 mb-4 p-3 pb-4">
                                 <div class="card-info">
                                     <span class="pub-date text-muted me-3 small"><?= (new Formatter)->asRelativeTime($vacancie->pub_date) ?></span>
