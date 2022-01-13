@@ -30,7 +30,7 @@ class RoleHelper implements RoleHelperInterface
 
     public function assignRole(string $role_name, int $user_id): bool
     {
-        $auth = $this->authManager;
+        $auth = $this->getAuthManager();
 
         if (!$auth->revokeAll($user_id)) {
             throw new DBDataDeleteException('Удаление имеющихся ролей пользователя прошло неудачно');
