@@ -21,6 +21,10 @@ use yii\web\IdentityInterface;
  */
 class User extends \yii\db\ActiveRecord implements IdentityInterface
 {
+    const STATUS_USER = 0;
+    const STATUS_ADMIN = 1;
+    const STATUS_MODERATOR = 2;
+    const STATUS_BANNED = 3;
     /**
      * {@inheritdoc}
      */
@@ -36,7 +40,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     {
         return [
             ['status', 'integer'],
-            [['status'], 'default', 'value' => 0],
+            [['status'], 'default', 'value' => self::STATUS_USER],
             [['contribution'], 'string'],
             [['name', 'email', 'password'], 'string', 'max' => 255],
             ['name', 'default', 'value' => 'Anonymous'],

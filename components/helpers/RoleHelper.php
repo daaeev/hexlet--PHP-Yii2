@@ -72,13 +72,13 @@ class RoleHelper implements RoleHelperInterface
     {
         switch ($role_name) {
             case 'user':
-                return 0;
+                return User::STATUS_USER;
             case 'admin':
-                return 1;
+                return User::STATUS_ADMIN;
             case 'moderator':
-                return 2;
+                return User::STATUS_MODERATOR;
             case 'banned':
-                return 3;
+                return User::STATUS_BANNED;
             default:
                 throw new UndefinedRoleException('Роль ' . $role_name . ' не существует');
         }
