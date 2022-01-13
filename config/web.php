@@ -56,7 +56,7 @@ $config = [
                 'account/<tab:\D{6,9}>' => 'site/account',
                 'create/resume' => 'site/create-resume',
                 'create/vacancie' => 'site/create-vacancie',
-                'profile' => 'site/profile',
+                'profile/<id:\d+>' => 'site/profile',
                 'resume/<id:\d+>' => 'site/resume-view',
                 'vacancie/<id:\d+>' => 'site/vacancie-view',
 

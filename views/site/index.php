@@ -42,7 +42,7 @@ use yii\i18n\Formatter;
 
                                     <div class="pub-info text-end mt-4 small">
                                         <span class="pub-date text-muted me-3"><?= (new Formatter)->asRelativeTime($resume->pub_date) ?></span>
-                                        <a class="author" href="#"><?= htmlspecialchars($resume->author->name) ?></a>
+                                        <a class="author" href="<?= Url::to('/profile/' . $resume->author->id) ?>"><?= htmlspecialchars($resume->author->name) ?></a>
                                     </div>
                                 </div>
                             </div>

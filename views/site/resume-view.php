@@ -2,6 +2,7 @@
 
 use app\widgets\Alert;
 use yii\bootstrap4\ActiveForm;
+use yii\helpers\Url;
 use yii\i18n\Formatter;
 
 ?>
@@ -17,7 +18,7 @@ use yii\i18n\Formatter;
                 </div>
                 <div class="row mb-3">
                     <div class="col-sm-3"><b>Имя</b></div>
-                    <div class="col-sm-9"><a href="#"><?= htmlspecialchars($resume->author->name) ?></a></div>
+                    <div class="col-sm-9"><a href="<?= Url::to('/profile/' . $resume->author->id) ?>"><?= htmlspecialchars($resume->author->name) ?></a></div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-sm-3"><b>Описание</b></div>
@@ -66,7 +67,7 @@ use yii\i18n\Formatter;
                     <div class="card mb-4" id="answer-344">
                         <div class="card-header small mb-2 d-flex">
                             <div class="me-auto d-flex">
-                                <span class="fw-bold"><a href="#"><?= htmlspecialchars($comment->author->name) ?></a></span>
+                                <span class="fw-bold"><a href="<?= Url::to("/profile/" . $comment->author->id) ?>"><?= htmlspecialchars($comment->author->name) ?></a></span>
                                 <span class="mx-2 fw-light text-muted"><?= (new Formatter)->asRelativeTime($comment->pub_date) ?></span>
                             </div>
                         </div>
@@ -91,7 +92,7 @@ use yii\i18n\Formatter;
                                                     <span class="me-2">
                                                         <p><?= $childComment->content ?></p>
                                                     </span>
-                                                    <span class="me-1"><a href="#"><?= htmlspecialchars($childComment->author->name) ?></a></span>
+                                                    <span class="me-1"><a href="<?= Url::to("/profile/" . $childComment->author->id) ?>"><?= htmlspecialchars($childComment->author->name) ?></a></span>
                                                     <span class="small text-muted"><?= (new Formatter)->asRelativeTime($childComment->pub_date) ?></span>
                                                 </div>
                                             </div>

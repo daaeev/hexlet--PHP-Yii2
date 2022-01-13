@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\components\helpers\interface\DBValidatorInterface;
 use app\components\helpers\interface\ResumeGetInterface;
+use app\components\helpers\interface\UserGetInterface;
 use app\components\helpers\interface\VacancieGetInterface;
 use app\exceptions\DBDataSaveException;
 use app\exceptions\IDNotFoundException;
@@ -337,9 +338,27 @@ class SiteController extends Controller
         return $this->render('vacancie_create_form', compact('model'));
     }
 
-    public function actionProfile()
+    /**
+     * Метод отвечает за отображение страницы 
+     * профиля пользователя с id = $id
+     * 
+     * В методе производится получение объекта пользователя
+     * со всеми нужными связями и отдельное получение количества
+     * лайков пользователя через класс-хелпер UserGetHelper.
+     * 
+     * Полученные данные передаются в файл вида
+     * @param int $id идентификатор пользователя
+     * @return string результат рендеринга
+     * @throws InvalidArgumentException если файл вида или шаблона не найден
+     * @throws IDNotFoundException если пользователь не найден
+     */
+    public function actionProfile($id)
     {
-        return $this->render('profile');
+        $helper = Yii::$container->get(UserGetInterface::class);
+        $user = $helper->getByIdWithRelations($id);
+        $likesCount = $helper->getLikesCount($id);
+
+        return $this->render('profile', compact('user', 'likesCount'));
     }
 
     public function actionError()

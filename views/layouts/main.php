@@ -71,7 +71,7 @@ MainAsset::register($this);
                         <span class="username"><?= htmlspecialchars($this->params['user']->name) ?></span><br>
                         <span class="email"><?= htmlspecialchars($this->params['user']->email) ?></span>
                     </li>
-                    <li><a class="dropdown-item" href="<?= Url::to('/profile') ?>">Мой профиль</a></li>
+                    <li><a class="dropdown-item" href="<?= Url::to('/profile/' . $this->params['user']->id) ?>">Мой профиль</a></li>
                     <li><a class="dropdown-item" href="<?= Url::to('/account/resume') ?>">Мои резюме</a></li>
                     <li><a class="dropdown-item" href="<?= Url::to('/account/vacancies') ?>">Мои вакансии</a></li>
                     <li><a class="dropdown-item" href="<?= Url::to('/account/settings') ?>">Настройки</a></li>
