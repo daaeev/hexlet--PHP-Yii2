@@ -16,7 +16,6 @@ class m220103_154809_create_comments_table extends Migration
             'id' => $this->primaryKey(),
             'author_id' => $this->integer(),
             'resume_id' => $this->integer(),
-            'likes' => $this->integer(),
             'pub_date' => $this->bigInteger(),
             'parent_comment_id' => $this->integer(),
             'content' => $this->text(),

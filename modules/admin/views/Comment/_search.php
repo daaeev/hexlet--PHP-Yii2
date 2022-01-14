@@ -21,8 +21,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'resume_id') ?>
 
-    <?php // echo $form->field($model, 'likes') ?>
-
     <?php // echo $form->field($model, 'pub_date') ?>
 
     <?php echo $form->field($model, 'parent_comment_id') ?>

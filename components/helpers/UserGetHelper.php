@@ -5,6 +5,7 @@ namespace app\components\helpers;
 use app\components\helpers\interface\UserGetInterface;
 use app\exceptions\IDNotFoundException;
 use app\models\Comment;
+use app\models\Likes;
 use app\models\Resume;
 use app\models\User;
 use yii\db\ActiveQuery;
@@ -47,9 +48,10 @@ class UserGetHelper implements UserGetInterface
 
     public function getLikesCount(int $id): int
     {
-        $likesModel = Comment::find()
-            ->select('SUM(likes)')
-            ->where(['author_id' => $id])
+        $likesModel = Likes::find()
+            ->select('COUNT(*)')
+            ->joinWith('comment')
+            ->where(['comments.author_id' => $id])
             ->column();
 
         $likesCount = $likesModel[0] ?? 0;

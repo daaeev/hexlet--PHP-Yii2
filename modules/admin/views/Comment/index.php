@@ -25,7 +25,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'author_id',
             //'resume_id',
-            //'likes',
             //'pub_date',
             //'parent_comment_id',
             'content:ntext',

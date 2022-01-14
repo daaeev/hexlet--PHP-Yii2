@@ -102,7 +102,12 @@ class ResumeGetHelper implements ResumeGetInterface
     public function findById(int $id): Resume|array
     {
         $model = Resume::find()
-            ->with('author', 'comments.author', 'comments.comments.author')
+            ->with([
+                'author', 
+                'comments.author', 
+                'comments.comments.author',
+                'comments.likes',
+            ])
             ->where(['status' => Resume::STATUS_CONFIRMED, 'id' => $id])
             ->one();
         

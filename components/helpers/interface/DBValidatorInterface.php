@@ -23,4 +23,14 @@ interface DBValidatorInterface
      * @return bool
      */
     public function commentExist(int $id): bool;
+
+    /**
+     * Метод проверяет наличие лайка 
+     * пользователя с идентификатором $user_id
+     * на комментарии с id = $comment_id
+     * @param int $user_id идентификатор пользователя
+     * @param int $comment_id идентификатор комментария
+     * @return bool
+     */
+    public function likeExist(int $user_id, int $comment_id): bool;
 }

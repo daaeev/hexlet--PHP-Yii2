@@ -10,7 +10,6 @@ use Yii;
  * @property int $id
  * @property int|null $author_id
  * @property int|null $resume_id
- * @property int|null $likes
  * @property int|null $pub_date
  * @property int|null $parent_comment_id
  * @property string|null $content
@@ -43,7 +42,6 @@ class Comment extends \yii\db\ActiveRecord
             [['resume_id'], 'exist', 'skipOnError' => true, 'targetClass' => Resume::className(), 'targetAttribute' => ['resume_id' => 'id']],
             ['author_id', 'default', 'value' => Yii::$app->view->params['user']->id],
             ['pub_date', 'default', 'value' => time()],
-            ['likes', 'default', 'value' => 0],
         ];
     }
 
@@ -101,5 +99,15 @@ class Comment extends \yii\db\ActiveRecord
     public function getResume()
     {
         return $this->hasOne(Resume::className(), ['id' => 'resume_id']);
+    }
+
+    /**
+     * Gets query for [[Likes]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getLikes()
+    {
+        return $this->hasMany(Likes::className(), ['comment_id' => 'id']);
     }
 }

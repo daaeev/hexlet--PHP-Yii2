@@ -58,6 +58,7 @@ $config = [
                 'create/vacancie' => 'site/create-vacancie',
                 'profile/<id:\d+>' => 'site/profile',
                 'resume/<id:\d+>' => 'site/resume-view',
+                'resume/like/<id:\d+>' => 'site/do-like',
                 'vacancie/<id:\d+>' => 'site/vacancie-view',
 
                 'create-comment/<resume_id:\d+>/<parent_comment_id:\d+>' => 'site/create-comment',

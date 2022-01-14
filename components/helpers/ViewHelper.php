@@ -2,8 +2,10 @@
 
 namespace app\components\helpers;
 
+use app\components\helpers\interface\DBValidatorInterface;
 use app\models\Vacancie;
 use PHPUnit\Framework\MockObject\MockObject;
+use Yii;
 
 /**
  * Статичный класс, который используется исключительно в файлах вида
@@ -80,5 +82,32 @@ class ViewHelper
         }
 
         return $title;
+    }
+
+    /**
+     * Метод генерирует тип передачи данных 
+     * post или delete (используется в кнопке лайка)
+     * 
+     * Если пользователь незарегистрирован - post
+     * 
+     * Если зарегистрирован, но не поставил лайк - post
+     * 
+     * Если зарегистрирован и поставил лайк - delete
+     * @param int $comment_id id комментария
+     * @return string метод передачи данных
+     */
+    public static function createDataMethod(int $comment_id): string
+    {
+        if (!Yii::$app->user->isGuest) {
+            $helper = Yii::$container->get(DBValidatorInterface::class);
+
+            if ($helper->likeExist(Yii::$app->view->params['user']->id, $comment_id)) {
+                return 'delete';
+            } else {
+                return 'post';
+            }
+        } else {
+            return 'post';
+        }
     }
 }

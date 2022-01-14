@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\components\helpers\DBValidator;
 use app\components\helpers\interface\DBValidatorInterface;
 use app\components\helpers\interface\ResumeGetInterface;
 use app\components\helpers\interface\UserGetInterface;
@@ -15,11 +16,14 @@ use app\models\forms\AccountSettingsForm;
 use app\models\forms\CreateCommentForm;
 use app\models\forms\CreateResumForm;
 use app\models\forms\CreateVacancieForm;
+use app\models\Likes;
 use app\models\Resume;
 use app\models\Vacancie;
 use Parsedown;
 use yii\web\Controller;
 use Yii;
+use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
 use yii\helpers\Url;
 
 class SiteController extends Controller
@@ -30,6 +34,23 @@ class SiteController extends Controller
     {
         return [
             NeededVariables::class,
+            'verbs' => [
+                'class' => VerbFilter::class,
+                'actions' => [
+                    'do-like'  => ['post', 'delete'],
+                ],
+            ],
+            'access' => [
+                'class' => AccessControl::class,
+                'only' => ['do-like', 'create-comment', 'account', 'create-resume', 'create-vacancie'],
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'actions' => ['do-like', 'create-comment', 'account', 'create-resume', 'create-vacancie'],
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
         ];
     }
 
@@ -85,6 +106,46 @@ class SiteController extends Controller
     }
 
     /**
+     * Метод отвечает за создание/удаление
+     * лайка на рекомендации
+     * @param int $id идентификатор комментария
+     * @return Response 
+     */
+    public function actionDoLike($id)
+    {
+        $helper = Yii::$container->get(DBValidatorInterface::class);
+
+        if (Yii::$app->request->isPost) {
+            if (!$helper->likeExist(Yii::$app->view->params['user']->id, $id)) {
+                $model = new Likes;
+                $model->user_id = Yii::$app->view->params['user']->id;
+                $model->comment_id = $id;
+
+                if ($model->save()) {
+                    Yii::$app->session->setFlash('success', 'Вы поставили отметку "Мне нравится"');
+                } else {
+                    Yii::$app->session->setFlash('error', 'Возникла ошибка в сохранении данных');
+                }
+            }
+        } else if (Yii::$app->request->isDelete) {
+            if ($helper->likeExist(Yii::$app->view->params['user']->id, $id)) {
+                $model = Likes::findOne([
+                    'user_id' => Yii::$app->view->params['user']->id,
+                    'comment_id' => $id,
+                ]);
+
+                if ($model->delete()) {
+                    Yii::$app->session->setFlash('success', 'Вы убрали отметку "Мне нравится"');
+                } else {
+                    Yii::$app->session->setFlash('error', 'Возникла ошибка в сохранении данных');
+                }
+            }
+        }
+
+        return $this->redirect(Yii::$app->request->referrer);
+    }
+
+    /**
      * Метод отвечает за операцию создания комментариев.
      * 
      * После выполнения задачи производится редирект на предыдущую страницу,
@@ -96,7 +157,7 @@ class SiteController extends Controller
      * @param int $resume_id id записи в таблице resume
      * @param int $parent_comment_id id записи в таблице comments,
      * (id родительского комментария)
-     * @return string результат рендеринга
+     * @return Response 
      * @throws InvalidArgumentException если файл вида или шаблона не найден
      */
     public function actionCreateComment(int $resume_id, int $parent_comment_id = null)

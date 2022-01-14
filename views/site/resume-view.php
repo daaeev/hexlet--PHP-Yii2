@@ -1,5 +1,6 @@
 <?php
 
+use app\components\helpers\ViewHelper;
 use app\widgets\Alert;
 use yii\bootstrap4\ActiveForm;
 use yii\helpers\Url;
@@ -73,8 +74,8 @@ use yii\i18n\Formatter;
                         </div>
                         <div class="card-body d-flex">
                             <div class="me-3 h4">
-                                <p class="text-center text-muted mb-2 mt-1 fw-light"><?= $comment->likes ?></p>
-                                <a class="text-decoration-none" href="">
+                                <p class="text-center text-muted mb-2 mt-1 fw-light"><?= count($comment->likes) ?></p>
+                                <a class="text-decoration-none" href="<?= Url::to('/resume/like/' . $comment->id) ?>" data-method='<?= ViewHelper::createDataMethod($comment->id) ?>'>
                                     <span class="bi bi-hand-thumbs-up text-secondary"></span>
                                 </a>
                             </div>
