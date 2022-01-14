@@ -18,6 +18,8 @@ use yii\web\IdentityInterface;
  * @property Comments[] $comments
  * @property Notifications[] $notifications
  * @property Resume[] $resumes
+ * @property Vacancies[] $vacancies
+ * @property Likes[] $likes
  */
 class User extends \yii\db\ActiveRecord implements IdentityInterface
 {
@@ -115,5 +117,25 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     public function getResumes()
     {
         return $this->hasMany(Resume::className(), ['author_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[Likes]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getLikes()
+    {
+        return $this->hasMany(Likes::className(), ['user_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[Vacancies]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getVacancies()
+    {
+        return $this->hasMany(Vacancie::className(), ['author_id' => 'id']);
     }
 }
