@@ -57,4 +57,14 @@ class UserGetHelper implements UserGetInterface
         $likesCount = $likesModel[0] ?? 0;
         return $likesCount;
     }
+
+    public function getUsersByRating(): array
+    {
+        $users =  User::find()
+            ->orderBy('likes_count DESC')
+            ->limit(20)
+            ->all();
+        
+        return $users;
+    }
 }

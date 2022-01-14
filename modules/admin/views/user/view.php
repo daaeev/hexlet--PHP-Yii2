@@ -29,6 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'email:email',
             'password',
             'contribution:ntext',
+            'likes_count',
         ],
     ]) ?>
 

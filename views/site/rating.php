@@ -1,3 +1,10 @@
+<?php
+
+use yii\helpers\Url;
+
+$position = 1;
+
+?>
 <!-- CONTENT -->
 <div class="container-md" id="content">
     <div class="row">
@@ -11,21 +18,13 @@
                         <th>Количество лайков</th>
                         <th>Пользователь</th>
                     </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>35</td>
-                        <td><a href="#">David Klein</a></td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>32</td>
-                        <td><a href="#">Egor Yurskiy</a></td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>5</td>
-                        <td><a href="#">Anya Nemchinskaya</a></td>
-                    </tr>
+                    <?php foreach ($users as $user): ?>
+                        <tr>
+                            <td><?= $position ?></td>
+                            <td><?= $user->likes_count ?></td>
+                            <td><a href="<?= Url::to('/profile/' . $user->id) ?>"><?= htmlspecialchars($user->name) ?></a></td>
+                        </tr>
+                    <?php $position++; endforeach ?>
                 </tbody>
             </table>
         </div>

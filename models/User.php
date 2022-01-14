@@ -13,6 +13,7 @@ use yii\web\IdentityInterface;
  * @property string|null $email
  * @property string|null $password
  * @property int|null $status
+ * @property int $likes_count
  * @property string|null $contribution
  *
  * @property Comments[] $comments
@@ -46,6 +47,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
             [['contribution'], 'string'],
             [['name', 'email', 'password'], 'string', 'max' => 255],
             ['name', 'default', 'value' => 'Anonymous'],
+            ['likes_count', 'default', 'value' => '0'],
         ];
     }
 
@@ -61,6 +63,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
             'password' => 'Password',
             'status' => 'Status',
             'contribution' => 'Contribution',
+            'likes_count' => 'Likes',
         ];
     }
 

@@ -19,6 +19,7 @@ class m220103_125628_create_user_table extends Migration
             'password' => $this->string(),
             'status' => $this->tinyInteger()->defaultValue(0),
             'contribution' => $this->text(),
+            'likes_count' => $this->integer()->defaultValue(0),
         ]);
     }
 

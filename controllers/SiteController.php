@@ -18,6 +18,7 @@ use app\models\forms\CreateResumForm;
 use app\models\forms\CreateVacancieForm;
 use app\models\Likes;
 use app\models\Resume;
+use app\models\User;
 use app\models\Vacancie;
 use Parsedown;
 use yii\web\Controller;
@@ -110,11 +111,13 @@ class SiteController extends Controller
      * лайка на рекомендации
      * 
      * Если тип запроса - post, то проверяется наличие лайка пользователя
-     * на комментарии с id = $id. Если не имеется - создать запись лайка в таблице likes
+     * на комментарии с id = $id. Если не имеется - создать запись лайка в таблице likes,
+     * увеличить счётчик likes_count в таблице user
      * и создать flash-сессию с результатом операции.
      * 
      * Если тип запроса - delete, то проверяется наличие лайка пользователя
-     * на комментарии с id = $id. Если имеется - удалить запись из таблицы likes
+     * на комментарии с id = $id. Если имеется - удалить запись из таблицы likes,
+     * уменьшить счётчик likes_count в таблице user
      * и создать flash-сессию с результатом операции.
      * @param int $id идентификатор комментария
      * @return Response 
@@ -130,6 +133,13 @@ class SiteController extends Controller
                 $model->comment_id = $id;
 
                 if ($model->save()) {
+                    $user = User::find()
+                        ->joinWith('comments')
+                        ->where(['comments.id' => $id])
+                        ->one();
+
+                    $user->updateCounters(['likes_count' => 1]);
+
                     Yii::$app->session->setFlash('success', 'Вы поставили отметку "Мне нравится"');
                 } else {
                     Yii::$app->session->setFlash('error', 'Возникла ошибка в сохранении данных');
@@ -143,6 +153,12 @@ class SiteController extends Controller
                 ]);
 
                 if ($model->delete()) {
+                    $user = User::find()
+                        ->joinWith('comments')
+                        ->where(['comments.id' => $id])
+                        ->one();
+                        
+                    $user->updateCounters(['likes_count' => -1]);
                     Yii::$app->session->setFlash('success', 'Вы убрали отметку "Мне нравится"');
                 } else {
                     Yii::$app->session->setFlash('error', 'Возникла ошибка в сохранении данных');
@@ -226,7 +242,10 @@ class SiteController extends Controller
 
     public function actionRating()
     {
-        return $this->render('rating');
+        $helper = Yii::$container->get(UserGetInterface::class);
+        $users = $helper->getUsersByRating();
+
+        return $this->render('rating', compact('users'));
     }
 
     /**

@@ -24,4 +24,12 @@ interface UserGetInterface
      * @return int количество лайков
      */
     public function getLikesCount(int $id): int;
+
+    /**
+     * Метод получает первых 20 пользователей,
+     * которые отсортированы по убыванию количества лайков
+     * на рекомендациях
+     * @return array массив объектов User
+     */
+    public function getUsersByRating(): array;
 }
