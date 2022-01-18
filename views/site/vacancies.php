@@ -1,9 +1,9 @@
 <?php
 
+use app\components\helpers\UrlGen;
 use app\components\helpers\ViewHelper;
 use app\widgets\Alert;
 use yii\bootstrap4\LinkPager;
-use yii\helpers\Url;
 use yii\i18n\Formatter;
 
 ?>
@@ -22,7 +22,7 @@ use yii\i18n\Formatter;
                             <div class="card card-noborder border-8 mb-4 p-3 pb-4">
                                 <div class="card-info">
                                     <span class="pub-date text-muted me-3 small"><?= (new Formatter)->asRelativeTime($vacancie->pub_date) ?></span>
-                                    <h5 class="card-title"><a href="/vacancie/<?= $vacancie->id ?>"><?= htmlspecialchars(ViewHelper::createVacancieTitle($vacancie)) ?></a></h5>
+                                    <h5 class="card-title"><a href="<?= UrlGen::vacancie($vacancie->id) ?>"><?= htmlspecialchars(ViewHelper::createVacancieTitle($vacancie)) ?></a></h5>
                                     <p class="card-tasks mb-1"><?= strip_tags(substr($vacancie->duties, 0, 350)) ?>...</p>
                                     <p class="card-skills fw-bold"><?= htmlspecialchars($vacancie->technologies) ?></p>
                                 </div>

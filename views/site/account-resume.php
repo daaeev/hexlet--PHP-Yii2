@@ -1,7 +1,7 @@
 <?php
 
+use app\components\helpers\UrlGen;
 use app\components\helpers\ViewHelper;
-use yii\helpers\Url;
 
 ?>
 <!-- CONTENT -->
@@ -9,10 +9,10 @@ use yii\helpers\Url;
     <div class="row">
         <div class="col-md-3">
             <ul class="nav flex-column nav-pills">
-                <li class="nav-item"><a href="<?= Url::to('/account/notify') ?>" class="nav-link link-dark">Уведомления</a></li>
+                <li class="nav-item"><a href="<?= UrlGen::account('notify') ?>" class="nav-link link-dark">Уведомления</a></li>
                 <li class="nav-item"><a href="" class="nav-link link-dark active">Мои резюме</a></li>
-                <li class="nav-item"><a href="<?= Url::to('/account/vacancies') ?>" class="nav-link link-dark">Мои вакансии</a></li>
-                <li class="nav-item"><a href="<?= Url::to('/account/settings') ?>" class="nav-link link-dark">Настройки</a></li>
+                <li class="nav-item"><a href="<?= UrlGen::account('vacancie') ?>" class="nav-link link-dark">Мои вакансии</a></li>
+                <li class="nav-item"><a href="<?= UrlGen::account('settings') ?>" class="nav-link link-dark">Настройки</a></li>
             </ul>
         </div>
         <div class="col-md-9">
@@ -21,7 +21,7 @@ use yii\helpers\Url;
             <?php if ($resumes): ?>
                 <?php foreach ($resumes as $resume): ?>
                     <div class="card mb-3">
-                        <?= ViewHelper::introduceStatus($resume->status, "/resume/$resume->id") ?>
+                        <?= ViewHelper::introduceStatus($resume->status, UrlGen::resume($resume->id)) ?>
                         <div class="card-body">
                             <h5 class="card-title"><?= htmlspecialchars($resume->title) ?></h5>
                             <div class="card-text">

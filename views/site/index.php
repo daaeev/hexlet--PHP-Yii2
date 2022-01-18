@@ -1,9 +1,9 @@
 <?php
 
+use app\components\helpers\UrlGen;
 use app\components\helpers\ViewHelper;
 use app\widgets\Alert;
 use yii\bootstrap4\LinkPager;
-use yii\helpers\Url;
 use yii\i18n\Formatter;
 
 ?>
@@ -15,10 +15,10 @@ use yii\i18n\Formatter;
             <h1>Резюме программистов</h1>
 
             <div class="nav nav-pills justify-content-center mt-5">
-                <a href="<?= Url::to('/resume/all') ?>" class="nav-item nav-link link-dark resume-all">Все</a>
-                <a href="<?= Url::to('/resume/popular') ?>" class="nav-item nav-link link-dark resume-popular">Популрные</a>
-                <a href="<?= Url::to('/resume/new') ?>" class="nav-item nav-link link-dark resume-new">Новые</a>
-                <a href="<?= Url::to('/resume/norecomend') ?>" class="nav-item nav-link link-dark resume-norecomend">Без рекомендация</a>
+                <a href="<?= UrlGen::allResumes() ?>" class="nav-item nav-link link-dark resume-all">Все</a>
+                <a href="<?= UrlGen::allResumes('popular') ?>" class="nav-item nav-link link-dark resume-popular">Популрные</a>
+                <a href="<?= UrlGen::allResumes('new') ?>" class="nav-item nav-link link-dark resume-new">Новые</a>
+                <a href="<?= UrlGen::allResumes('norecomend') ?>" class="nav-item nav-link link-dark resume-norecomend">Без рекомендация</a>
             </div>
 
             <div class="mt-5 card-block">
@@ -37,12 +37,12 @@ use yii\i18n\Formatter;
                                 </div>
 
                                 <div class="card-info w-100">
-                                    <h5 class="card-title"><a href="/resume/<?= $resume->id ?>"><?= htmlspecialchars($resume->title) ?></a></h5>
+                                    <h5 class="card-title"><a href="<?= UrlGen::resume($resume->id) ?>"><?= htmlspecialchars($resume->title) ?></a></h5>
                                     <p class="card-subtitle"><?= strip_tags(substr($resume->description, 0, 350)) ?>...</p>
 
                                     <div class="pub-info text-end mt-4 small">
                                         <span class="pub-date text-muted me-3"><?= (new Formatter)->asRelativeTime($resume->pub_date) ?></span>
-                                        <a class="author" href="<?= Url::to('/profile/' . $resume->author->id) ?>"><?= htmlspecialchars($resume->author->name) ?></a>
+                                        <a class="author" href="<?= UrlGen::profile($resume->author->id) ?>"><?= htmlspecialchars($resume->author->name) ?></a>
                                     </div>
                                 </div>
                             </div>

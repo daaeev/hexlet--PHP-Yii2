@@ -4,12 +4,12 @@
 /* @var $content string */
 
 use app\assets\AppAsset;
+use app\components\helpers\UrlGen;
 use app\widgets\Alert;
 use yii\bootstrap4\Breadcrumbs;
 use yii\bootstrap4\Html;
 use yii\bootstrap4\Nav;
 use yii\bootstrap4\NavBar;
-use yii\helpers\Url;
 
 AppAsset::register($this);
 ?>
@@ -30,7 +30,7 @@ AppAsset::register($this);
     <?php
     NavBar::begin([
         'brandLabel' => 'Home',
-        'brandUrl' => Url::home(),
+        'brandUrl' => UrlGen::home(),
         'options' => [
             'class' => 'navbar navbar-expand-md navbar-dark bg-dark fixed-top',
         ],
@@ -38,11 +38,11 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav'],
         'items' => [
-            ['label' => 'Users', 'url' => Url::to('/admin/user')],
-            ['label' => 'Resumes', 'url' => Url::to('/admin/resume')],
-            ['label' => 'Vacancies', 'url' => Url::to('/admin/vacancie')],
-            ['label' => 'Comments', 'url' => Url::to('/admin/comment')],
-            ['label' => 'Notifications', 'url' => Url::to('/admin/notification')],
+            ['label' => 'Users', 'url' => UrlGen::adminPanel('user')],
+            ['label' => 'Resumes', 'url' => UrlGen::adminPanel('resume')],
+            ['label' => 'Vacancies', 'url' => UrlGen::adminPanel('vacancie')],
+            ['label' => 'Comments', 'url' => UrlGen::adminPanel('comment')],
+            ['label' => 'Notifications', 'url' => UrlGen::adminPanel('notification')],
         ],
     ]);
     NavBar::end();

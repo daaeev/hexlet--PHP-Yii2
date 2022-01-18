@@ -1,8 +1,8 @@
 <?php
 
+use app\components\helpers\UrlGen;
 use app\widgets\Alert;
 use yii\bootstrap4\ActiveForm;
-use yii\helpers\Url;
 
 ?>
 <!-- CONTENT -->
@@ -10,9 +10,9 @@ use yii\helpers\Url;
     <div class="row">
         <div class="col-md-3">
             <ul class="nav flex-column nav-pills">
-                <li class="nav-item"><a href="<?= Url::to('/account/notify') ?>" class="nav-link link-dark">Уведомления</a></li>
-                <li class="nav-item"><a href="<?= Url::to('/account/resume') ?>" class="nav-link link-dark">Мои резюме</a></li>
-                <li class="nav-item"><a href="<?= Url::to('/account/vacancies') ?>" class="nav-link link-dark">Мои вакансии</a></li>
+                <li class="nav-item"><a href="<?= UrlGen::account('notify') ?>" class="nav-link link-dark">Уведомления</a></li>
+                <li class="nav-item"><a href="<?= UrlGen::account('resume') ?>" class="nav-link link-dark">Мои резюме</a></li>
+                <li class="nav-item"><a href="<?= UrlGen::account('vacancies') ?>" class="nav-link link-dark">Мои вакансии</a></li>
                 <li class="nav-item"><a href="" class="nav-link link-dark active">Настройки</a></li>
             </ul>
         </div>

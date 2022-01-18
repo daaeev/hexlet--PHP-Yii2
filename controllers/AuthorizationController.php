@@ -2,10 +2,10 @@
 
 namespace app\controllers;
 
+use app\components\helpers\UrlGen;
 use app\models\auth\RegistrationForm;
 use yii\web\Controller;
 use Yii;
-use yii\helpers\Url;
 use yii\filters\AccessControl;
 use app\models\auth\LoginForm;
 
@@ -39,7 +39,7 @@ class AuthorizationController extends Controller
         $model = new LoginForm;
 
         if ($model->load(Yii::$app->request->post(), 'LoginForm') && $model->login()) {
-            return $this->redirect(Url::home());
+            return $this->redirect(UrlGen::home());
         }
 
         return $this->render('login', compact('model'));
@@ -50,7 +50,7 @@ class AuthorizationController extends Controller
         $model = new RegistrationForm();
 
         if ($model->load(Yii::$app->request->post(), 'RegistrationForm') && $model->register()) {
-            return $this->redirect(Url::home());
+            return $this->redirect(UrlGen::home());
         }
 
         return $this->render('registration', compact('model'));
@@ -60,6 +60,6 @@ class AuthorizationController extends Controller
     {
         Yii::$app->user->logout();
 
-        return $this->redirect(Url::home());
+        return $this->redirect(UrlGen::home());
     }
 }

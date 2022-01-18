@@ -1,7 +1,7 @@
 <?php
 
+use app\components\helpers\UrlGen;
 use app\components\helpers\ViewHelper;
-use yii\helpers\Url;
 use yii\i18n\Formatter;
 
 ?>
@@ -47,12 +47,12 @@ use yii\i18n\Formatter;
                                         </div>
 
                                         <div class="card-info w-100">
-                                            <h5 class="card-title"><a href="/resume/<?= $resume->id ?>"><?= htmlspecialchars($resume->title) ?></a></h5>
+                                            <h5 class="card-title"><a href="<?= UrlGen::resume($resume->id) ?>"><?= htmlspecialchars($resume->title) ?></a></h5>
                                             <p class="card-subtitle"><?= strip_tags(substr($resume->description, 0, 350)) ?>...</p>
 
                                             <div class="pub-info text-end mt-4 small">
                                                 <span class="pub-date text-muted me-3"><?= (new Formatter)->asRelativeTime($resume->pub_date) ?></span>
-                                                <a class="author" href="<?= Url::to('/profile/' . $resume->author->id) ?>"><?= htmlspecialchars($resume->author->name) ?></a>
+                                                <a class="author" href="<?= UrlGen::profile($resume->author->id) ?>"><?= htmlspecialchars($resume->author->name) ?></a>
                                             </div>
                                         </div>
                                     </div>
@@ -70,7 +70,7 @@ use yii\i18n\Formatter;
                         <?php foreach ($user->comments as $comment): ?>
                             <!-- CARD -->
                             <div class="card mb-3">
-                                <p class="card-header"><a href="<?= Url::to('/resume/' . $comment->resume->id) ?>"><?= $comment->resume->title ?></a></p>
+                                <p class="card-header"><a href="<?= UrlGen::resume($comment->resume->id) ?>"><?= $comment->resume->title ?></a></p>
                                 <div class="card-body">
                                     <div class="card-text"><?= $comment->content ?></div>
                                 </div>

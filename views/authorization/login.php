@@ -1,7 +1,7 @@
 <?php
 
+use app\components\helpers\UrlGen;
 use yii\bootstrap4\ActiveForm;
-use yii\helpers\Url;
 ?>
 <!-- CONTENT -->
 <div class="row my-4">
@@ -24,7 +24,7 @@ use yii\helpers\Url;
             </div>
         <?php ActiveForm::end() ?>
 
-        <a href="<?= Url::to('/registration') ?>">Регистрация</a><br>
+        <a href="<?= UrlGen::registration() ?>">Регистрация</a><br>
         <a href="#">Забыли пароль?</a><br>
         <a rel="nofollow" data-method="post" href="#">Войти с помощью: GitHub</a><br>
     </div>

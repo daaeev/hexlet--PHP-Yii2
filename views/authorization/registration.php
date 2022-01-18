@@ -1,6 +1,6 @@
 <?php
 
-use yii\helpers\Url;
+use app\components\helpers\UrlGen;
 use yii\bootstrap4\ActiveForm;
 
 ?>
@@ -28,7 +28,7 @@ use yii\bootstrap4\ActiveForm;
             </div>
         <?php ActiveForm::end() ?>
 
-        <a href="<?= Url::to('/login') ?>">Войти</a><br>
+        <a href="<?= UrlGen::login() ?>">Войти</a><br>
         <a href="#">Забыли пароль?</a><br>
         <a rel="nofollow" data-method="post" href="#">Войти с помощью: GitHub</a><br>
     </div>

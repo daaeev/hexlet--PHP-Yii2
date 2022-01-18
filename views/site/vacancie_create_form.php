@@ -1,7 +1,7 @@
 <?php
 
+use app\components\helpers\UrlGen;
 use yii\bootstrap4\ActiveForm;
-use yii\helpers\Url;
 
 $level = [
     'Джуниор' => 'Джуниор',
@@ -43,11 +43,11 @@ $currencies = [
 <div class="container-md" id="content">
     <div class="row">
         <div class="col-md-3">
-            <ul class="nav flex-column nav-pills">
-                <li class="nav-item"><a href="<?= Url::to('/account/notify') ?>" class="nav-link link-dark">Уведомления</a></li>
-                <li class="nav-item"><a href="<?= Url::to('/account/resume') ?>" class="nav-link link-dark">Мои резюме</a></li>
-                <li class="nav-item"><a href="<?= Url::to('/account/vacancies') ?>" class="nav-link link-dark">Мои вакансии</a></li>
-                <li class="nav-item"><a href="<?= Url::to('/account/settings') ?>" class="nav-link link-dark">Настройки</a></li>
+        <ul class="nav flex-column nav-pills">
+                <li class="nav-item"><a href="<?= UrlGen::profile('notify') ?>" class="nav-link link-dark">Уведомления</a></li>
+                <li class="nav-item"><a href="<?= UrlGen::profile('resume') ?>" class="nav-link link-dark">Мои резюме</a></li>
+                <li class="nav-item"><a href="<?= UrlGen::profile('vacancie') ?>" class="nav-link link-dark">Мои вакансии</a></li>
+                <li class="nav-item"><a href="<?= UrlGen::profile('settings') ?>" class="nav-link link-dark">Настройки</a></li>
             </ul>
         </div>
         <div class="col-md-9">
@@ -254,7 +254,7 @@ $currencies = [
                         </div>
                     </div>
                     <div class="col-sm d-flex justify-content-end mb-3">
-                        <a class="btn btn-outline-secondary" href="<?= Url::home() ?>">Cancel</a>
+                        <a class="btn btn-outline-secondary" href="<?= UrlGen::home() ?>">Cancel</a>
                     </div>
                 </div>
             <?php ActiveForm::end() ?>

@@ -1,7 +1,7 @@
 <?php
 
+use app\components\helpers\UrlGen;
 use app\components\helpers\ViewHelper;
-use yii\helpers\Url;
 
 ?>
 <!-- CONTENT -->
@@ -9,10 +9,10 @@ use yii\helpers\Url;
     <div class="row">
         <div class="col-md-3">
             <ul class="nav flex-column nav-pills">
-                <li class="nav-item"><a href="<?= Url::to('/account/notify') ?>" class="nav-link link-dark">Уведомления</a></li>
-                <li class="nav-item"><a href="<?= Url::to('/account/resume') ?>" class="nav-link link-dark">Мои резюме</a></li>
+                <li class="nav-item"><a href="<?= UrlGen::account('notify') ?>" class="nav-link link-dark">Уведомления</a></li>
+                <li class="nav-item"><a href="<?= UrlGen::account('resume') ?>" class="nav-link link-dark">Мои резюме</a></li>
                 <li class="nav-item"><a href="" class="nav-link link-dark active">Мои вакансии</a></li>
-                <li class="nav-item"><a href="<?= Url::to('/account/settings') ?>" class="nav-link link-dark">Настройки</a></li>
+                <li class="nav-item"><a href="<?= UrlGen::account('settings') ?>" class="nav-link link-dark">Настройки</a></li>
             </ul>
         </div>
         <div class="col-md-9">
@@ -21,7 +21,7 @@ use yii\helpers\Url;
             <?php if ($vacancies): ?>
                 <?php foreach ($vacancies as $vacancie): ?>
                     <div class="card mb-3">
-                        <?= ViewHelper::introduceStatus($vacancie->status, "/vacancie/$vacancie->id") ?>
+                        <?= ViewHelper::introduceStatus($vacancie->status, UrlGen::vacancie($vacancie->id)) ?>
                         <div class="card-body">
                             <h5 class="card-title"><?= htmlspecialchars(ViewHelper::createVacancieTitle($vacancie)) ?></h5>
                             <div class="card-text">

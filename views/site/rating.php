@@ -1,6 +1,6 @@
 <?php
 
-use yii\helpers\Url;
+use app\components\helpers\UrlGen;
 
 $position = 1;
 
@@ -22,7 +22,7 @@ $position = 1;
                         <tr>
                             <td><?= $position ?></td>
                             <td><?= $user->likes_count ?></td>
-                            <td><a href="<?= Url::to('/profile/' . $user->id) ?>"><?= htmlspecialchars($user->name) ?></a></td>
+                            <td><a href="<?= UrlGen::profile($user->id) ?>"><?= htmlspecialchars($user->name) ?></a></td>
                         </tr>
                     <?php $position++; endforeach ?>
                 </tbody>

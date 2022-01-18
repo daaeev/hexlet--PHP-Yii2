@@ -7,6 +7,7 @@ use app\components\helpers\interface\DBValidatorInterface;
 use app\components\helpers\interface\ResumeGetInterface;
 use app\components\helpers\interface\UserGetInterface;
 use app\components\helpers\interface\VacancieGetInterface;
+use app\components\helpers\UrlGen;
 use app\exceptions\DBDataSaveException;
 use app\exceptions\IDNotFoundException;
 use app\exceptions\ValidationFailedException;
@@ -25,7 +26,6 @@ use yii\web\Controller;
 use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
-use yii\helpers\Url;
 
 class SiteController extends Controller
 {
@@ -388,7 +388,7 @@ class SiteController extends Controller
                 Yii::$app->session->setFlash('error', $e->getMessage());
             }
 
-            return $this->redirect(Url::home());
+            return $this->redirect(UrlGen::home());
         }
 
         return $this->render('resume_create_form', compact('model'));
@@ -426,7 +426,7 @@ class SiteController extends Controller
                 Yii::$app->session->setFlash('error', $e->getMessage());
             }
 
-            return $this->redirect(Url::to('/vacancies'));
+            return $this->redirect(UrlGen::allVacancies());
         }
 
         return $this->render('vacancie_create_form', compact('model'));

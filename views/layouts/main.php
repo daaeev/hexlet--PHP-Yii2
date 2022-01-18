@@ -1,8 +1,8 @@
 <?php
 
 use app\assets\MainAsset;
+use app\components\helpers\UrlGen;
 use yii\bootstrap4\Html;
-use yii\helpers\Url;
 
 MainAsset::register($this);
 ?>
@@ -21,14 +21,14 @@ MainAsset::register($this);
 
     <header class="container-md navbar">
         <div class="left-block d-flex align-items-center">        
-            <a class="navbar-brand link-dark" href="<?= Url::home() ?>">Hexlet CV</a>
+            <a class="navbar-brand link-dark" href="<?= UrlGen::home() ?>">Hexlet CV</a>
             <div class="nav-menu">
-                <a class="link link-dark" href="<?= Url::to('/resume/all') ?>">Резюме</a>
-                <a class="link link-dark" href="<?= Url::to('/vacancies') ?>">Вакансии</a>
-                <a class="link link-dark" href="<?= Url::to('/rating') ?>">Рейтинг</a>
+                <a class="link link-dark" href="<?= UrlGen::allResumes() ?>">Резюме</a>
+                <a class="link link-dark" href="<?= UrlGen::allVacancies() ?>">Вакансии</a>
+                <a class="link link-dark" href="<?= UrlGen::rating() ?>">Рейтинг</a>
 
                 <?php if (Yii::$app->user->can('adminPanel')): ?>
-                    <a class="link link-dark" href="<?= Url::to('/admin/user') ?>">Админ панель</a>
+                    <a class="link link-dark" href="<?= UrlGen::adminPanel() ?>">Админ панель</a>
                 <?php endif ?>
 
             </div>
@@ -39,10 +39,10 @@ MainAsset::register($this);
         <div class="right-block d-flex align-items-center">
             <ul class="nav nav-pills">
                 <li class="nav-item">
-                    <a class="nav-link link-dark" href="<?= Url::to('/login') ?>">Войти</a>
+                    <a class="nav-link link-dark" href="<?= UrlGen::login() ?>">Войти</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link link-dark" href="<?= Url::to('/registration') ?>">Регистрация </a>
+                    <a class="nav-link link-dark" href="<?= UrlGen::registration() ?>">Регистрация </a>
                 </li>
             </ul>
         </div>
@@ -50,15 +50,15 @@ MainAsset::register($this);
     <?php else: ?>
 
         <div class="right-block d-flex align-items-center">
-            <a class="notify-link block-element link-dark" href="<?= Url::to('/account/notify') ?>"><i class="bi bi-bell"></i></a>
+            <a class="notify-link block-element link-dark" href="<?= UrlGen::account() ?>"><i class="bi bi-bell"></i></a>
 
             <div class="dropdown block-element">
                 <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                     Добавить
                 </button>
                 <ul class="dropdown-menu add-menu" aria-labelledby="dropdownMenuButton1">
-                    <li><a class="dropdown-item" href="<?= Url::to('/create/resume') ?>">Резюме</a></li>
-                    <li><a class="dropdown-item" href="<?= Url::to('/create/vacancie') ?>">Вакансию</a></li>
+                    <li><a class="dropdown-item" href="<?= UrlGen::createPage('resume') ?>">Резюме</a></li>
+                    <li><a class="dropdown-item" href="<?= UrlGen::createPage('vacancie') ?>">Вакансию</a></li>
                 </ul>
             </div>
             
@@ -71,11 +71,11 @@ MainAsset::register($this);
                         <span class="username"><?= htmlspecialchars($this->params['user']->name) ?></span><br>
                         <span class="email"><?= htmlspecialchars($this->params['user']->email) ?></span>
                     </li>
-                    <li><a class="dropdown-item" href="<?= Url::to('/profile/' . $this->params['user']->id) ?>">Мой профиль</a></li>
-                    <li><a class="dropdown-item" href="<?= Url::to('/account/resume') ?>">Мои резюме</a></li>
-                    <li><a class="dropdown-item" href="<?= Url::to('/account/vacancies') ?>">Мои вакансии</a></li>
-                    <li><a class="dropdown-item" href="<?= Url::to('/account/settings') ?>">Настройки</a></li>
-                    <li><a class="dropdown-item btn-logout" href="<?= Url::to('/logout') ?>">Выход</a></li>
+                    <li><a class="dropdown-item" href="<?= UrlGen::profile($this->params['user']->id) ?>">Мой профиль</a></li>
+                    <li><a class="dropdown-item" href="<?= UrlGen::account('resume') ?>">Мои резюме</a></li>
+                    <li><a class="dropdown-item" href="<?= UrlGen::account('vacancie') ?>">Мои вакансии</a></li>
+                    <li><a class="dropdown-item" href="<?= UrlGen::account('settings') ?>">Настройки</a></li>
+                    <li><a class="dropdown-item btn-logout" href="<?= UrlGen::logout() ?>">Выход</a></li>
                 </ul>
             </div>
         </div>
