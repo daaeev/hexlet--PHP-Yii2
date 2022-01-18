@@ -1,5 +1,6 @@
 <?php
 
+use app\components\helpers\ViewHelper;
 use yii\helpers\Url;
 
 ?>
@@ -16,18 +17,23 @@ use yii\helpers\Url;
         </div>
         <div class="col-md-9">
             <h2 class="h2 mb-4">Мои резюме</h2>
-        <!--
-            <div class="card mb-3">
-                <p class="card-header">Черновик<span class="ms-3"><a href="#"><span class="bi bi-pencil-square text-muted"></span></a></span></p>
-                <div class="card-body">
-                    <h5 class="card-title">Something title</h5>
-                    <div class="card-text">
-                        <p>Something content</p>
+
+            <?php if ($resumes): ?>
+                <?php foreach ($resumes as $resume): ?>
+                    <div class="card mb-3">
+                        <?= ViewHelper::introduceStatus($resume->status, "/resume/$resume->id") ?>
+                        <div class="card-body">
+                            <h5 class="card-title"><?= htmlspecialchars($resume->title) ?></h5>
+                            <div class="card-text">
+                                <p><?= $resume->description ?></p>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-        -->
-            <p class="text-center bg-light py-4 fw-light">Список пуст</p>
+                <?php endforeach ?>
+            <?php else: ?>
+                <p class="text-center bg-light py-4 fw-light">Список пуст</p>
+            <?php endif ?>
+
         </div>
     </div>
 </div>

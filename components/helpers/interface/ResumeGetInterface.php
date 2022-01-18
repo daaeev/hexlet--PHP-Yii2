@@ -40,4 +40,12 @@ interface ResumeGetInterface
      * @throws IDNotFoundException если запись не найдена
      */
     public function findById(int $id): Resume|array;
+
+    /**
+     * Возвращает массив, состоящий из резюме,
+     * автором которых является пользователь с id = $author_id
+     * @param int $author_id id пользователя из таблицы user
+     * @return array массив объектов типа Resume
+     */
+    public function findByAuthor(int $author_id): array;
 }

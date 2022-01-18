@@ -314,7 +314,10 @@ class SiteController extends Controller
      */
     public function actionAccountResume()
     {
-        return $this->render('account-resume');
+        $helper = Yii::$container->get(ResumeGetInterface::class);
+        $resumes = $helper->findByAuthor($this->view->params['user']->id);
+        
+        return $this->render('account-resume', compact('resumes'));
     }
 
     /**
@@ -324,7 +327,10 @@ class SiteController extends Controller
      */
     public function actionAccountVacancies()
     {
-        return $this->render('account-vacancies');
+        $helper = Yii::$container->get(VacancieGetInterface::class);
+        $vacancies = $helper->findByAuthor($this->view->params['user']->id);
+
+        return $this->render('account-vacancies', compact('vacancies'));
     }
 
     /**

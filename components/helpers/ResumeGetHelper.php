@@ -117,4 +117,13 @@ class ResumeGetHelper implements ResumeGetInterface
 
         throw new IDNotFoundException;
     }
+
+    public function findByAuthor(int $author_id): array
+    {
+        $models = Resume::find()
+            ->where(['author_id' => $author_id])
+            ->all();
+
+        return $models;
+    }
 }

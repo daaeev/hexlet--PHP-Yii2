@@ -41,4 +41,13 @@ class VacancieGetHelper implements VacancieGetInterface
 
         throw new IDNotFoundException;
     }
+
+    public function findByAuthor(int $author_id): array
+    {
+        $models = Vacancie::find()
+            ->where(['author_id' => $author_id])
+            ->all();
+        
+        return $models;
+    }
 }
