@@ -14,12 +14,8 @@ use yii\i18n\Formatter;
                 <p class="text-center"><?= htmlspecialchars($user->contribution) ?></p>
                 <div class="d-flex justify-content-center mt-4">
                     <div class="d-flex flex-column mx-1 mx-lg-3 text-center">
-                        <div class="h3 text-black-50"><?= count($user->resumes) ?></div>
-                        <div class="text-muted"><?= ViewHelper::numToWord(count($user->resumes), ['ответ', 'ответа', 'ответов']) ?></div>
-                    </div>
-                    <div class="d-flex flex-column mx-3 text-center">
                         <div class="h3 text-black-50"><?= count($user->comments) ?></div>
-                        <div class="text-muted"><?= ViewHelper::numToWord(count($user->comments), ['комментарий', 'комментария', 'комментариев']) ?></div>
+                        <div class="text-muted"><?= ViewHelper::numToWord(count($user->comments), ['ответ', 'ответа', 'ответов']) ?></div>
                     </div>
                     <div class="d-flex flex-column mx-1 mx-lg-3 text-center">
                         <div class="h3 text-black-50"><?= $likesCount ?></div>
