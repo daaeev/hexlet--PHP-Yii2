@@ -18,6 +18,7 @@ use app\models\forms\CreateCommentForm;
 use app\models\forms\CreateResumForm;
 use app\models\forms\CreateVacancieForm;
 use app\models\Likes;
+use app\models\Notification;
 use app\models\Resume;
 use app\models\User;
 use app\models\Vacancie;
@@ -182,7 +183,6 @@ class SiteController extends Controller
      * @param int $parent_comment_id id записи в таблице comments,
      * (id родительского комментария)
      * @return Response 
-     * @throws InvalidArgumentException если файл вида или шаблона не найден
      */
     public function actionCreateComment(int $resume_id, int $parent_comment_id = null)
     {
@@ -299,7 +299,7 @@ class SiteController extends Controller
     }
 
     /**
-     * Экшен для отображния формы с настройками пользователя
+     * Экшен для отображения формы с настройками пользователя
      * 
      * Если имеются соответствующие POST-данные, 
      * то производится заполнение модели данными
@@ -328,17 +328,61 @@ class SiteController extends Controller
     }
 
     /**
-     * Экшен для отображния уведомлений
+     * Экшен для отображения непрочитанных уведомлений пользователя
+     * 
+     * Если у пользователя имеются непрочитанные уведомления,
+     * то при помощи хелпера из базы получаются уведомления, 
+     * статус которых дальше обновляется на "Просмотрено"
      * @return string результат рендеринга
      * @throws InvalidArgumentException если файл вида или шаблона не найден
+     * @throws NotSupportedException — если статус уведомлений не изменён
      */
     public function actionAccountNotify()
     {
-        return $this->render('account-notify');
+        $helper = Yii::$container->get(UserGetInterface::class);
+        $notifications = $helper->getUserNotifications($this->view->params['user']->id);
+
+        // Если имеются непрочитанные уведомления - изменить их статус на "Прочитано"
+        if ($this->view->params['have_notification']) {
+            Notification::updateAllCounters(
+                ['is_viewed' => Notification::STATUS_VIEWED], 
+                [
+                    'to_user_id' => $this->view->params['user']->id,
+                    'is_viewed' => Notification::STATUS_NOT_VIEWED,
+                ]
+            );
+        }
+
+        return $this->render('account-notify', compact('notifications'));
     }
 
     /**
-     * Экшен для отображния резюме пользователя
+     * Метод отвечает за операцию удаления уведомления
+     * 
+     * Для начала проверяется, является ли пользователь получателем уведомления.
+     * Если является - уведомление удаляется и выводится сообщение об успешной операции.
+     * Если НЕ является - выводится сообщение об ошибке.
+     * @param int $notify_id id записи в таблице resume
+     * @return Response 
+     */
+    public function actionDeleteNotify($notify_id)
+    {
+        $notify = Notification::findOne([
+            'id' => $notify_id, 
+            'to_user_id' => $this->view->params['user']->id
+        ]);
+
+        if ($notify && $notify->delete()) {
+            Yii::$app->session->setFlash('success', 'Уведомление успешно удалено');
+        } else {
+            Yii::$app->session->setFlash('success', 'При удалении что-то пошло не так, попробуйте заново');
+        }
+
+        return $this->redirect(UrlGen::account('notify'));
+    }
+
+    /**
+     * Экшен для отображения резюме пользователя
      * @return string результат рендеринга
      * @throws InvalidArgumentException если файл вида или шаблона не найден
      */
@@ -351,7 +395,7 @@ class SiteController extends Controller
     }
 
     /**
-     * Экшен для отображния вакансий пользователя
+     * Экшен для отображения вакансий пользователя
      * @return string результат рендеринга
      * @throws InvalidArgumentException если файл вида или шаблона не найден
      */

@@ -32,4 +32,12 @@ interface UserGetInterface
      * @return array массив объектов User
      */
     public function getUsersByRating(): array;
+
+    /**
+     * Метод возвращает непрочитанные уведомления пользователя
+     * с id = $user_id
+     * @param int $user_id идентификатор пользователя
+     * @return array массив непрочитанных уведомлений
+     */
+    public function getUserNotifications(int $user_id): array;
 }

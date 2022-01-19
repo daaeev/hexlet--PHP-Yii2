@@ -33,4 +33,12 @@ interface DBValidatorInterface
      * @return bool
      */
     public function likeExist(int $user_id, int $comment_id): bool;
+
+    /**
+     * Метод проверяет наличие непрочитанных уведомлений
+     * пользователя с идентификатором $user_id
+     * @param int $user_id идентификатор пользователя
+     * @return bool
+     */
+    public function userHaveNotification(int $user_id): bool;
 }

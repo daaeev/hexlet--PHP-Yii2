@@ -6,6 +6,7 @@ use app\components\helpers\interface\UserGetInterface;
 use app\exceptions\IDNotFoundException;
 use app\models\Comment;
 use app\models\Likes;
+use app\models\Notification;
 use app\models\Resume;
 use app\models\User;
 use yii\db\ActiveQuery;
@@ -66,5 +67,15 @@ class UserGetHelper implements UserGetInterface
             ->all();
         
         return $users;
+    }
+
+    public function getUserNotifications(int $user_id): array
+    {
+        $notifications = Notification::find()
+            ->where(['to_user_id' => $user_id])
+            ->orderBy('id DESC')
+            ->all();
+        
+        return $notifications;
     }
 }

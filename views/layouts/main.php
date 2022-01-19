@@ -50,7 +50,11 @@ MainAsset::register($this);
     <?php else: ?>
 
         <div class="right-block d-flex align-items-center">
+            <?php if ($this->params['have_notification']): ?>
+                <a class="notify-link block-element link-dark" href="<?= UrlGen::account() ?>"><i class="bi bi-bell-fill text-danger"></i></a>
+            <?php else: ?>
             <a class="notify-link block-element link-dark" href="<?= UrlGen::account() ?>"><i class="bi bi-bell"></i></a>
+            <?php endif ?>
 
             <div class="dropdown block-element">
                 <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">

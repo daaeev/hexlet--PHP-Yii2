@@ -17,6 +17,9 @@ use Yii;
  */
 class Notification extends \yii\db\ActiveRecord
 {
+    const STATUS_NOT_VIEWED = 0;
+    const STATUS_VIEWED = 1;
+
     /**
      * {@inheritdoc}
      */
@@ -34,6 +37,7 @@ class Notification extends \yii\db\ActiveRecord
             [['to_user_id', 'is_viewed'], 'integer'],
             [['title', 'content'], 'string'],
             [['to_user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['to_user_id' => 'id']],
+            ['is_viewed', 'default', 'value' => self::STATUS_NOT_VIEWED],
         ];
     }
 

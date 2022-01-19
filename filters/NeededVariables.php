@@ -2,6 +2,7 @@
 
 namespace app\filters;
 
+use app\components\helpers\interface\DBValidatorInterface;
 use app\models\Comment;
 use yii\base\ActionFilter;
 use Yii;
@@ -14,6 +15,9 @@ class NeededVariables extends ActionFilter
     public function beforeAction($action)
     {
         Yii::$app->view->params['user'] = Yii::$app->user->getIdentity();
+
+        $helper = Yii::$container->get(DBValidatorInterface::class);
+        Yii::$app->view->params['have_notification'] = $helper->userHaveNotification(Yii::$app->view->params['user']->id);
 
         /**
          * 20 последних ответов

@@ -5,6 +5,7 @@ namespace app\components\helpers;
 use app\components\helpers\interface\DBValidatorInterface;
 use app\models\Comment;
 use app\models\Likes;
+use app\models\Notification;
 use app\models\Resume;
 
 /**
@@ -35,6 +36,15 @@ class DBValidator implements DBValidatorInterface
     public function likeExist(int $user_id, int $comment_id): bool
     {
         if (Likes::find()->where(['user_id' => $user_id, 'comment_id' => $comment_id])->exists()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function userHaveNotification(int $user_id): bool
+    {
+        if (Notification::find()->where(['to_user_id' => $user_id, 'is_viewed' => Notification::STATUS_NOT_VIEWED])->exists()) {
             return true;
         }
 

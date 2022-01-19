@@ -1,6 +1,7 @@
 <?php
 
 use app\components\helpers\UrlGen;
+use app\widgets\Alert;
 
 ?>
 <!-- CONTENT -->
@@ -10,13 +11,31 @@ use app\components\helpers\UrlGen;
             <ul class="nav flex-column nav-pills">
                 <li class="nav-item"><a href="" class="nav-link link-dark active">Уведомления</a></li>
                 <li class="nav-item"><a href=<?= UrlGen::account('resume') ?> class="nav-link link-dark">Мои резюме</a></li>
-                <li class="nav-item"><a href="<?= UrlGen::account('vacancie') ?>" class="nav-link link-dark">Мои вакансии</a></li>
+                <li class="nav-item"><a href="<?= UrlGen::account('vacancies') ?>" class="nav-link link-dark">Мои вакансии</a></li>
                 <li class="nav-item"><a href="<?= UrlGen::account('settings') ?>" class="nav-link link-dark">Настройки</a></li>
             </ul>
         </div>
         <div class="col-md-9">
+
+            <?= Alert::widget() ?>
+
             <h2 class="h2 mb-4">Уведомления</h2>
-            <p class="text-center bg-light py-4 fw-light">Список пуст</p>
+
+            <?php if ($notifications): ?>
+                <?php foreach ($notifications as $notification): ?>
+                    <div class="card mb-3">
+                        <p class="card-header fw-bold"><?= htmlspecialchars($notification->title) ?> <a href="<?= UrlGen::deleteNotify($notification->id) ?>"><i class="bi bi-trash"></i></a></p>
+                        <div class="card-body">
+                            <div class="card-text">
+                                <p><?= htmlspecialchars($notification->content) ?></p>
+                            </div>
+                        </div>
+                    </div>
+                <?php endforeach ?>
+            <?php else: ?>
+                <p class="text-center bg-light py-4 fw-light">Список пуст</p>
+            <?php endif ?>
+
         </div>
     </div>
 </div>

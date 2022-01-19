@@ -11,7 +11,7 @@ use app\components\helpers\ViewHelper;
             <ul class="nav flex-column nav-pills">
                 <li class="nav-item"><a href="<?= UrlGen::account('notify') ?>" class="nav-link link-dark">Уведомления</a></li>
                 <li class="nav-item"><a href="" class="nav-link link-dark active">Мои резюме</a></li>
-                <li class="nav-item"><a href="<?= UrlGen::account('vacancie') ?>" class="nav-link link-dark">Мои вакансии</a></li>
+                <li class="nav-item"><a href="<?= UrlGen::account('vacancies') ?>" class="nav-link link-dark">Мои вакансии</a></li>
                 <li class="nav-item"><a href="<?= UrlGen::account('settings') ?>" class="nav-link link-dark">Настройки</a></li>
             </ul>
         </div>

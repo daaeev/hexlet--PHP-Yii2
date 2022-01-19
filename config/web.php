@@ -61,6 +61,7 @@ $config = [
                 'resume/<id:\d+>' => 'site/resume-view',
                 'resume/like/<id:\d+>' => 'site/do-like',
                 'vacancie/<id:\d+>' => 'site/vacancie-view',
+                'account/delete-notify/<notify_id:\d+>' => 'site/delete-notify',
 
                 'create-comment/<resume_id:\d+>/<parent_comment_id:\d+>' => 'site/create-comment',
                 'create-comment/<resume_id:\d+>' => 'site/create-comment',

@@ -155,4 +155,14 @@ class UrlGen
     {
         return '/vacancies/filters';
     }
+
+    /**
+     * Генерация адреса страницы удаления уведомления пользователя
+     * @param int $notify_id идентификатор уведомления
+     * @return string адресс страницы
+     */
+    public static function deleteNotify(int $notify_id): string
+    {
+        return '/account/delete-notify/' . $notify_id;
+    }
 }
