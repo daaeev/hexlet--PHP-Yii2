@@ -19,9 +19,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'to_user_id') ?>
 
-    <?= $form->field($model, 'title') ?>
+    <?php //echo $form->field($model, 'title') ?>
 
-    <?= $form->field($model, 'content') ?>
+    <?php //echo $form->field($model, 'content') ?>
 
     <?= $form->field($model, 'is_viewed') ?>
 
