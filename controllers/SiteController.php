@@ -227,19 +227,49 @@ class SiteController extends Controller
     /**
      * Метод отвечает за рендер страницы со всеми вакансиями
      * 
-     * Осуществляется получение всех вакансий и передача их в файл вида
+     * Осуществляется получение всех вакансий и 
+     * данных для формы поиска по фильтрам, затем
+     * происходит их передача в файл вида.
      * @return string результат рендеринга
      * @throws InvalidArgumentException если файл вида или шаблона не найден
      */
     public function actionVacancies()
     {
         $helper = Yii::$container->get(VacancieGetInterface::class);
-
         $data = $helper->getAll();
+        $filters = $helper->getFiltersData();
 
-        return $this->render('vacancies', compact('data'));
+        return $this->render('vacancies', compact('data', 'filters'));
     }
 
+    /**
+     * Метод отвечает за рендер страницы со всеми вакансиями,
+     * которые подходят по выбранным фильтрам
+     * 
+     * Осуществляется получение всех вакансий по фильтрам и 
+     * данных для формы поиска по фильтрам, затем
+     * происходит их передача в файл вида.
+     * @return string результат рендеринга
+     * @throws InvalidArgumentException если файл вида или шаблона не найден
+     */
+    public function actionVacanciesFilters()
+    {
+        $helper = Yii::$container->get(VacancieGetInterface::class);
+        $data = $helper->getAllByFilters(Yii::$app->request->post('filters'));
+        $filters = $helper->getFiltersData();
+        
+        return $this->render('vacancies', compact('data', 'filters'));
+    }
+
+    /**
+     * Метод отвечает за страницу рейтинга пользователей
+     * 
+     * Из базы получаются первые 20 пользователя, отсортированны
+     * по количеству лайков на их рекомендациях и передаются
+     * в файл вида
+     * @return string результат рендеринга
+     * @throws InvalidArgumentException если файл вида или шаблона не найден
+     */
     public function actionRating()
     {
         $helper = Yii::$container->get(UserGetInterface::class);

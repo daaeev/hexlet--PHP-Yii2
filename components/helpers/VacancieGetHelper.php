@@ -6,6 +6,7 @@ use app\components\helpers\interface\GetPaginationDataTrait;
 use app\components\helpers\interface\VacancieGetInterface;
 use app\exceptions\IDNotFoundException;
 use app\models\Vacancie;
+use yii\db\Expression;
 
 /**
  * Класс-хелпер для получения данных из таблицы vacancie
@@ -49,5 +50,63 @@ class VacancieGetHelper implements VacancieGetInterface
             ->all();
         
         return $models;
+    }
+
+    public function getFiltersData(): array
+    {
+        $level = [
+            '' => 'Выберите уровень',
+            'Джуниор' => 'Джуниор',
+            'Мидл' => 'Мидл',
+            'Сеньор' => 'Сеньор',
+            'Тимлид' => 'Тимлид',
+        ];
+
+        $vacancies_technologies = Vacancie::find()
+            ->select('technologies')
+            ->where(['!=', 'technologies', ''])
+            ->column();
+
+        $technologies = $this->normalizedTechnologiesFilter($vacancies_technologies);
+
+        return compact('level', 'technologies');
+    }
+
+    public function getAllByFilters(array $filters): array
+    {
+        $query = Vacancie::find()
+            ->where(['status' => Vacancie::STATUS_CONFIRMED])
+            ->orderBy('pub_date DESC');
+        
+        foreach ($filters as $column => $value) {
+            $query->andFilterWhere(['like', $column, $value]);
+        }
+
+        $data = $this->getPaginationData($query, 'vacancies');
+
+        return $data;
+    }
+
+    /**
+     * Метод нормализует массив с технологиями, а именно:
+     * приводит массив к виду ['php' => 'php'] и
+     * убирает повторения
+     * @param array $technologies массив технологий всех вакансий в таблице vacancie
+     * @return array нормализованный массив технологий
+     */
+    protected function normalizedTechnologiesFilter(array $technologies): array
+    {
+        $norm_tech = ['' => 'Технологии'];
+
+        foreach ($technologies as $tech) {
+            $tech_array = explode(', ', $tech);
+            $tech_array = array_unique($tech_array);
+
+            foreach ($tech_array as $technologie) {
+                $norm_tech[$technologie] = $technologie;
+            }
+        }
+
+        return $norm_tech;
     }
 }

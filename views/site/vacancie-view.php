@@ -10,7 +10,7 @@ use app\components\helpers\ViewHelper;
             <h1 class="h2 mb-5"><?= htmlspecialchars(ViewHelper::createVacancieTitle($vacancie)) ?></h1>
             <div class="row mb-3">
                 <div class="col-sm-3"><b>Должность</b></div>
-                <div class="col-sm-9"><a href="#"><?= htmlspecialchars($vacancie->level) ?></a> <?= htmlspecialchars($vacancie->position) ?></div>
+                <div class="col-sm-9"><?= htmlspecialchars($vacancie->level) ?> <?= htmlspecialchars($vacancie->position) ?></div>
             </div>
             <div class="row mb-3">
                 <div class="col-sm-3"><b>Тип занятости</b></div>
@@ -18,7 +18,7 @@ use app\components\helpers\ViewHelper;
             </div>
             <div class="row mb-3">
                 <div class="col-sm-3"><b>Место работы</b></div>
-                <div class="col-sm-9"><a href="#"><?= htmlspecialchars($vacancie->city) ?></a><?php  if ($vacancie->type_of_place) echo htmlspecialchars(", $vacancie->type_of_place") ?></div>
+                <div class="col-sm-9"><?= htmlspecialchars($vacancie->city) ?><?php  if ($vacancie->type_of_place) echo htmlspecialchars(", $vacancie->type_of_place") ?></div>
             </div>
             <div class="row mb-3">
                 <div class="col-sm-3"><b>Компания</b></div>

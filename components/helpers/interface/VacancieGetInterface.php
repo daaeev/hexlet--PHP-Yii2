@@ -8,7 +8,7 @@ interface VacancieGetInterface
 {
     /**
      * Возвращает массив со всеми проверенными вакансиями
-     * @return array массив из проверенных резюме с пагинацией ['elements' => [...], 'pagination' => [...]]
+     * @return array массив из проверенных вакансий с пагинацией ['elements' => [...], 'pagination' => [...]]
      */
     public function getAll(): array;
 
@@ -28,4 +28,23 @@ interface VacancieGetInterface
      * @return array массив объектов типа Vacancie
      */
     public function findByAuthor(int $author_id): array;
+
+    /**
+     * Возвращает ассоциативный массив 
+     * с данными для выпадающих списков
+     * формы поиска вакансий по фильтрам.
+     * 
+     * Например - ['level' => [...], 'technologies' => [...]]
+     * @return array ассоциативный массив с данными
+     */
+    public function getFiltersData(): array;
+
+    /**
+     * Возвращает массив со всеми проверенными вакансиями,
+     * которые подходят по фильтрам $filters
+     * @param array $filters массив фильтров, состоящий из пары 
+     * [столбец => значение], например: ['level' => 'Джуниор']
+     * @return array массив из проверенных вакансий с пагинацией ['elements' => [...], 'pagination' => [...]]
+     */
+    public function getAllByFilters(array $filters): array;
 }

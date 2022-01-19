@@ -145,4 +145,14 @@ class UrlGen
     {
         return '/resume/like/' . $id;
     }
+
+    /**
+     * Генерация адреса страницы просмотра вакансий
+     * по фильтрам
+     * @return string адресс страницы
+     */
+    public static function allVacanciesWithFilters(): string
+    {
+        return '/vacancies/filters';
+    }
 }

@@ -3,6 +3,8 @@
 use app\components\helpers\UrlGen;
 use app\components\helpers\ViewHelper;
 use app\widgets\Alert;
+use yii\bootstrap4\ActiveForm;
+use yii\bootstrap4\Html;
 use yii\bootstrap4\LinkPager;
 use yii\i18n\Formatter;
 
@@ -13,6 +15,35 @@ use yii\i18n\Formatter;
         <div class="col-md-9 content-block">
             <?= Alert::widget() ?>
             <h1>Вакансии для разработчиков</h1>
+
+            <div class="p-3 mb-3 bg-light rounded-3">
+
+                <?php $form = ActiveForm::begin([
+                        'options' => [
+                            'class' => 'row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4',
+                        ],
+                        'action' => UrlGen::allVacanciesWithFilters(),
+                        'method' => 'post',
+                    ]) 
+                ?>
+                    <div class="d-flex flex-column justify-content-start">
+                        <?= Html::dropDownList('filters[level]', null, $filters['level'], ['class' => 'form-control']) ?>
+                    </div>
+                    <div class="d-flex flex-column justify-content-start">
+                        <?= Html::input('text', 'filters[city]', null, ['class' => 'form-control', 'placeholder' => 'Город']) ?>
+                    </div>
+                    <div class="d-flex flex-column justify-content-start">
+                        <?= Html::dropDownList('filters[technologies]', null, $filters['technologies'], ['class' => 'form-control']) ?>
+                    </div>
+                    <div class="col-auto d-flex justify-content-end">
+                        <div class="mt-0">
+                            <input type="submit" value="Найти" class="btn btn-primary me-2" data-disable-with="Найти">
+                            <a class="btn btn-outline-secondary" href="">Сбросить</a>
+                        </div>
+                    </div>
+                <?php ActiveForm::end() ?>
+                
+            </div>
 
             <div class="mt-5 card-block">
                 <?php if ($data['elements']): ?>

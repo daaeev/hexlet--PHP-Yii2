@@ -44,10 +44,10 @@ $currencies = [
     <div class="row">
         <div class="col-md-3">
         <ul class="nav flex-column nav-pills">
-                <li class="nav-item"><a href="<?= UrlGen::profile('notify') ?>" class="nav-link link-dark">Уведомления</a></li>
-                <li class="nav-item"><a href="<?= UrlGen::profile('resume') ?>" class="nav-link link-dark">Мои резюме</a></li>
-                <li class="nav-item"><a href="<?= UrlGen::profile('vacancie') ?>" class="nav-link link-dark">Мои вакансии</a></li>
-                <li class="nav-item"><a href="<?= UrlGen::profile('settings') ?>" class="nav-link link-dark">Настройки</a></li>
+                <li class="nav-item"><a href="<?= UrlGen::account('notify') ?>" class="nav-link link-dark">Уведомления</a></li>
+                <li class="nav-item"><a href="<?= UrlGen::account('resume') ?>" class="nav-link link-dark">Мои резюме</a></li>
+                <li class="nav-item"><a href="<?= UrlGen::account('vacancie') ?>" class="nav-link link-dark">Мои вакансии</a></li>
+                <li class="nav-item"><a href="<?= UrlGen::account('settings') ?>" class="nav-link link-dark">Настройки</a></li>
             </ul>
         </div>
         <div class="col-md-9">
@@ -243,7 +243,7 @@ $currencies = [
                         <label class="col-sm-3 col-form-label">Технологии</label>
                         <div class="col-sm-9">
                             <?= $form->field($model, 'technologies')->input('text')->label(false) ?>
-                            <small class="form-text text-muted">То что указывают компании: json, ajax, ...</small>
+                            <small class="form-text text-muted">Указывать через запятую с пробелом: json, ajax, ...</small>
                         </div>
                     </div>
                 </div>

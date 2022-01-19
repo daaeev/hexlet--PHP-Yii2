@@ -52,6 +52,7 @@ $config = [
             'rules' => [
                 'resume/<category:\D{0,10}>' => 'site/resume',
                 'vacancies' => 'site/vacancies',
+                'vacancies/filters' => 'site/vacancies-filters',
                 'rating' => 'site/rating',
                 'account/<tab:\D{6,9}>' => 'site/account',
                 'create/resume' => 'site/create-resume',
