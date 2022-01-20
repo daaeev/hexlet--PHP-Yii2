@@ -38,7 +38,7 @@ use yii\i18n\Formatter;
                     <div class="col-auto d-flex justify-content-end">
                         <div class="mt-0">
                             <input type="submit" value="Найти" class="btn btn-primary me-2" data-disable-with="Найти">
-                            <a class="btn btn-outline-secondary" href="">Сбросить</a>
+                            <a class="btn btn-outline-secondary" href="<?= UrlGen::allVacancies() ?>">Сбросить</a>
                         </div>
                     </div>
                 <?php ActiveForm::end() ?>
