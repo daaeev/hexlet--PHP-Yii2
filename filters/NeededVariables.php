@@ -16,8 +16,10 @@ class NeededVariables extends ActionFilter
     {
         Yii::$app->view->params['user'] = Yii::$app->user->getIdentity();
 
-        $helper = Yii::$container->get(DBValidatorInterface::class);
-        Yii::$app->view->params['have_notification'] = $helper->userHaveNotification(Yii::$app->view->params['user']->id);
+        if (!Yii::$app->user->isGuest) {
+            $helper = Yii::$container->get(DBValidatorInterface::class);
+            Yii::$app->view->params['have_notification'] = $helper->userHaveNotification(Yii::$app->view->params['user']->id);
+        }
 
         /**
          * 20 последних ответов
