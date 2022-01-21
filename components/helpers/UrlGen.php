@@ -165,4 +165,23 @@ class UrlGen
     {
         return '/account/delete-notify/' . $notify_id;
     }
+
+    /**
+     * Генерация адреса страницы с формой для отправки письма на почту
+     * @return string адресс страницы
+     */
+    public static function forgotPassPage(): string
+    {
+        return '/forgot-pass';
+    }
+
+    /**
+     * Генерация полного адреса страницы с формой для изменения пароля
+     * @param string $token токен пользователя
+     * @return string адресс страницы
+     */
+    public static function fullChangePassPage(string $token): string
+    {
+        return ((!empty($_SERVER['HTTPS'])) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . "/change-pass?token=$token";
+    }
 }

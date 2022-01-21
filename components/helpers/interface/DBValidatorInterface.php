@@ -41,4 +41,11 @@ interface DBValidatorInterface
      * @return bool
      */
     public function userHaveNotification(int $user_id): bool;
+
+    /**
+     * Метод проверяет существование пользователя с token = $token
+     * @param string $token токен пользователя
+     * @return bool
+     */
+    public function userByTokenExist(string $token): bool;
 }

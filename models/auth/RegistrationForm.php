@@ -26,7 +26,7 @@ class RegistrationForm extends Model
             ['email', 'email'],
             ['email', 'unique', 'targetClass' => User::class],
             ['password', 'string', 'min' => '6'],
-            ['password', 'compare'],
+            ['password_repeat', 'compare', 'compareAttribute' => 'password'],
             ['remember_me', 'safe'],
         ];
     }

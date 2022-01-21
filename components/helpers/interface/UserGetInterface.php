@@ -40,4 +40,20 @@ interface UserGetInterface
      * @return array массив непрочитанных уведомлений
      */
     public function getUserNotifications(int $user_id): array;
+
+    /**
+     * Метод возвращает токен пользователя с email = $user_email
+     * @param string $user_email электронный адрес пользователя
+     * @return string токен пользователя
+     * @throws IDNotFoundException если пользователь с указанной почтой не существует
+     */
+    public function getUserTokenByEmail(string $user_email): string;
+
+    /**
+     * Метод возвращает экземпляр модели User пользователя с token = $token
+     * @param string $token электронный адрес пользователя
+     * @return User объект модели пользователя
+     * @throws IDNotFoundException если пользователь с указанным токеном не существует
+     */
+    public function getUserByToken(string $token): User;
 }

@@ -48,6 +48,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
             [['name', 'email', 'password'], 'string', 'max' => 255],
             ['name', 'default', 'value' => 'Anonymous'],
             ['likes_count', 'default', 'value' => '0'],
+            ['token', 'default', 'value' => Yii::$app->getSecurity()->generateRandomString(32)],
         ];
     }
 

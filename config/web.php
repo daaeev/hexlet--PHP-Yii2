@@ -69,7 +69,21 @@ $config = [
                 'login' => 'authorization/login',
                 'registration' => 'authorization/registration',
                 'logout' => 'authorization/logout',
+                'forgot-pass' => 'authorization/forgot-pass',
+                'change-pass' => 'authorization/change-pass',
             ],
+        ],
+        'mailer' => [
+            'class' => 'yii\swiftmailer\Mailer',
+            'useFileTransport' => false,
+            'transport' => [
+                'class' => 'Swift_SmtpTransport',
+                'host' => 'smtp.gmail.com',
+                'username' => '', // УКАЗАТЬ АДРЕС
+                'password' => '', // УКАЗАТЬ ПАРОЛЬ
+                'port' => '587',
+                'encryption' => 'tls',
+            ] 
         ],
     ],
 ];

@@ -29,7 +29,7 @@ use yii\bootstrap4\ActiveForm;
         <?php ActiveForm::end() ?>
 
         <a href="<?= UrlGen::login() ?>">Войти</a><br>
-        <a href="#">Забыли пароль?</a><br>
+        <a href="<?= UrlGen::forgotPassPage() ?>">Забыли пароль?</a><br>
         <a rel="nofollow" data-method="post" href="#">Войти с помощью: GitHub</a><br>
     </div>
 </div>
