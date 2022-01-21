@@ -13,6 +13,7 @@ use yii\web\Controller;
 use Yii;
 use yii\filters\AccessControl;
 use app\models\auth\LoginForm;
+use app\models\User;
 use Exception;
 
 class AuthorizationController extends Controller
@@ -40,28 +41,72 @@ class AuthorizationController extends Controller
         ];
     }
 
+    /**
+     * Метод отвечает за страницу с формой авторизации пользователя
+     * 
+     * Если пользователь отправил форму, вызывается метод LoginForm::login()
+     * для авторизации пользователя. Если метод выбрасывает исключение,
+     * то происходит создание флеш-сессии с описанием ошибки.
+     * 
+     * При удачной авторизации, выполняется редирект на главную страницу
+     * @return string результат рендерирнга
+     * @return Response — the current response object
+     * @throws InvalidArgumentException если файл вида или шаблона не найден
+     */
     public function actionLogin()
     {
         $model = new LoginForm;
 
-        if ($model->load(Yii::$app->request->post(), 'LoginForm') && $model->login()) {
-            return $this->redirect(UrlGen::home());
+        if ($model->load(Yii::$app->request->post(), 'LoginForm')) {
+            try {
+                $userGetHelper = Yii::$container->get(UserGetInterface::class);
+                $model->login($userGetHelper, Yii::$app->getSecurity(), Yii::$app->user);
+
+                return $this->redirect(UrlGen::home());
+            } catch (Exception $e) {
+                Yii::$app->session->setFlash('error', $e->getMessage());
+            }
         }
 
         return $this->render('login', compact('model'));
     }
 
+    /**
+     * Метод отвечает за страницу с формой регистрации пользователя
+     * 
+     * Если пользователь отправил форму, вызывается метод RegistrationForm::register()
+     * для регистрации пользователя. Если метод выбрасывает исключение,
+     * то происходит создание флеш-сессии с описанием ошибки.
+     * 
+     * При удачной регистрации, выполняется редирект на главную страницу
+     * @return string результат рендерирнга
+     * @return Response — the current response object
+     * @throws InvalidArgumentException если файл вида или шаблона не найден
+     */
     public function actionRegistration()
     {
         $model = new RegistrationForm();
 
-        if ($model->load(Yii::$app->request->post(), 'RegistrationForm') && $model->register()) {
-            return $this->redirect(UrlGen::home());
+        if ($model->load(Yii::$app->request->post(), 'RegistrationForm')) {
+            try {
+                $userModel = new User;
+                $model->register($userModel, Yii::$app->getSecurity(), Yii::$app->user);
+                
+                return $this->redirect(UrlGen::home());
+            } catch (Exception $e) {
+                Yii::$app->session->setFlash('error', $e->getMessage());
+            }
         }
 
         return $this->render('registration', compact('model'));
     }
     
+    /**
+     * Метод отвечает за выход пользователя из учётной записи
+     * 
+     * Для выполнения операции используется метод \yii\web\User::logout().
+     * @return Response — the current response object
+     */
     public function actionLogout()
     {
         Yii::$app->user->logout();

@@ -2,9 +2,14 @@
 
 namespace app\models\auth;
 
+use app\exceptions\AuthorizationFailedException;
+use app\exceptions\DBDataSaveException;
+use app\exceptions\ValidationFailedException;
 use yii\base\Model;
 use app\models\User;
 use Yii;
+use yii\base\Security;
+use yii\web\User as WebUser;
 
 /**
  * @property string email
@@ -41,39 +46,48 @@ class RegistrationForm extends Model
     }
 
     /**
-     * Занесение данных пользователя в бд при успешной валидации
-     * @return bool
-     * */
-    public function register()
+     * Метод отвечает за регистрацию пользователя
+     * 
+     * Сначала выполняется валидация данных.
+     * 
+     * После объект $user заполняется данными и сохраняется в базу.
+     * 
+     * Если пользователь установил флажок "Запомнить меня",
+     * время его авторизации устанавливается на 24 часа. 
+     * 
+     * Вызывается метод yii\web\User::login()
+     * для авторизации пользователя.
+     * @param User $user экземпляр модели app\models\User
+     * @param Security $security предоставляет набор методов 
+     * для решения общих задач, связанных с безопасностью
+     * @param WebUser $userAuth экземпляр компонента приложения, 
+     * который управляет статусом проверки подлинности пользователя
+     * @return bool если операция регистрации пройдёт успешно
+     * @throws ValidationFailedException если валидация данных пройдёт неуспешно
+     * @throws DBDataSaveException если сохранеине данных в БД пройдёт неуспешно
+     * @throws AuthorizationFailedException если авторизация пользователя пройдёт неуспешно
+     */
+    public function register(User $user, Security $security, WebUser $userAuth): bool
     {
-        if ($this->validate()) {
-            if ($user = $this->createUser()) {
-                $duration = 0;
+        if (!$this->validate()) {
+            throw new ValidationFailedException('Валидация данных прошла неуспешно');
+        }
 
-                if ($this->remember_me) {
-                    $duration = 3600 * 24;
-                }
-                
-                Yii::$app->user->login($user, $duration);
-            
-                return true;
-            }
+        $user->email = $this->email;
+        $user->password = $security->generatePasswordHash($this->password);
+        if (!$user->save()) {
+            throw new DBDataSaveException('Сохранение данных пользователя в БД прошло неуспешно');
+        }
+
+        $duration = 0;
+        if ($this->remember_me) {
+            $duration = 3600 * 24;
         }
         
-        return false;
-    }
-
-    /**
-     * Создание объекта типа User
-     * @return User
-     * */
-    protected function createUser(): User
-    {
-        $user = new User;
-        $user->email = $this->email;
-        $user->password = Yii::$app->getSecurity()->generatePasswordHash($this->password);
-        $user->save();
-
-        return $user;
+        if (!$userAuth->login($user, $duration)) {
+            throw new AuthorizationFailedException('Авторизация пользователя прошла неуспешно');
+        }
+    
+        return true;
     }
 }

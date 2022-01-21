@@ -1,12 +1,14 @@
 <?php
 
 use app\components\helpers\UrlGen;
+use app\widgets\Alert;
 use yii\bootstrap4\ActiveForm;
 
 ?>
 <!-- CONTENT -->
 <div class="row my-4">
     <div class="col-lg-5 col-md-8 mx-auto">
+        <?= Alert::widget() ?>
         <h2>Регистрация</h2>
         <?php $form = ActiveForm::begin() ?>
             <div class="form-inputs">

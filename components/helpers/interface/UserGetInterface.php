@@ -51,9 +51,17 @@ interface UserGetInterface
 
     /**
      * Метод возвращает экземпляр модели User пользователя с token = $token
-     * @param string $token электронный адрес пользователя
+     * @param string $token токен пользователя
      * @return User объект модели пользователя
      * @throws IDNotFoundException если пользователь с указанным токеном не существует
      */
     public function getUserByToken(string $token): User;
+
+    /**
+     * Метод возвращает экземпляр модели User пользователя с email = $email
+     * @param string $email электронный адрес пользователя
+     * @return User объект модели пользователя
+     * @throws IDNotFoundException если пользователь с указанной почтой не существует
+     */
+    public function getUserByEmail(string $email): User;
 }

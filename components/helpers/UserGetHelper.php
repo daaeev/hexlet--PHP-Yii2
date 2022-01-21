@@ -105,4 +105,17 @@ class UserGetHelper implements UserGetInterface
 
         throw new IDNotFoundException('Пользователь с токеном ' . $token . ' не существует');
     }
+
+    public function getUserByEmail(string $email): User
+    {
+        $user = User::find()
+            ->where(['email' => $email])
+            ->one();
+        
+        if ($user) {
+            return $user;
+        }
+
+        throw new IDNotFoundException('Пользователь с почтой ' . $email . ' не существует');
+    }
 }
