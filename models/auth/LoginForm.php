@@ -8,9 +8,6 @@ use app\exceptions\IDNotFoundException;
 use app\exceptions\ValidationFailedException;
 use yii\base\Model;
 use app\models\User;
-use PHPUnit\Framework\MockObject\MockObject;
-use yii\base\Security;
-use yii\web\User as WebUser;
 
 /**
  * @property string $email
@@ -58,9 +55,9 @@ class LoginForm extends Model
      * Вызывается метод yii\web\User::login()
      * для авторизации пользователя.
      * @param UserGetInterface $userGetHelper объект для получения данных пользователей из БД
-     * @param Security $security предоставляет набор методов 
+     * @param yii\base\Security $security предоставляет набор методов 
      * для решения общих задач, связанных с безопасностью
-     * @param WebUser $userAuth экземпляр компонента приложения, 
+     * @param yii\web\User $userAuth экземпляр компонента приложения, 
      * который управляет статусом проверки подлинности пользователя
      * @return bool при успешной авторизации пользователя
      * @throws ValidationFailedException если валидация данных пройдёт неуспешно

@@ -8,8 +8,6 @@ use app\exceptions\ValidationFailedException;
 use yii\base\Model;
 use app\models\User;
 use Yii;
-use yii\base\Security;
-use yii\web\User as WebUser;
 
 /**
  * @property string email
@@ -58,9 +56,9 @@ class RegistrationForm extends Model
      * Вызывается метод yii\web\User::login()
      * для авторизации пользователя.
      * @param User $user экземпляр модели app\models\User
-     * @param Security $security предоставляет набор методов 
+     * @param yii\base\Security $security предоставляет набор методов 
      * для решения общих задач, связанных с безопасностью
-     * @param WebUser $userAuth экземпляр компонента приложения, 
+     * @param yii\web\User $userAuth экземпляр компонента приложения, 
      * который управляет статусом проверки подлинности пользователя
      * @return bool если операция регистрации пройдёт успешно
      * @throws ValidationFailedException если валидация данных пройдёт неуспешно
