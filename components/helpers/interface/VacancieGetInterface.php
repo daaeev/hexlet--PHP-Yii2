@@ -19,7 +19,7 @@ interface VacancieGetInterface
      * @return Vacancie|array запись из таблицы vacancie
      * @throws IDNotFoundException если запись не найдена
      */
-    public function findById(int $id): Vacancie|array;
+    public function findById(int $id): Vacancie;
 
     /**
      * Возвращает массив, состоящий из вакансий,

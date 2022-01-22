@@ -99,7 +99,7 @@ class ResumeGetHelper implements ResumeGetInterface
         return $data;
     }
 
-    public function findById(int $id): Resume|array
+    public function findById(int $id): Resume
     {
         $model = Resume::find()
             ->with([

@@ -30,7 +30,7 @@ class VacancieGetHelper implements VacancieGetInterface
         return $data;
     }
 
-    public function findById(int $id): Vacancie|array
+    public function findById(int $id): Vacancie
     {
         $model = Vacancie::find()
             ->where(['status' => Vacancie::STATUS_CONFIRMED, 'id' => $id])

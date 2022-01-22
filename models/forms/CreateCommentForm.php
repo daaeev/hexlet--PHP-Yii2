@@ -56,7 +56,7 @@ class CreateCommentForm extends Model
      * @throws IDNotFoundException если запись с определенным идентификатором не существует
      * (при проверке существования)
      */
-    public function createComment(Comment|MockObject $comment, Parsedown $parser, DBValidatorInterface|MockObject $validator, int $resume_id, int $parent_comment_id = null): bool
+    public function createComment($comment, $parser, $validator, $resume_id, $parent_comment_id = null): bool
     {
         $is_comment = $parent_comment_id ? true : false;
 

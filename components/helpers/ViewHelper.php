@@ -49,7 +49,7 @@ class ViewHelper
      * @param Vacancie|MockObject $vac запись из таблицы vacancie
      * @return string сгенерированное название вакансии
      */
-    public static function createVacancieTitle(Vacancie|MockObject $vac): string
+    public static function createVacancieTitle($vac): string
     {
         $title = "$vac->level $vac->position";
         $title .= self::createSalaryTitle($vac) ? ' ' . self::createSalaryTitle($vac) . ' ' : ' ';
@@ -64,7 +64,7 @@ class ViewHelper
      * @param Vacancie|MockObject $vac запись из таблицы vacancie
      * @return string сгенерированное строке из данных о зарплате
      */
-    public static function createSalaryTitle(Vacancie|MockObject $vac): string
+    public static function createSalaryTitle($vac): string
     {
         $title = '';
 

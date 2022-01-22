@@ -30,13 +30,13 @@ interface RoleHelperInterface
      * @return bool
      * @throws DBDataSaveException если валидация или сохранение статуса пройдёт неуспешно
      */
-    public function setUserStatus(User $user, string $role_name): bool;
+    public function setUserStatus($user, string $role_name): bool;
 
     /**
      * Метод для получения объекта authManager.
      * Создан для облегчения работы с 
      * мок-объектом при тестировании
-     * @return ManagerInterface|MockObject
+     * @return ManagerInterface
      */
     public function getAuthManager();
 }

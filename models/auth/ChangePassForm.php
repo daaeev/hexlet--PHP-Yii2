@@ -47,7 +47,7 @@ class ChangePassForm extends Model
      * @throws ValidationFailedException если валидация данных пройдёт неуспешно
      * @throws DBDataSaveException если сохранение данных в БД пройдёт неуспешно
      */
-    public function changePass(User $user): bool
+    public function changePass($user): bool
     {
         if (!$this->validate()) {
             throw new ValidationFailedException('Валидация данных прошла неуспешно');

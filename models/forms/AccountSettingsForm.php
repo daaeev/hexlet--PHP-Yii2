@@ -43,7 +43,7 @@ class AccountSettingsForm extends Model
      * @throws ValidationFailedException если Валидация данных пройдёт неуспешно
      * @throws DBDataSaveException если сохранение данных пройдёт неуспешно
      */
-    public function saveUserSettings(User|MockObject $user): bool
+    public function saveUserSettings($user): bool
     {
         if ($this->validate()) {
             $user->name = $this->user_name;

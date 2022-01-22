@@ -8,6 +8,7 @@ use app\exceptions\IDNotFoundException;
 use app\exceptions\ValidationFailedException;
 use yii\base\Model;
 use app\models\User;
+use PHPUnit\Framework\MockObject\MockObject;
 use yii\base\Security;
 use yii\web\User as WebUser;
 
@@ -66,7 +67,7 @@ class LoginForm extends Model
      * @throws IDNotFoundException если пользователь с почтой $this->email не существует
      * @throws AuthorizationFailedException если авторизация пользователя пройдёт неуспешно
      */
-    public function login(UserGetInterface $userGetHelper, Security $security, WebUser $userAuth): bool
+    public function login($userGetHelper, $security, $userAuth): bool
     {
         if (!$this->validate()) {
             throw new ValidationFailedException('Валидация данных прошла неуспешно');

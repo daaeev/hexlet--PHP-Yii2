@@ -19,7 +19,7 @@ class RoleHelper implements RoleHelperInterface
     /**
      * @param ManagerInterface $authManager
      */
-    public function __construct(protected ManagerInterface|MockObject $authManager)
+    public function __construct(protected $authManager)
     {
     }
 
@@ -51,7 +51,7 @@ class RoleHelper implements RoleHelperInterface
         return true;
     }
 
-    public function setUserStatus(User|MockObject $user, string $role_name): bool
+    public function setUserStatus($user, string $role_name): bool
     {
         $user->status = $this->getStatusByRole($role_name);
 

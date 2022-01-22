@@ -49,7 +49,7 @@ class ForgotPassForm extends Model
      * @throws IDNotFoundException если пользователь с указанной почтой не существует
      * @throws MailSendException если отправка письма прошла неуспешно
      */
-    public function sendMessageToUserMail(MailerInterface $mailer, UserGetInterface $userGetHelper): bool
+    public function sendMessageToUserMail($mailer, $userGetHelper): bool
     {
         if (!$this->validate()) {
             throw new ValidationFailedException('Валидация данных прошла неуспешно');

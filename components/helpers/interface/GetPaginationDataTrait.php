@@ -16,7 +16,7 @@ trait GetPaginationDataTrait
      * адрес будет похож на 'site/resume', контроллер/экшен
      * @return array данные из бд с использованием пагинации
      */
-    protected function getPaginationData(ActiveQuery $query, string $route): array
+    protected function getPaginationData($query, string $route): array
     {
         $countQuery = $query->count();
         $pagination = new Pagination(['totalCount' => $countQuery, 'pageSize' => $this->pageSize, 'route' => $route]);

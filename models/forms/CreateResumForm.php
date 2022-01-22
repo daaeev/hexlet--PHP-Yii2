@@ -53,7 +53,7 @@ class CreateResumForm extends Model
      * @throws ValidationFailedException если валидация данных пройдёт неуспешно
      * @throws DBDataSaveException если сохранение данных пройдёт неуспешно
      */
-    public function createResum(Resume|MockObject $resume, Parsedown $parser): bool
+    public function createResum($resume, $parser): bool
     {
         if (!$this->validate()) {
             throw new ValidationFailedException('Валидация данных прошла неуспешно');
