@@ -5,6 +5,7 @@ namespace app\models\auth;
 use app\exceptions\DBDataSaveException;
 use app\exceptions\ValidationFailedException;
 use app\models\User;
+use Exception;
 use Yii;
 use yii\base\Model;
 
@@ -43,18 +44,21 @@ class ChangePassForm extends Model
      * Далее происходит сохранение данных в БД и воозврат true
      * при успешном прохождении валидации и сохранения
      * @param User $user экземпляр модели пользователя с переданным токеном
+     * @param yii\base\Security $security предоставляет набор методов 
+     * для решения общих задач, связанных с безопасностью
      * @return bool если операция валидации и сохранения пройдёт успешно
      * @throws ValidationFailedException если валидация данных пройдёт неуспешно
      * @throws DBDataSaveException если сохранение данных в БД пройдёт неуспешно
+     * @throws Exception если генерация хэша/строки пройдёт неуспешно
      */
-    public function changePass($user): bool
+    public function changePass($user, $security): bool
     {
         if (!$this->validate()) {
             throw new ValidationFailedException('Валидация данных прошла неуспешно');
         }
 
-        $user->password = Yii::$app->getSecurity()->generatePasswordHash($this->password);
-        $user->token = Yii::$app->getSecurity()->generateRandomString(32);
+        $user->password = $security->generatePasswordHash($this->password);
+        $user->token = $security->generateRandomString(32);
 
         if (!$user->save()) {
             throw new DBDataSaveException('Сохранение данных пользователя прошло неуспешо');

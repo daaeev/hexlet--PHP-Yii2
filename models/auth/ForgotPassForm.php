@@ -44,6 +44,7 @@ class ForgotPassForm extends Model
      * Далее происходит отправка письма с ссылкой на страницу.
      * Если операция проходит успешно, метод возвращает true
      * @param MailerInterface $mailer объект для работы с отправкой писем на почту
+     * @param UserGetInterface $userGetHelper объект для получения данных пользователей из БД
      * @return bool если операция пройдет успешно
      * @throws ValidationFailedException если валидация данных пройдет неуспешно
      * @throws IDNotFoundException если пользователь с указанной почтой не существует

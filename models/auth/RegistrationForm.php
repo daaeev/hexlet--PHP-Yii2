@@ -64,6 +64,7 @@ class RegistrationForm extends Model
      * @throws ValidationFailedException если валидация данных пройдёт неуспешно
      * @throws DBDataSaveException если сохранеине данных в БД пройдёт неуспешно
      * @throws AuthorizationFailedException если авторизация пользователя пройдёт неуспешно
+     * @throws Exception если генерация хэша пройдёт неуспешно
      */
     public function register($user, $security, $userAuth): bool
     {

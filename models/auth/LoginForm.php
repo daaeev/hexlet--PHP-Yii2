@@ -63,6 +63,7 @@ class LoginForm extends Model
      * @throws ValidationFailedException если валидация данных пройдёт неуспешно
      * @throws IDNotFoundException если пользователь с почтой $this->email не существует
      * @throws AuthorizationFailedException если авторизация пользователя пройдёт неуспешно
+     * @throws Exception если валидация пароля пройдёт неуспешно
      */
     public function login($userGetHelper, $security, $userAuth): bool
     {

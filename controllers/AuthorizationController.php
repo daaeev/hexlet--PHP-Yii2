@@ -175,7 +175,7 @@ class AuthorizationController extends Controller
             try {
                 $helper = Yii::$container->get(UserGetInterface::class);
                 $user = $helper->getUserByToken($token);
-                $model->changePass($user);
+                $model->changePass($user, Yii::$app->getSecurity());
 
                 Yii::$app->session->setFlash('success', 'Пароль успешно изменен');
             } catch (Exception $e) {
