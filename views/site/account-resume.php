@@ -21,7 +21,7 @@ use app\components\helpers\ViewHelper;
             <?php if ($resumes): ?>
                 <?php foreach ($resumes as $resume): ?>
                     <div class="card mb-3">
-                        <?= ViewHelper::introduceStatus($resume->status, UrlGen::resume($resume->id)) ?>
+                        <?= ViewHelper::resumeStatus($resume->status, $resume->id) ?>
                         <div class="card-body">
                             <h5 class="card-title"><?= htmlspecialchars($resume->title) ?></h5>
                             <div class="card-text">

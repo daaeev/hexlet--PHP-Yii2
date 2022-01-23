@@ -184,4 +184,14 @@ class UrlGen
     {
         return ((!empty($_SERVER['HTTPS'])) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . "/change-pass?token=$token";
     }
+
+    /**
+     * Генерация адреса страницы редактирования резюме
+     * @param int $id идентификатор резюме
+     * @return string адресс страницы
+     */
+    public static function resumeEditPage(int $id): string
+    {
+        return "/resume/edit/$id";
+    }
 }

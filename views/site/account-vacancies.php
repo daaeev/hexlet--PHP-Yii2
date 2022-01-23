@@ -21,7 +21,7 @@ use app\components\helpers\ViewHelper;
             <?php if ($vacancies): ?>
                 <?php foreach ($vacancies as $vacancie): ?>
                     <div class="card mb-3">
-                        <?= ViewHelper::introduceStatus($vacancie->status, UrlGen::vacancie($vacancie->id)) ?>
+                        <?= ViewHelper::vacancieStatus($vacancie->status, $vacancie->id) ?>
                         <div class="card-body">
                             <h5 class="card-title"><?= htmlspecialchars(ViewHelper::createVacancieTitle($vacancie)) ?></h5>
                             <div class="card-text">

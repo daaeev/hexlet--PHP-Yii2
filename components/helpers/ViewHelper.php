@@ -113,24 +113,45 @@ class ViewHelper
     }
 
     /**
-     * Генерация информации о статусе резюме/вакансии
-     * @param int $status статус резюме/вакансии
-     * @param string $href ссылка для просмотра резюме/вакансии
-     * @return string информация о статусе резюме/вакансии
+     * Метод генерирует тег "p", который содержит информацию о статусе резюме
+     * @param int $status статус резюме
+     * @param int $id идентификатор резюме
+     * @return string информация о статусе резюме
      */
-    public static function introduceStatus(int $status, string $href): string
+    public static function resumeStatus(int $status, int $id): string
     {
         switch ($status) {
-            case Resume::STATUS_CONFIRMED || Vacancie::STATUS_CONFIRMED:
-                return '<p class="card-header text-success">Проверено<span class="ms-3"><a href="' . $href . '"><span class="bi bi-eye text-muted"></span></a></span></p>';
-                break;
-            case Resume::STATUS_NOT_CONFIRMED || Vacancie::STATUS_NOT_CONFIRMED:
+            case Resume::STATUS_NOT_CONFIRMED:
                 return '<p class="card-header text-warning">Не проверено</p>';
                 break;
-            case Resume::STATUS_ON_DRAFT:
-                return '<p class="card-header">В черновик<span class="ms-3"><a href="#"><span class="bi bi-pencil-square text-muted"></span></a></span></p>';
+            case Resume::STATUS_CONFIRMED:
+                return '<p class="card-header text-success">Проверено<span class="ms-3"><a href="' . UrlGen::resume($id) . '"><span class="bi bi-eye text-muted"></span></a></span></p>';
                 break;
-            case Resume::STATUS_BANNED || Vacancie::STATUS_BANNED:
+            case Resume::STATUS_ON_DRAFT:
+                return '<p class="card-header">В черновик<span class="ms-3"><a href="' . UrlGen::resumeEditPage($id) . '"><span class="bi bi-pencil-square text-muted"></span></a></span></p>';
+                break;
+            case Resume::STATUS_BANNED:
+                return '<p class="card-header text-danger">Забанено</p>';
+                break;
+        }
+    }
+
+    /**
+     * Метод генерирует тег "p", который содержит информацию о статусе вакансии
+     * @param int $status статус вакансии
+     * @param int $id идентификатор вакансии
+     * @return string информация о статусе вакансии
+     */
+    public static function vacancieStatus(int $status, int $id): string
+    {
+        switch ($status) {
+            case Vacancie::STATUS_NOT_CONFIRMED:
+                return '<p class="card-header text-warning">Не проверено</p>';
+                break;
+            case Vacancie::STATUS_CONFIRMED:
+                return '<p class="card-header text-success">Проверено<span class="ms-3"><a href="' . UrlGen::vacancie($id) . '"><span class="bi bi-eye text-muted"></span></a></span></p>';
+                break;
+            case Vacancie::STATUS_BANNED:
                 return '<p class="card-header text-danger">Забанено</p>';
                 break;
         }
