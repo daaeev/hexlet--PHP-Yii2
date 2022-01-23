@@ -22,6 +22,7 @@ use app\models\Notification;
 use app\models\Resume;
 use app\models\User;
 use app\models\Vacancie;
+use Exception;
 use Parsedown;
 use yii\web\Controller;
 use Yii;
@@ -410,14 +411,14 @@ class SiteController extends Controller
     /**
      * Экшен рендерит страницу с формой создания резюме.
      * 
-     * Если имеются соответствующие POST-данные, 
+     * Если юзер отправил форму, 
      * то производится заполнение модели данными
      * и вызов соответствующего метода создания 
      * резюме в БД.
      * 
      * Статус резюме (Не подтверждено / В черновик)
-     * определяется до вызова метода(создания резюме) 
-     * и присваивается непосредственно экземпляру Resume
+     * определяется до вызова метода создания резюме
+     * и присваивается непосредственно экземпляру $resume
      * для упрощения создания flash-сессии с соответствующим сообщением
      * 
      * При положительном/отрицательном исходе создания резюме,
@@ -458,12 +459,81 @@ class SiteController extends Controller
 
                 Yii::$app->session->setFlash('success', $flash_message);
                 
-            } catch (ValidationFailedException|DBDataSaveException $e) {
+            } catch (Exception $e) {
                 Yii::$app->session->setFlash('error', $e->getMessage());
             }
 
             return $this->redirect(UrlGen::home());
         }
+
+        return $this->render('resume_create_form', compact('model'));
+    }
+
+    /**
+     * Экшен рендерит страницу с формой для редактирования резюме.
+     * 
+     * Сперва, при помощи хелпера, из БД достаётся резюме 
+     * с id = $id и статусом "в черновике".
+     * 
+     * Если юзер отправил форму, 
+     * то производится заполнение модели данными
+     * и вызов соответствующего метода создания 
+     * резюме в БД. Иначе модель заполняется
+     * данными полученного резюме и вызывается метод рендера файла вида.
+     * 
+     * Статус резюме (Не подтверждено / В черновик)
+     * определяется до вызова метода создания резюме
+     * и присваивается непосредственно экземпляру $resume
+     * для упрощения создания flash-сессии с соответствующим сообщением
+     * 
+     * При положительном/отрицательном исходе создания резюме,
+     * создаётся flash-сессия с соответствующим сообщением
+     * @return string результат рендеринга
+     * @return Response если операция создания резюме пройдёт успешно, 
+     * выполнится редирект на главную страницу
+     * @throws InvalidArgumentException если файл вида или шаблона не найден
+     * @throws InvalidConfigException if a dependency cannot be resolved or if a dependency cannot be fulfilled.
+     * @throws NotInstantiableException If resolved to an abstract class or an interface (since 2.0.9)
+     */
+    public function actionResumeEdit($id)
+    {
+        $helper = Yii::$container->get(ResumeGetInterface::class);
+        $resume = $helper->findById($id, true);
+
+        $model = new CreateResumForm;
+
+        if ($model->load(Yii::$app->request->post(), 'CreateResumForm')) {
+            $parser = Yii::$container->get(Parsedown::class);
+
+            // if (Yii::$app->request->post('publish'))
+            $status = Resume::STATUS_NOT_CONFIRMED;
+
+            if (Yii::$app->request->post('draft')) {
+                $status = Resume::STATUS_ON_DRAFT;
+            }
+
+            $resume->status = $status;
+
+            try {
+                $model->createResum($resume, $parser);
+
+                // if ($status == Resume::STATUS_NOT_CONFIRMED)
+                $flash_message = 'Ожидайте подтверждения корректности резюме. После вы увидите своё резюме в списке';
+
+                if ($status == Resume::STATUS_ON_DRAFT) {
+                    $flash_message = 'Ваше резюме сохранено в черновик';
+                }
+
+                Yii::$app->session->setFlash('success', $flash_message);
+                
+            } catch (Exception $e) {
+                Yii::$app->session->setFlash('error', $e->getMessage());
+            }
+
+            return $this->redirect(UrlGen::home());
+        }
+
+        $model->attributes = $resume->attributes;
 
         return $this->render('resume_create_form', compact('model'));
     }

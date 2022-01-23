@@ -36,10 +36,13 @@ interface ResumeGetInterface
      * Возвращает запись из таблицы resume
      * с определенным идентификатором
      * @param int $id идентификатор записи
-     * @return Resume|array запись из таблицы resume
+     * @param bool $onDraft если false,
+     * то из БД достаются только проверенные записи,
+     * иначе достаются резюме со статусом "в черновике"
+     * @return Resume запись из таблицы resume
      * @throws IDNotFoundException если запись не найдена
      */
-    public function findById(int $id): Resume;
+    public function findById(int $id, bool $onDraft = false): Resume;
 
     /**
      * Возвращает массив, состоящий из резюме,

@@ -31,7 +31,7 @@ $english_levels = [
                     <div class="row">
                         <label class="col-sm-3 col-form-label">Название <span title="обязательно">*</span></label>
                         <div class="col-sm-9">
-                            <?= $form->field($model, 'name')->input('text')->label(false) ?>
+                            <?= $form->field($model, 'title')->input('text')->label(false) ?>
                             <small class="form-text text-muted">PHP-программист, Android-разработчик, ...</small>
                         </div>
                     </div>
@@ -40,7 +40,7 @@ $english_levels = [
                     <div class="row">
                         <label class="col-sm-3 col-form-label">Владение английским <span title="обязательно">*</span></label>
                         <div class="col-sm-9">
-                            <?= $form->field($model, 'english_level')->dropdownList($english_levels)->label(false) ?>
+                            <?= $form->field($model, 'english')->dropdownList($english_levels)->label(false) ?>
                         </div>
                     </div>
                 </div>

@@ -60,6 +60,7 @@ $config = [
                 'profile/<id:\d+>' => 'site/profile',
                 'resume/<id:\d+>' => 'site/resume-view',
                 'resume/like/<id:\d+>' => 'site/do-like',
+                'resume/edit/<id:\d+>' => 'site/resume-edit',
                 'vacancie/<id:\d+>' => 'site/vacancie-view',
                 'account/delete-notify/<notify_id:\d+>' => 'site/delete-notify',
 

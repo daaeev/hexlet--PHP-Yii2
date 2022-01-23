@@ -11,8 +11,8 @@ use yii\base\Model;
 
 class CreateResumForm extends Model
 {
-    public $name;
-    public $english_level;
+    public $title;
+    public $english;
     public $github;
     public $contact;
     public $description;
@@ -23,9 +23,9 @@ class CreateResumForm extends Model
     {
         return [
             ['github', 'url'],
-            [['contact', 'github', 'english_level'], 'string', 'max' => 255],
-            [['name', 'description', 'skills', 'achievements'], 'string'],
-            [['name', 'english_level', 'github', 'description', 'skills'], 'required'],
+            [['contact', 'github', 'english'], 'string', 'max' => 255],
+            [['title', 'description', 'skills', 'achievements'], 'string'],
+            [['title', 'english', 'github', 'description', 'skills'], 'required'],
         ];
     }
 
@@ -35,8 +35,8 @@ class CreateResumForm extends Model
     public function attributeLabels()
     {
         return [
-            'name' => 'Заголовок',
-            'english_level' => 'Уровень английского',
+            'title' => 'Заголовок',
+            'english' => 'Уровень английского',
             'github' => 'Github',
             'contact' => 'Контакты',
             'description' => 'Описание',
@@ -59,8 +59,8 @@ class CreateResumForm extends Model
             throw new ValidationFailedException('Валидация данных прошла неуспешно');
         }
 
-        $resume->title = $this->name;
-        $resume->english = $this->english_level;
+        $resume->title = $this->title;
+        $resume->english = $this->english;
         $resume->github = $this->github;
         $resume->contact = $this->contact;
 

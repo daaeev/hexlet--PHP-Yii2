@@ -99,23 +99,30 @@ class ResumeGetHelper implements ResumeGetInterface
         return $data;
     }
 
-    public function findById(int $id): Resume
+    public function findById(int $id, bool $onDraft = false): Resume
     {
-        $model = Resume::find()
+        $query = Resume::find()
             ->with([
                 'author', 
                 'comments.author', 
                 'comments.comments.author',
                 'comments.likes',
             ])
-            ->where(['status' => Resume::STATUS_CONFIRMED, 'id' => $id])
-            ->one();
+            ->where(['id' => $id]);
+        
+        if ($onDraft) {
+            $query->andWhere(['status' => Resume::STATUS_ON_DRAFT]);
+        } else {
+            $query->andWhere(['status' => Resume::STATUS_CONFIRMED]);
+        }
+
+        $model = $query->one();
         
         if ($model) {
             return $model;
         }
 
-        throw new IDNotFoundException;
+        throw new IDNotFoundException('Резюме с id ' . $id . ' не существует');
     }
 
     public function findByAuthor(int $author_id): array

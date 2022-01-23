@@ -42,8 +42,8 @@ class CreateResumTest extends TestCase
             ->method('save')
             ->will($this->returnValue(false));
         
-        $this->object->name = 'Something';
-        $this->object->english_level = 'Something';
+        $this->object->title = 'Something';
+        $this->object->english = 'Something';
         $this->object->github = 'https://github.com/nickname';
         $this->object->description = 'Something';
         $this->object->skills = 'Something';
@@ -64,8 +64,8 @@ class CreateResumTest extends TestCase
             ->method('save')
             ->will($this->returnValue(true));
         
-        $this->object->name = 'Something';
-        $this->object->english_level = 'Something';
+        $this->object->title = 'Something';
+        $this->object->english = 'Something';
         $this->object->github = 'https://github.com/nickname';
         $this->object->description = 'Something';
         $this->object->skills = 'Something';
