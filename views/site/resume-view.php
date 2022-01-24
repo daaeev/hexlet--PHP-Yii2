@@ -2,6 +2,7 @@
 
 use app\components\helpers\UrlGen;
 use app\components\helpers\ViewHelper;
+use app\models\User;
 use app\widgets\Alert;
 use yii\bootstrap4\ActiveForm;
 use yii\i18n\Formatter;
@@ -105,18 +106,21 @@ use yii\i18n\Formatter;
 
                                 <a class="d-block small text-muted" data-bs-toggle="collapse" href="#answer-<?= $comment->id ?>">Добавить комментарий</a>
                                 <div class="collapse" id="answer-<?= $comment->id ?>">
-
-                                    <?php $form = ActiveForm::begin(['action' => "/create-comment/$resume->id/$comment->id"]) ?>
-                                        <div class="mb-3">
-                                            <?= $form->field($comment_form, 'content')->textarea()->label(false) ?>
-                                            <small class="form-text text-muted">Длина не может превышать 200 символов</small>
-                                        </div>
-
-                                        <div class="mb-3">
-                                            <input type="submit" name="commit" value="Создать" class="btn btn-primary" data-disable-with="Создать">
-                                        </div>
-                                    <?php ActiveForm::end() ?>
                                     
+                                    <?php if ($this->params['user']->status != User::STATUS_BANNED): ?>
+                                        <?php $form = ActiveForm::begin(['action' => "/create-comment/$resume->id/$comment->id"]) ?>
+                                            <div class="mb-3">
+                                                <?= $form->field($comment_form, 'content')->textarea()->label(false) ?>
+                                                <small class="form-text text-muted">Длина не может превышать 200 символов</small>
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <input type="submit" name="commit" value="Создать" class="btn btn-primary" data-disable-with="Создать">
+                                            </div>
+                                        <?php ActiveForm::end() ?>
+                                    <?php else: ?>
+                                        <p class="text-center bg-light py-4 fw-light">Вы были заблокированы на этом сайте</p>
+                                    <?php endif ?>
                                 </div>
                             </div>
                         </div>
@@ -127,14 +131,18 @@ use yii\i18n\Formatter;
                 <p class="text-center bg-light py-4 fw-light">Список пуст</p>
             <?php endif ?>
 
-            <?php $form = ActiveForm::begin(['action' => "/create-comment/$resume->id"]) ?>
-                <div class="mb-3">
-                    <?= $form->field($answer_form, 'content')->textarea(['rows' => "12", 'placeholder' => "Оставьте ваши рекомендации по улучшению резюме. Редактор поддерживает маркдаун"])->label(false) ?>
-                </div>
-                <div class="mb-3">
-                    <input type="submit" value="Создать" class="btn btn-primary" data-disable-with="Создать">
-                </div>
-            <?php ActiveForm::end() ?>
+            <?php if ($this->params['user']->status != User::STATUS_BANNED): ?>
+                <?php $form = ActiveForm::begin(['action' => "/create-comment/$resume->id"]) ?>
+                    <div class="mb-3">
+                        <?= $form->field($answer_form, 'content')->textarea(['rows' => "12", 'placeholder' => "Оставьте ваши рекомендации по улучшению резюме. Редактор поддерживает маркдаун"])->label(false) ?>
+                    </div>
+                    <div class="mb-3">
+                        <input type="submit" value="Создать" class="btn btn-primary" data-disable-with="Создать">
+                    </div>
+                <?php ActiveForm::end() ?>
+            <?php else: ?>
+                <p class="text-center bg-light py-4 fw-light">Вы были заблокированы на этом сайте</p>
+            <?php endif ?>
 
         </div>
 

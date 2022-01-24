@@ -2,6 +2,7 @@
 
 use app\components\helpers\UrlGen;
 use yii\bootstrap4\ActiveForm;
+use app\models\User;
 
 $english_levels = [
     'Не знаю' => 'Не знаю',
@@ -26,82 +27,87 @@ $english_levels = [
         <div class="col-md-9">
             <h2 class="h2 mb-4">Новое резюме</h2>
 
-            <?php $form = ActiveForm::begin() ?>
-                <div class="mb-3">
-                    <div class="row">
-                        <label class="col-sm-3 col-form-label">Название <span title="обязательно">*</span></label>
-                        <div class="col-sm-9">
-                            <?= $form->field($model, 'title')->input('text')->label(false) ?>
-                            <small class="form-text text-muted">PHP-программист, Android-разработчик, ...</small>
+            <?php if ($this->params['user']->status != User::STATUS_BANNED): ?>
+                <?php $form = ActiveForm::begin() ?>
+                    <div class="mb-3">
+                        <div class="row">
+                            <label class="col-sm-3 col-form-label">Название <span title="обязательно">*</span></label>
+                            <div class="col-sm-9">
+                                <?= $form->field($model, 'title')->input('text')->label(false) ?>
+                                <small class="form-text text-muted">PHP-программист, Android-разработчик, ...</small>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="mb-3">
-                    <div class="row">
-                        <label class="col-sm-3 col-form-label">Владение английским <span title="обязательно">*</span></label>
-                        <div class="col-sm-9">
-                            <?= $form->field($model, 'english')->dropdownList($english_levels)->label(false) ?>
+                    <div class="mb-3">
+                        <div class="row">
+                            <label class="col-sm-3 col-form-label">Владение английским <span title="обязательно">*</span></label>
+                            <div class="col-sm-9">
+                                <?= $form->field($model, 'english')->dropdownList($english_levels)->label(false) ?>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="mb-3">
-                    <div class="row">
-                        <label class="col-sm-3 col-form-label">GitHub <span title="обязательно">*</span></label>
-                        <div class="col-sm-9">
-                            <?= $form->field($model, 'github')->input('text')->label(false) ?>
-                            <small class="form-text text-muted">Ссылка на профиль: https://ru.github.io/u/mokevnin</small>
+                    <div class="mb-3">
+                        <div class="row">
+                            <label class="col-sm-3 col-form-label">GitHub <span title="обязательно">*</span></label>
+                            <div class="col-sm-9">
+                                <?= $form->field($model, 'github')->input('text')->label(false) ?>
+                                <small class="form-text text-muted">Ссылка на профиль: https://ru.github.io/u/mokevnin</small>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="mb-3">
-                    <div class="row">
-                        <label class="col-sm-3 col-form-label">Контакт</label>
-                        <div class="col-sm-9">
-                            <?= $form->field($model, 'contact')->input('text')->label(false) ?>
-                            <small class="form-text text-muted">Предпочитаемый способ связи (емайл, линкендин, телеграмм и т.п.)</small>
+                    <div class="mb-3">
+                        <div class="row">
+                            <label class="col-sm-3 col-form-label">Контакт</label>
+                            <div class="col-sm-9">
+                                <?= $form->field($model, 'contact')->input('text')->label(false) ?>
+                                <small class="form-text text-muted">Предпочитаемый способ связи (емайл, линкендин, телеграмм и т.п.)</small>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="mb-3">
-                    <div class="row">
-                        <label class="col-sm-3 col-form-label">Описание <span title="обязательно">*</span></label>
-                        <div class="col-sm-9">
-                            <?= $form->field($model, 'description')->textarea(['placeholder' => 'Редактор поддерживает маркдаун', 'rows' => 10])->label(false) ?>
+                    <div class="mb-3">
+                        <div class="row">
+                            <label class="col-sm-3 col-form-label">Описание <span title="обязательно">*</span></label>
+                            <div class="col-sm-9">
+                                <?= $form->field($model, 'description')->textarea(['placeholder' => 'Редактор поддерживает маркдаун', 'rows' => 10])->label(false) ?>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="mb-3">
-                    <div class="row">
-                        <label class="col-sm-3 col-form-label">Навыки <span title="обязательно">*</span></label>
-                        <div class="col-sm-9">
-                            <?= $form->field($model, 'skills')->textarea(['placeholder' => 'Редактор поддерживает маркдаун', 'rows' => 5])->label(false) ?>
-                            <small class="form-text text-muted">Знаю PHP, пользуюсь Vim, Работал с AWS</small>
+                    <div class="mb-3">
+                        <div class="row">
+                            <label class="col-sm-3 col-form-label">Навыки <span title="обязательно">*</span></label>
+                            <div class="col-sm-9">
+                                <?= $form->field($model, 'skills')->textarea(['placeholder' => 'Редактор поддерживает маркдаун', 'rows' => 5])->label(false) ?>
+                                <small class="form-text text-muted">Знаю PHP, пользуюсь Vim, Работал с AWS</small>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="mb-3">
-                    <div class="row">
-                        <label class="col-sm-3 col-form-label">Достижения</label>
-                        <div class="col-sm-9">
-                            <?= $form->field($model, 'achievements')->textarea(['placeholder' => 'Редактор поддерживает маркдаун', 'rows' => 10])->label(false) ?>
-                            <small class="form-text text-muted">Образование, работа, награды, сертификаты, участие в олимпиадах, курсы.</small>
+                    <div class="mb-3">
+                        <div class="row">
+                            <label class="col-sm-3 col-form-label">Достижения</label>
+                            <div class="col-sm-9">
+                                <?= $form->field($model, 'achievements')->textarea(['placeholder' => 'Редактор поддерживает маркдаун', 'rows' => 10])->label(false) ?>
+                                <small class="form-text text-muted">Образование, работа, награды, сертификаты, участие в олимпиадах, курсы.</small>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="row mt-5">
-                    <div class="col-sm d-flex mb-3">
-                        <div class="me-3">
-                            <input type="submit" name="publish" value="Опубликовать" class="btn btn-success" data-disable-with="Опубликовать">
+                    <div class="row mt-5">
+                        <div class="col-sm d-flex mb-3">
+                            <div class="me-3">
+                                <input type="submit" name="publish" value="Опубликовать" class="btn btn-success" data-disable-with="Опубликовать">
+                            </div>
+                            <div class="me-3">
+                                <input type="submit" name="draft" value="В черновик" class="btn btn-outline-primary" data-disable-with="В черновик">
+                            </div>
                         </div>
-                        <div class="me-3">
-                            <input type="submit" name="draft" value="В черновик" class="btn btn-outline-primary" data-disable-with="В черновик">
+                        <div class="col-sm d-flex justify-content-end mb-3">
+                            <a class="btn btn-outline-secondary" href="<?= UrlGen::home() ?>">Отмена</a>
                         </div>
                     </div>
-                    <div class="col-sm d-flex justify-content-end mb-3">
-                        <a class="btn btn-outline-secondary" href="<?= UrlGen::home() ?>">Отмена</a>
-                    </div>
-                </div>
-            <?php ActiveForm::end() ?>
+                <?php ActiveForm::end() ?>
+            <?php else: ?>
+                <p class="text-center bg-light py-4 fw-light">Вы были заблокированы на этом сайте</p>
+            <?php endif ?>
+
         </div>
     </div>
 </div>

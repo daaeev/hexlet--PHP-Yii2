@@ -3,6 +3,7 @@
 use app\components\helpers\UrlGen;
 use app\widgets\Alert;
 use yii\bootstrap4\ActiveForm;
+use app\models\User;
 
 ?>
 <!-- CONTENT -->
@@ -21,19 +22,24 @@ use yii\bootstrap4\ActiveForm;
 
             <?= Alert::widget() ?>
 
-            <?php $form = ActiveForm::begin() ?>
-                <div class="mb-3">
-                    <?= $form->field($model, 'user_name')->input('text', ['value' => htmlspecialchars($this->params['user']->name)]) ?>
-                </div>
+            <?php if ($this->params['user']->status != User::STATUS_BANNED): ?>
+                <?php $form = ActiveForm::begin() ?>
+                    <div class="mb-3">
+                        <?= $form->field($model, 'user_name')->input('text', ['value' => htmlspecialchars($this->params['user']->name)]) ?>
+                    </div>
 
-                <div class="mb-3">
-                    <?= $form->field($model, 'contribution')->textarea(['value' => htmlspecialchars($this->params['user']->contribution)]) ?>
-                </div>
+                    <div class="mb-3">
+                        <?= $form->field($model, 'contribution')->textarea(['value' => htmlspecialchars($this->params['user']->contribution)]) ?>
+                    </div>
 
-                <div class="mb-3">
-                    <input type="submit" class="btn btn-primary" value="Изменить">
-                </div>
-            <?php ActiveForm::end() ?>
+                    <div class="mb-3">
+                        <input type="submit" class="btn btn-primary" value="Изменить">
+                    </div>
+                <?php ActiveForm::end() ?>
+            <?php else: ?>
+                <p class="text-center bg-light py-4 fw-light">Вы были заблокированы на этом сайте</p>
+            <?php endif ?>
+
         </div>
     </div>
 </div>
