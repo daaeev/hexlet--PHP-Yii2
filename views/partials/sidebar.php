@@ -18,6 +18,8 @@ use app\components\helpers\UrlGen;
                 </div>
                 <!-- CARD -->
             <?php endforeach ?>
+        <?php else: ?>
+            <p class="text-center bg-light py-4 fw-light">На данный момент, свежих ответов не найдено</p>
         <?php endif ?>
 
     </div>
