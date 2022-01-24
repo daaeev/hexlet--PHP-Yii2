@@ -60,6 +60,7 @@ class UserSearch extends User
         $query->andFilterWhere([
             'id' => $this->id,
             'status' => $this->status,
+            'email_confirmed' => $this->email_confirmed,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])

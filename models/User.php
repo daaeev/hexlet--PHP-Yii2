@@ -14,7 +14,9 @@ use yii\web\IdentityInterface;
  * @property string|null $password
  * @property int|null $status
  * @property int $likes_count
+ * @property int $email_confirmed
  * @property string|null $contribution
+ * @property string|null $token
  *
  * @property Comments[] $comments
  * @property Notifications[] $notifications
@@ -28,6 +30,9 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     const STATUS_ADMIN = 1;
     const STATUS_MODERATOR = 2;
     const STATUS_BANNED = 3;
+
+    const EMAIL_NOT_CONFIRMED = 0;
+    const EMAIL_CONFIRMED = 1;
     /**
      * {@inheritdoc}
      */
@@ -47,7 +52,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
             [['contribution'], 'string'],
             [['name', 'email', 'password'], 'string', 'max' => 255],
             ['name', 'default', 'value' => 'Anonymous'],
-            ['likes_count', 'default', 'value' => '0'],
+            [['likes_count', 'email_confirmed'], 'default', 'value' => 0],
             ['token', 'default', 'value' => Yii::$app->getSecurity()->generateRandomString(32)],
         ];
     }
