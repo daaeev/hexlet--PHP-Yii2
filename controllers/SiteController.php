@@ -474,6 +474,7 @@ class SiteController extends Controller
      * 
      * Сперва, при помощи хелпера, из БД достаётся резюме 
      * с id = $id и статусом "в черновике".
+     * Проводится проверка, является ли пользователь автором резюме.
      * 
      * Если юзер отправил форму, 
      * то производится заполнение модели данными
@@ -494,11 +495,16 @@ class SiteController extends Controller
      * @throws InvalidArgumentException если файл вида или шаблона не найден
      * @throws InvalidConfigException if a dependency cannot be resolved or if a dependency cannot be fulfilled.
      * @throws NotInstantiableException If resolved to an abstract class or an interface (since 2.0.9)
+     * @throws ValidationFailedException если пользователь не является автором резюме с id = $id
      */
     public function actionResumeEdit($id)
     {
         $helper = Yii::$container->get(ResumeGetInterface::class);
         $resume = $helper->findById($id, true);
+
+        if ($resume->author_id != $this->view->params['user']->id) {
+            throw new ValidationFailedException('Вы не являетесь автором этого резюме');
+        }
 
         $model = new CreateResumForm;
 

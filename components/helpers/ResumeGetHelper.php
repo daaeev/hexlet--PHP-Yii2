@@ -122,7 +122,7 @@ class ResumeGetHelper implements ResumeGetInterface
             return $model;
         }
 
-        throw new IDNotFoundException('Резюме с id ' . $id . ' не существует');
+        throw new IDNotFoundException('Запрошенное резюме не найдено');
     }
 
     public function findByAuthor(int $author_id): array
