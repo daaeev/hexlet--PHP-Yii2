@@ -1,5 +1,6 @@
 <?php
 
+use app\components\helpers\UrlGen;
 use app\components\helpers\ViewHelper;
 
 ?>
@@ -97,9 +98,17 @@ use app\components\helpers\ViewHelper;
 
             <div class="alert bg-light shadow-sm text-muted">При отклике на вакансию указывайте, что вы от Хекслета =)</div>
             <h2 class="h3 mt-5 mb-4">Похожие вакансии</h2>
-            <div class="lead">
-                <a href="#">Джуниор React в городеМосква</a>
-            </div>
+            
+            <?php if ($similar_vacancies): ?>
+                <?php foreach ($similar_vacancies as $sim_vacancie): ?>
+                    <div class="lead">
+                        <a href="<?= UrlGen::vacancie($sim_vacancie->id) ?>"><?= htmlspecialchars(ViewHelper::createVacancieTitle($sim_vacancie)) ?></a>
+                    </div>
+                <?php endforeach ?>
+            <?php else: ?>
+                <p class="text-center bg-light py-4 fw-light">На данный момент, похожих вакансий не найдено</p>
+            <?php endif ?>
+            
         </div>
 
         <?= $this->renderFile('@app/views/partials/sidebar.php', ['answers' => $this->params['sidebar_elements']]) ?>

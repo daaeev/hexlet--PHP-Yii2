@@ -4,6 +4,10 @@ namespace app\components\helpers\interface;
 
 use app\models\Vacancie;
 
+/**
+ * @property int $pageSize количество записей на одной странице
+ * при использовании пагинации
+ */
 interface VacancieGetInterface
 {
     /**
@@ -16,7 +20,7 @@ interface VacancieGetInterface
      * Возвращает запись из таблицы vacancie
      * с определенным идентификатором
      * @param int $id идентификатор записи
-     * @return Vacancie|array запись из таблицы vacancie
+     * @return Vacancie запись из таблицы vacancie
      * @throws IDNotFoundException если запись не найдена
      */
     public function findById(int $id): Vacancie;
@@ -47,4 +51,12 @@ interface VacancieGetInterface
      * @return array массив из проверенных вакансий с пагинацией ['elements' => [...], 'pagination' => [...]]
      */
     public function getAllByFilters(array $filters): array;
+
+    /**
+     * Возвращает массив со всеми проверенными вакансиями,
+     * которые похожи на вакансию $vacancie
+     * @param Vacancie $vacancie экземпляр модели Vacancie
+     * @return array массив из $limit проверенных вакансий
+     */
+    public function findSimilarVacancies($vacancie, int $limit = 5): array;
 }

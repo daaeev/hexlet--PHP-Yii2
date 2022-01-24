@@ -4,6 +4,10 @@ namespace app\components\helpers\interface;
 
 use app\models\Resume;
 
+/**
+ * @property int $pageSize количество записей на одной странице
+ * при использовании пагинации
+ */
 interface ResumeGetInterface
 {
     /**

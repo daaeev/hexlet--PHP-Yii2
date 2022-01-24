@@ -10,8 +10,6 @@ use yii\db\Expression;
 
 /**
  * Класс-хелпер для получения данных из таблицы vacancie
- * @property int $pageSize количество записей на одной странице.
- * Используется в создании пагинации
  */
 class VacancieGetHelper implements VacancieGetInterface
 {
@@ -85,6 +83,20 @@ class VacancieGetHelper implements VacancieGetInterface
         $data = $this->getPaginationData($query, 'vacancies');
 
         return $data;
+    }
+
+    public function findSimilarVacancies($vacancie, int $limit = 5): array
+    {
+        $vacancies = Vacancie::find()
+            ->where(['status' => Vacancie::STATUS_CONFIRMED])
+            ->andWhere(['!=', 'id', $vacancie->id])
+            ->andWhere(['like', 'level', $vacancie->level])
+            ->andWhere(['like', 'city', $vacancie->city])
+            ->orderBy('pub_date DESC')
+            ->limit($limit)
+            ->all();
+
+        return $vacancies;
     }
 
     /**

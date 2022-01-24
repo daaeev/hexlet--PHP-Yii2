@@ -11,8 +11,6 @@ use yii\db\ActiveQuery;
 
 /**
  * Класс-хелпер для получения данных из таблицы resume
- * @property int $pageSize количество записей на одной странице.
- * Используется в создании пагинации
  */
 class ResumeGetHelper implements ResumeGetInterface
 {

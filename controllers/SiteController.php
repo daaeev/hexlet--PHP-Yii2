@@ -210,7 +210,8 @@ class SiteController extends Controller
     /**
      * Метод отвечает за страницу для просмотра определенненной вакансии
      * 
-     * Осуществляется поиск вакансии из таблицы vacancie с id = $id
+     * Осуществляется поиск вакансии из таблицы vacancie с id = $id.
+     * Также достаются ей похожие вакансии
      * @param int $id идентификатор записи в таблице vacancie
      * @return string результат рендеринга
      * @throws InvalidArgumentException если файл вида или шаблона не найден
@@ -221,8 +222,9 @@ class SiteController extends Controller
         $helper = Yii::$container->get(VacancieGetInterface::class);
 
         $vacancie = $helper->findById($id);
+        $similar_vacancies = $helper->findSimilarVacancies($vacancie);
 
-        return $this->render('vacancie-view', compact('vacancie'));
+        return $this->render('vacancie-view', compact('vacancie', 'similar_vacancies'));
     }
 
     /**
