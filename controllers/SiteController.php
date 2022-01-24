@@ -45,11 +45,11 @@ class SiteController extends Controller
             ],
             'access' => [
                 'class' => AccessControl::class,
-                'only' => ['do-like', 'create-comment', 'account', 'create-resume', 'create-vacancie'],
+                'only' => ['do-like', 'create-comment', 'account', 'create-resume', 'create-vacancie', 'resume-edit', 'delete-notify'],
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['do-like', 'create-comment', 'account', 'create-resume', 'create-vacancie'],
+                        'actions' => ['do-like', 'create-comment', 'account', 'create-resume', 'create-vacancie', 'resume-edit', 'delete-notify'],
                         'roles' => ['@'],
                     ],
                 ],
