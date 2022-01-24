@@ -33,7 +33,7 @@ class AuthorizationController extends Controller
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['logout',],
+                        'actions' => ['logout', 'email-confirm'],
                         'roles' => ['@'],
                     ],
                 ],
@@ -186,5 +186,39 @@ class AuthorizationController extends Controller
         }
         
         return $this->render('change', compact('model'));
+    }
+
+    /**
+     * Метод отвечает за операцию изменения статуса подтверждения аккаунта.
+     * 
+     * Для начала из БД достаётся пользователь с token = $token.
+     * Его статус подтверждения почты изменяется на "Подтвержденно",
+     * генерируется новый токен пользователя
+     * и вызывается метод сохранения данных в БД.
+     * 
+     * Если сохранение прошло без ошибок, то создаётся флеш-сессия 
+     * с соответствующей надписью об успешном подтверждении.
+     * 
+     * Иначе создаётся флеш-сессия с соответствующей надписью об неуспешном подтверждении.
+     * @param string $token токен пользователя
+     * @return Response the current response object
+     * @throws IDNotFoundException если пользователя с переданным токеном не существует
+     * @throws Exception если во время генерация токена возникнет ошибка
+     */
+    public function actionEmailConfirm($token)
+    {
+        $helper = Yii::$container->get(UserGetInterface::class);
+
+        $user = $helper->getUserByToken($token);
+        $user->email_confirmed = User::EMAIL_CONFIRMED;
+        $user->token = Yii::$app->getSecurity()->generateRandomString(32);
+
+        if ($user->save()) {
+            Yii::$app->session->setFlash('success', 'Аккаунт успешно подтверждён');
+        } else {
+            Yii::$app->session->setFlash('error', 'Что-то пошло не так, попробуйте ещё раз');
+        }
+
+        return $this->redirect(UrlGen::home());
     }
 }

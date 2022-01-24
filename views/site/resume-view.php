@@ -107,7 +107,12 @@ use yii\i18n\Formatter;
                                 <a class="d-block small text-muted" data-bs-toggle="collapse" href="#answer-<?= $comment->id ?>">Добавить комментарий</a>
                                 <div class="collapse" id="answer-<?= $comment->id ?>">
                                     
-                                    <?php if ($this->params['user']->status != User::STATUS_BANNED): ?>
+                                    <?php 
+                                        if (
+                                            $this->params['user']->status != User::STATUS_BANNED 
+                                            && $this->params['user']->email_confirmed == User::EMAIL_CONFIRMED
+                                        ): 
+                                    ?>
                                         <?php $form = ActiveForm::begin(['action' => "/create-comment/$resume->id/$comment->id"]) ?>
                                             <div class="mb-3">
                                                 <?= $form->field($comment_form, 'content')->textarea()->label(false) ?>
@@ -118,8 +123,10 @@ use yii\i18n\Formatter;
                                                 <input type="submit" name="commit" value="Создать" class="btn btn-primary" data-disable-with="Создать">
                                             </div>
                                         <?php ActiveForm::end() ?>
-                                    <?php else: ?>
+                                    <?php elseif ($this->params['user']->status == User::STATUS_BANNED): ?>
                                         <p class="text-center bg-light py-4 fw-light">Вы были заблокированы на этом сайте</p>
+                                    <?php elseif ($this->params['user']->email_confirmed == User::EMAIL_NOT_CONFIRMED): ?>
+                                        <p class="text-center bg-light py-4 fw-light"><a href="<?= UrlGen::account('settings') ?>">Подтвердите аккаунт для того, чтобы написать комментарий</a></p>
                                     <?php endif ?>
                                 </div>
                             </div>
@@ -131,7 +138,12 @@ use yii\i18n\Formatter;
                 <p class="text-center bg-light py-4 fw-light">Список пуст</p>
             <?php endif ?>
 
-            <?php if ($this->params['user']->status != User::STATUS_BANNED): ?>
+            <?php 
+                if (
+                    $this->params['user']->status != User::STATUS_BANNED 
+                    && $this->params['user']->email_confirmed == User::EMAIL_CONFIRMED
+                ): 
+            ?>
                 <?php $form = ActiveForm::begin(['action' => "/create-comment/$resume->id"]) ?>
                     <div class="mb-3">
                         <?= $form->field($answer_form, 'content')->textarea(['rows' => "12", 'placeholder' => "Оставьте ваши рекомендации по улучшению резюме. Редактор поддерживает маркдаун"])->label(false) ?>
@@ -140,8 +152,10 @@ use yii\i18n\Formatter;
                         <input type="submit" value="Создать" class="btn btn-primary" data-disable-with="Создать">
                     </div>
                 <?php ActiveForm::end() ?>
-            <?php else: ?>
+            <?php elseif ($this->params['user']->status == User::STATUS_BANNED): ?>
                 <p class="text-center bg-light py-4 fw-light">Вы были заблокированы на этом сайте</p>
+            <?php elseif ($this->params['user']->email_confirmed == User::EMAIL_NOT_CONFIRMED): ?>
+                <p class="text-center bg-light py-4 fw-light"><a href="<?= UrlGen::account('settings') ?>">Подтвердите аккаунт для того, чтобы написать свои рекомендации</a></p>
             <?php endif ?>
 
         </div>

@@ -36,10 +36,22 @@ use app\models\User;
                         <input type="submit" class="btn btn-primary" value="Изменить">
                     </div>
                 <?php ActiveForm::end() ?>
-            <?php else: ?>
+            <?php elseif ($this->params['user']->status == User::STATUS_BANNED): ?>
                 <p class="text-center bg-light py-4 fw-light">Вы были заблокированы на этом сайте</p>
             <?php endif ?>
 
+            <hr>
+            <div class="account_status my-4">
+                <span class="fw-bold">Статус аккаунта:</span>
+
+                <?php if ($this->params['user']->email_confirmed == User::EMAIL_NOT_CONFIRMED): ?>
+                    <span class="text-danger fw-bold">Не подтверждено</span>
+                    <a class="btn btn-primary" href="<?= UrlGen::sendConfirmEmailPage() ?>">Подтвердить</a>
+                <?php else: ?>
+                    <span class="text-success fw-bold">Подтверждено</span>
+                <?php endif ?>
+                
+            </div>
         </div>
     </div>
 </div>

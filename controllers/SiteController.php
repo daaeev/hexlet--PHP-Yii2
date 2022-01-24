@@ -45,11 +45,11 @@ class SiteController extends Controller
             ],
             'access' => [
                 'class' => AccessControl::class,
-                'only' => ['do-like', 'create-comment', 'account', 'create-resume', 'create-vacancie', 'resume-edit', 'delete-notify'],
+                'only' => ['do-like', 'create-comment', 'account', 'create-resume', 'create-vacancie', 'resume-edit', 'delete-notify', 'send-mail-to-confirm'],
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['do-like', 'create-comment', 'account', 'create-resume', 'create-vacancie', 'resume-edit', 'delete-notify'],
+                        'actions' => ['do-like', 'create-comment', 'account', 'create-resume', 'create-vacancie', 'resume-edit', 'delete-notify', 'send-mail-to-confirm'],
                         'roles' => ['@'],
                     ],
                 ],
@@ -610,5 +610,37 @@ class SiteController extends Controller
     public function actionError()
     {
         return $this->render('error');
+    }
+
+    /**
+     * Метод отвечает за отправку инструкции
+     * подтверждения аккаунта на почту пользователя
+     * 
+     * Сперва генерируется содержимое письма, используя UrlGen::fullConfirmEmailPage().
+     * 
+     * Далее производится отправка письма и создание флеш-сессим
+     * с результатом отправки.
+     * @return Response the current response object
+     */
+    public function actionSendMailToConfirm()
+    {
+        $mailer = Yii::$app->mailer;
+        $link = UrlGen::fullConfirmEmailPage($this->view->params['user']->token);
+        $message = "Для подтверждения аккаунта, перейдите по следующей одноразовой ссылке - $link";
+
+        try {
+            $mailer->compose()
+                ->setFrom('') // УКАЖИТЕ АДРЕС ОТПРАВИТЕЛЯ
+                ->setTo($this->view->params['user']->email)
+                ->setSubject('Подтверждение аккаунта Hexlet')
+                ->setTextBody($message)
+                ->send();
+            
+            Yii::$app->session->setFlash('success', 'На вашу почту отправлена инструкция для подтверждения...');
+        } catch (Exception) {
+            Yii::$app->session->setFlash('success', 'При отправке письма, что-то пошло не так');
+        }
+
+        return $this->redirect(UrlGen::account('settings'));
     }
 }

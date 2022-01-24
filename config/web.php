@@ -72,6 +72,8 @@ $config = [
                 'logout' => 'authorization/logout',
                 'forgot-pass' => 'authorization/forgot-pass',
                 'change-pass' => 'authorization/change-pass',
+                'email/confirm' => 'authorization/email-confirm',
+                'email/send-confirm' => 'site/send-mail-to-confirm',
             ],
         ],
         'mailer' => [
@@ -80,7 +82,12 @@ $config = [
             'transport' => [
                 'class' => 'Swift_SmtpTransport',
                 'host' => 'smtp.gmail.com',
+
+                // Также указать в 
+                // SiteController::actionSendMailToConfirm()
+                // ForgotPassForm::sendMessageToUserMail()
                 'username' => '', // УКАЗАТЬ АДРЕС
+
                 'password' => '', // УКАЗАТЬ ПАРОЛЬ
                 'port' => '587',
                 'encryption' => 'tls',

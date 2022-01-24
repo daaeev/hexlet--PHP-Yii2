@@ -59,7 +59,7 @@ class ForgotPassForm extends Model
         $token = $userGetHelper->getUserTokenByEmail($this->email);
 
         $link = UrlGen::fullChangePassPage($token);
-        $message = "Для изменения пароля, перейдите по следующей ссылке - $link";
+        $message = "Для изменения пароля, перейдите по следующей одноразовой ссылке - $link";
         $letter = $mailer->compose()
             ->setFrom('') // УКАЖИТЕ АДРЕС ОТПРАВИТЕЛЯ
             ->setTo($this->email)

@@ -194,4 +194,24 @@ class UrlGen
     {
         return "/resume/edit/$id";
     }
+
+    /**
+     * Генерация полного адреса страницы для подтверждения аккаунта
+     * @param string $token токен пользователя
+     * @return string адресс страницы
+     */
+    public static function fullConfirmEmailPage(string $token): string
+    {
+        return ((!empty($_SERVER['HTTPS'])) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . "/email/confirm?token=$token";
+    }
+
+    /**
+     * Генерация адреса страницы для отправки письма
+     * с инструкцией подтверждения аккаунта
+     * @return string адресс страницы
+     */
+    public static function sendConfirmEmailPage(): string
+    {
+        return '/email/send-confirm';
+    }
 }

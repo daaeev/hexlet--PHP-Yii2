@@ -54,7 +54,12 @@ $currencies = [
         <div class="col-md-9">
             <h2 class="h2 mb-4">Новая вакансия</h2>
             
-            <?php if ($this->params['user']->status != User::STATUS_BANNED): ?>
+            <?php 
+                if (
+                    $this->params['user']->status != User::STATUS_BANNED 
+                    && $this->params['user']->email_confirmed == User::EMAIL_CONFIRMED
+                ): 
+            ?>
                 <?php $form = ActiveForm::begin() ?>
                     <div class="mb-3">
                         <div class="row">
@@ -260,8 +265,10 @@ $currencies = [
                         </div>
                     </div>
                 <?php ActiveForm::end() ?>
-            <?php else: ?>
+            <?php elseif ($this->params['user']->status == User::STATUS_BANNED): ?>
                 <p class="text-center bg-light py-4 fw-light">Вы были заблокированы на этом сайте</p>
+            <?php elseif ($this->params['user']->email_confirmed == User::EMAIL_NOT_CONFIRMED): ?>
+                <p class="text-center bg-light py-4 fw-light"><a href="<?= UrlGen::account('settings') ?>">Подтвердите аккаунт для того, чтобы создавать вакансии</a></p>
             <?php endif ?>
 
         </div>
