@@ -11,6 +11,12 @@ use yii\console\Controller;
 
 class CreateRbacController extends Controller
 {
+    /**
+     * Метод отвечает за создание ролей пользователей
+     * @return void
+     * @throws Exception если проверка данных или сохранение 
+     * не удается (например, имя роли или разрешения не уникальны)
+     */
     public function actionCreateRoles()
     {
         $auth = Yii::$app->authManager;
@@ -32,6 +38,12 @@ class CreateRbacController extends Controller
         $auth->add($banned);
     }
 
+    /**
+     * Метод отвечает за создание разрешений
+     * @return void
+     * @throws Exception если проверка данных или сохранение 
+     * не удается (например, имя роли или разрешения не уникальны)
+     */
     public function actionCreatePermissions()
     {
         $auth = Yii::$app->authManager;
@@ -63,6 +75,11 @@ class CreateRbacController extends Controller
         $auth->add($moderation);
     }
 
+    /**
+     * Метод отвечает за присваивание роли соответствующего ей разрешения
+     * @return void
+     * @throws \yii\base\Exception если отношения родитель-потомок уже существуют или обнаружена петля.
+     */
     public function actionCreateChildrens()
     {
         $auth = Yii::$app->authManager;
@@ -81,6 +98,13 @@ class CreateRbacController extends Controller
         $auth->addChild($moderator, $moderation);
     }
 
+    /**
+     * Метод отвечает за присваивание пользователю с id = $id
+     * роли администратора
+     * @param int $id идентификатор пользователя
+     * @return void
+     * @throws \Exception если роль уже назначена пользователю
+     */
     public function actionAssignAdmin($id)
     {
         $auth = Yii::$app->authManager;

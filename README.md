@@ -1,3 +1,26 @@
+# Ремейк сайта cv.hexlet.io на PHP в связке с Yii2
+
+Для развёртывания проекта следует:
+- Выполнить команду "composer install"
+- Указать данные для доступа к БД (config/db.php)
+- Выполнить все необходимые миграции: 
+    - RBAC система: yii migrate --migrationPath=@yii/rbac/migrations
+    - Пользовательские миграции: yii migrate
+- Поочередно вызвать экшены CreateRbacController`а для создания ролей, разрешений...
+CreateRbacController::actionAssignAdmin($id) присваивает пользователю с идентификатором $id
+роль администратора
+
+После выполнения указанных действий приложение будет готово к работе.
+
+### Я освоил:
+- PHPUnit
+- DocBlock comments, MarkDown
+- Использование Yii::$container
+- Отправка писем с использованием SwiftMailer
+- Bootstrap 5
+
+<hr>
+
 <p align="center">
     <a href="https://github.com/yiisoft" target="_blank">
         <img src="https://avatars0.githubusercontent.com/u/993323" height="100px">
