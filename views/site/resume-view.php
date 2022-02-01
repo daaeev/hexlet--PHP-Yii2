@@ -76,7 +76,7 @@ use yii\i18n\Formatter;
                         <div class="card-body d-flex">
                             <div class="me-3 h4">
                                 <p class="text-center text-muted mb-2 mt-1 fw-light"><?= count($comment->likes) ?></p>
-                                <a class="text-decoration-none" href="<?= UrlGen::commentLike($comment->id) ?>" data-method='<?= ViewHelper::createDataMethod($comment->id) ?>'>
+                                <a class="text-decoration-none" href="<?= Yii::$app->user->isGuest ? UrlGen::login() : UrlGen::commentLike($comment->id) ?>" data-method='<?= ViewHelper::createDataMethod($comment->id) ?>'>
                                     <span class="bi bi-hand-thumbs-up text-secondary"></span>
                                 </a>
                             </div>
@@ -107,8 +107,11 @@ use yii\i18n\Formatter;
                                 <a class="d-block small text-muted" data-bs-toggle="collapse" href="#answer-<?= $comment->id ?>">Добавить комментарий</a>
                                 <div class="collapse" id="answer-<?= $comment->id ?>">
                                     
+                                    <?php if (Yii::$app->user->isGuest): ?>
+                                        <p class="text-center bg-light py-4 fw-light">Вы не <a href="<?= UrlGen::login() ?>">авторизованы</a></p>
+
                                     <?php 
-                                        if (
+                                        elseif (
                                             $this->params['user']->status != User::STATUS_BANNED 
                                             && $this->params['user']->email_confirmed == User::EMAIL_CONFIRMED
                                         ): 
@@ -138,8 +141,11 @@ use yii\i18n\Formatter;
                 <p class="text-center bg-light py-4 fw-light">Список пуст</p>
             <?php endif ?>
 
+            <?php if (Yii::$app->user->isGuest): ?>
+                <p class="text-center bg-light py-4 fw-light">Вы не <a href="<?= UrlGen::login() ?>">авторизованы</a></p>
+
             <?php 
-                if (
+                elseif (
                     $this->params['user']->status != User::STATUS_BANNED 
                     && $this->params['user']->email_confirmed == User::EMAIL_CONFIRMED
                 ): 
