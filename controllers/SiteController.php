@@ -12,6 +12,7 @@ use app\exceptions\DBDataSaveException;
 use app\exceptions\IDNotFoundException;
 use app\exceptions\ValidationFailedException;
 use app\filters\NeededVariables;
+use app\filters\ResumeViewsFilter;
 use app\models\Comment;
 use app\models\forms\AccountSettingsForm;
 use app\models\forms\CreateCommentForm;
@@ -54,6 +55,10 @@ class SiteController extends Controller
                     ],
                 ],
             ],
+            'resume_views' => [
+                'class' => ResumeViewsFilter::class,
+                'only' => ['resume-view'],
+            ]
         ];
     }
 

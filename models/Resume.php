@@ -95,4 +95,14 @@ class Resume extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Comment::className(), ['resume_id' => 'id']);
     }
+
+    /**
+     * Gets query for [[Views]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getViews()
+    {
+        return $this->hasMany(View::className(), ['resume_id' => 'id']);
+    }
 }

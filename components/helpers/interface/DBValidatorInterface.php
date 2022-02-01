@@ -48,4 +48,12 @@ interface DBValidatorInterface
      * @return bool
      */
     public function userByTokenExist(string $token): bool;
+
+    /**
+     * Метод проверяет просматривал ли пользователь резюме с id = $resume_id
+     * @param int $user_id идентификатор пользователя
+     * @param int $resume_id идентификатор резюме
+     * @return bool
+     */
+    public function resumeIsViewed(int $user_id, int $resume_id): bool;
 }

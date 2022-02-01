@@ -147,4 +147,14 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     {
         return $this->hasMany(Vacancie::className(), ['author_id' => 'id']);
     }
+
+    /**
+     * Gets query for [[Views]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getViews()
+    {
+        return $this->hasMany(View::className(), ['user_id' => 'id']);
+    }
 }

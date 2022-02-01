@@ -8,6 +8,7 @@ use app\models\Likes;
 use app\models\Notification;
 use app\models\Resume;
 use app\models\User;
+use app\models\View;
 
 /**
  * Валидатор, который облегчает юнит-тестирование.
@@ -55,6 +56,15 @@ class DBValidator implements DBValidatorInterface
     public function userByTokenExist(string $token): bool
     {
         if (User::find()->where(['token' => $token])->exists()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function resumeIsViewed(int $user_id, int $resume_id): bool
+    {
+        if (View::find()->where(['user_id' => $user_id, 'resume_id' => $resume_id])->exists()) {
             return true;
         }
 
