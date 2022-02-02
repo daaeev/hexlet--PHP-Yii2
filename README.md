@@ -11,7 +11,13 @@ CreateRbacController::actionAssignAdmin($id) присваивает пользо
 роль администратора
 - Указать данные почты в файле config/web.php
 
-После выполнения указанных действий приложение будет готово к работе.
+Также следует выполнить следующие sql запросы:
+- ALTER TABLE `auth_assignment` CHANGE `user_id` `user_id` INT(11) NOT NULL;
+- ALTER TABLE `auth_assignment` ADD CONSTRAINT `fk-user_id-auth_assignment` FOREIGN KEY (`user_id`) REFERENCES `user`(`id`) ON DELETE CASCADE ON UPDATE RESTRICT;
+
+Cтолбец user_id бедут иметь тип int и являтся ссылкой на запись в таблице user
+
+### После выполнения указанных действий приложение будет готово к работе.
 
 ### Я освоил:
 - PHPUnit
