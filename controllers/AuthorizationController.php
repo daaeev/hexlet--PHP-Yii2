@@ -75,7 +75,12 @@ class AuthorizationController extends Controller
      * Метод отвечает за страницу с формой регистрации пользователя
      * 
      * Если пользователь отправил форму, вызывается метод RegistrationForm::register()
-     * для регистрации пользователя. Если метод выбрасывает исключение,
+     * для регистрации пользователя. 
+     * 
+     * Также, уже зарегистрированному пользователю, 
+     * присваивается роль обычного юзера.
+     * 
+     * Если метод выбрасывает исключение,
      * то происходит создание флеш-сессии с описанием ошибки.
      * 
      * При удачной регистрации, выполняется редирект на главную страницу
@@ -91,7 +96,11 @@ class AuthorizationController extends Controller
             try {
                 $userModel = new User;
                 $model->register($userModel, Yii::$app->getSecurity(), Yii::$app->user);
-                
+
+                $auth = Yii::$app->authManager;
+                $user = $auth->getRole('user');
+                $auth->assign($user, $userModel->id);
+
                 return $this->redirect(UrlGen::home());
             } catch (Exception $e) {
                 Yii::$app->session->setFlash('error', $e->getMessage());
