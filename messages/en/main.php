@@ -210,4 +210,11 @@ return [
     'Авторизация пользователя прошла неуспешно' => 'User authorization failed',
     'Пароли не совпадают' => 'Passwords do not match',
     'Пользователя с почтой не существует' => 'The user with the email does not exist',
+
+    // SiteController.php
+
+    'Для подтверждения аккаунта, перейдите по следующей одноразовой ссылке' => 'To confirm your account, click on the following one-time link',
+    'На вашу почту отправлена инструкция для подтверждения...' => 'Instructions for confirming your account have been sent to your email...',
+    'Подтверждение аккаунта Hexlet' => 'Confirming your Hexlet account',
+    'При отправке письма, что-то пошло не так' => 'Something went wrong when I sent the email',
 ];

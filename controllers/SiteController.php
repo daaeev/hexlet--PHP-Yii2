@@ -631,19 +631,19 @@ class SiteController extends Controller
     {
         $mailer = Yii::$app->mailer;
         $link = UrlGen::fullConfirmEmailPage($this->view->params['user']->token);
-        $message = "Для подтверждения аккаунта, перейдите по следующей одноразовой ссылке - $link";
+        $message = Yii::t('main',"Для подтверждения аккаунта, перейдите по следующей одноразовой ссылке") . " - $link";
 
         try {
             $mailer->compose()
                 ->setFrom('') // УКАЖИТЕ АДРЕС ОТПРАВИТЕЛЯ
                 ->setTo($this->view->params['user']->email)
-                ->setSubject('Подтверждение аккаунта Hexlet')
+                ->setSubject(Yii::t('main','Подтверждение аккаунта Hexlet'))
                 ->setTextBody($message)
                 ->send();
             
-            Yii::$app->session->setFlash('success', 'На вашу почту отправлена инструкция для подтверждения...');
+            Yii::$app->session->setFlash('success', Yii::t('main','На вашу почту отправлена инструкция для подтверждения...'));
         } catch (Exception) {
-            Yii::$app->session->setFlash('success', 'При отправке письма, что-то пошло не так');
+            Yii::$app->session->setFlash('error', Yii::t('main','При отправке письма, что-то пошло не так'));
         }
 
         return $this->redirect(UrlGen::account('settings'));
