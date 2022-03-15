@@ -217,4 +217,9 @@ return [
     'На вашу почту отправлена инструкция для подтверждения...' => 'Instructions for confirming your account have been sent to your email...',
     'Подтверждение аккаунта Hexlet' => 'Confirming your Hexlet account',
     'При отправке письма, что-то пошло не так' => 'Something went wrong when I sent the email',
+
+    // views/site/error.php
+
+    'Упс, а тут пусто' => 'Oops, its empty.',
+    'Такое бывает, когда страницу удалили или в адрес случайно закралась ошибка. Но ничего страшного, можно просто тыкнуть на любой пункт меню сверху и попасть-таки в нужное место.' => 'This happens when the page was deleted or the address accidentally crept into the error. But thats okay, you can just click on any menu item at the top and still get to the right place.',
 ];
