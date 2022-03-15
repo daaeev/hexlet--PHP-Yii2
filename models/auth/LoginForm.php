@@ -8,6 +8,7 @@ use app\exceptions\IDNotFoundException;
 use app\exceptions\ValidationFailedException;
 use yii\base\Model;
 use app\models\User;
+use Yii;
 
 /**
  * @property string $email
@@ -68,17 +69,17 @@ class LoginForm extends Model
     public function login($userGetHelper, $security, $userAuth): bool
     {
         if (!$this->validate()) {
-            throw new ValidationFailedException('Валидация данных прошла неуспешно');
+            throw new ValidationFailedException(Yii::t('main', 'Валидация данных прошла неуспешно'));
         }
 
         $user = $userGetHelper->getUserByEmail($this->email);
 
         if (!$user) {
-            throw new IDNotFoundException('Пользователя с почтой ' . $this->email . ' не существует');
+            throw new IDNotFoundException(Yii::t('main', 'Пользователя с почтой не существует'));
         }
 
         if (!$security->validatePassword($this->password, $user->password)) {
-            throw new ValidationFailedException('Пароли не совпадают');
+            throw new ValidationFailedException(Yii::t('main', 'Пароли не совпадают'));
         }
 
         $duration = 0;
@@ -88,7 +89,7 @@ class LoginForm extends Model
         }
 
         if (!$userAuth->login($user, $duration)) {
-            throw new AuthorizationFailedException('Авторизация пользователя прошла неуспешно');
+            throw new AuthorizationFailedException(Yii::t('main', 'Авторизация пользователя прошла неуспешно'));
         }
         
         return true;

@@ -54,14 +54,14 @@ class ChangePassForm extends Model
     public function changePass($user, $security): bool
     {
         if (!$this->validate()) {
-            throw new ValidationFailedException('Валидация данных прошла неуспешно');
+            throw new ValidationFailedException(Yii::t('main','Валидация данных прошла неуспешно'));
         }
 
         $user->password = $security->generatePasswordHash($this->password);
         $user->token = $security->generateRandomString(32);
 
         if (!$user->save()) {
-            throw new DBDataSaveException('Сохранение данных пользователя прошло неуспешо');
+            throw new DBDataSaveException(Yii::t('main','Сохранение данных пользователя прошло неуспешо'));
         }
 
         return true;

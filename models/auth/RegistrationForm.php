@@ -69,13 +69,13 @@ class RegistrationForm extends Model
     public function register($user, $security, $userAuth): bool
     {
         if (!$this->validate()) {
-            throw new ValidationFailedException('Валидация данных прошла неуспешно');
+            throw new ValidationFailedException(Yii::t('main', 'Валидация данных прошла неуспешно'));
         }
 
         $user->email = $this->email;
         $user->password = $security->generatePasswordHash($this->password);
         if (!$user->save()) {
-            throw new DBDataSaveException('Сохранение данных пользователя в БД прошло неуспешно');
+            throw new DBDataSaveException(Yii::t('main', 'Сохранение данных в бд прошло неуспешно'));
         }
 
         $duration = 0;
@@ -84,7 +84,7 @@ class RegistrationForm extends Model
         }
         
         if (!$userAuth->login($user, $duration)) {
-            throw new AuthorizationFailedException('Авторизация пользователя прошла неуспешно');
+            throw new AuthorizationFailedException(Yii::t('main', 'Авторизация пользователя прошла неуспешно'));
         }
     
         return true;

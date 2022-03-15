@@ -53,29 +53,29 @@ class CreateVacancieForm extends Model
     public function attributeLabels()
     {
         return [
-            'level' => 'Уровень',
-            'money' => 'Выдача зарплаты',
-            'type_of_place' => 'Место роботы',
-            'type_of_work' => 'Тип занятости',
-            'money_from' => 'Зарплата от',
-            'money_to' => 'Зарплата до',
-            'currency' => 'Валюта',
-            'position' => 'Должность ',
-            'city' => 'Город',
-            'address' => 'Адрес',
-            'company' => 'Название компании',
-            'company_site' => 'Сайт компании',
-            'contact_name' => 'Имя контакта',
-            'contact_number' => 'Телефон контакта',
-            'contact_email' => 'Email контакта',
-            'contact_telegram' => 'Телеграм контакта',
-            'experience' => 'Опыт',
-            'about_company' => 'О компании',
-            'about_project' => 'О проекте',
-            'duties' => 'Обязанности ',
-            'requirements' => 'Требования',
-            'conditions' => 'Условия',
-            'technologies' => 'Технологии',
+            'level' => \Yii::t('main', 'Уровень'),
+            'money' => \Yii::t('main', 'Выдача зарплаты'),
+            'type_of_place' => \Yii::t('main', 'Место роботы'),
+            'type_of_work' => \Yii::t('main', 'Тип занятости'),
+            'money_from' => \Yii::t('main', 'Зарплата от'),
+            'money_to' => \Yii::t('main', 'Зарплата до'),
+            'currency' => \Yii::t('main', 'Валюта'),
+            'position' => \Yii::t('main', 'Должность'),
+            'city' => \Yii::t('main', 'Город'),
+            'address' => \Yii::t('main', 'Адрес'),
+            'company' => \Yii::t('main', 'Название компании'),
+            'company_site' => \Yii::t('main', 'Сайт компании'),
+            'contact_name' => \Yii::t('main', 'Имя контакта'),
+            'contact_number' => \Yii::t('main', 'Телефон контакта'),
+            'contact_email' => \Yii::t('main', 'Email контакта'),
+            'contact_telegram' => \Yii::t('main', 'Телеграм контакта'),
+            'experience' => \Yii::t('main', 'Опыт'),
+            'about_company' => \Yii::t('main', 'О компании'),
+            'about_project' => \Yii::t('main', 'О проекте'),
+            'duties' => \Yii::t('main', 'Обязанности '),
+            'requirements' => \Yii::t('main', 'Требования'),
+            'conditions' => \Yii::t('main', 'Условия'),
+            'technologies' => \Yii::t('main', 'Технологии'),
         ];
     }
 
@@ -119,7 +119,7 @@ class CreateVacancieForm extends Model
         $vacancie->conditions = $parser->line($this->conditions);
 
         if (!$vacancie->save()) {
-            throw new DBDataSaveException('Сохранение данных в бд прошло неуспешно');
+            throw new DBDataSaveException(\Yii::t('main', 'Сохранение данных в бд прошло неуспешно'));
         }
 
         return true;

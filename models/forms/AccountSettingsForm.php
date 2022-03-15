@@ -5,7 +5,7 @@ namespace app\models\forms;
 use app\exceptions\DBDataSaveException;
 use app\exceptions\ValidationFailedException;
 use app\models\User;
-use PHPUnit\Framework\MockObject\MockObject;
+use Yii;
 use yii\base\Model;
 
 class AccountSettingsForm extends Model
@@ -30,8 +30,8 @@ class AccountSettingsForm extends Model
     public function attributeLabels()
     {
         return [
-            'user_name' => 'Имя, фамилия',
-            'contribution' => 'Обо мне',
+            'user_name' => Yii::t('main', 'Имя, фамилия'),
+            'contribution' => Yii::t('main', 'Обо мне'),
         ];
     }
 
@@ -53,9 +53,9 @@ class AccountSettingsForm extends Model
                 return true;
             }
 
-            throw new DBDataSaveException('Сохранение данных в бд прошло неуспешно. Побробуйте ещё раз');
+            throw new DBDataSaveException(Yii::t('main','Сохранение данных в бд прошло неуспешно'));
         }
 
-        throw new ValidationFailedException('Данные из формы не прошли валидацию. Проверьте введённые данные');
+        throw new ValidationFailedException(Yii::t('main','Данные из формы не прошли валидацию. Проверьте введённые данные'));
     }
 }

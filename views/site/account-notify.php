@@ -9,17 +9,17 @@ use app\widgets\Alert;
     <div class="row">
         <div class="col-md-3">
             <ul class="nav flex-column nav-pills">
-                <li class="nav-item"><a href="" class="nav-link link-dark active">Уведомления</a></li>
-                <li class="nav-item"><a href=<?= UrlGen::account('resume') ?> class="nav-link link-dark">Мои резюме</a></li>
-                <li class="nav-item"><a href="<?= UrlGen::account('vacancies') ?>" class="nav-link link-dark">Мои вакансии</a></li>
-                <li class="nav-item"><a href="<?= UrlGen::account('settings') ?>" class="nav-link link-dark">Настройки</a></li>
+                <li class="nav-item"><a href="" class="nav-link link-dark active"><?= Yii::t('main', 'Уведомления') ?></a></li>
+                <li class="nav-item"><a href="<?= UrlGen::account('resume') ?>" class="nav-link link-dark"><?= Yii::t('main', 'Мои резюме') ?></a></li>
+                <li class="nav-item"><a href="<?= UrlGen::account('vacancies') ?>" class="nav-link link-dark"><?= Yii::t('main', 'Мои вакансии') ?></a></li>
+                <li class="nav-item"><a href="<?= UrlGen::account('settings') ?>" class="nav-link link-dark"><?= Yii::t('main', 'Настройки') ?></a></li>
             </ul>
         </div>
         <div class="col-md-9">
 
             <?= Alert::widget() ?>
 
-            <h2 class="h2 mb-4">Уведомления</h2>
+            <h2 class="h2 mb-4"><?= Yii::t('main', 'Уведомления') ?></h2>
 
             <?php if ($notifications): ?>
                 <?php foreach ($notifications as $notification): ?>
@@ -33,7 +33,7 @@ use app\widgets\Alert;
                     </div>
                 <?php endforeach ?>
             <?php else: ?>
-                <p class="text-center bg-light py-4 fw-light">Список пуст</p>
+                <p class="text-center bg-light py-4 fw-light"><?= Yii::t('main', 'Список пуст') ?></p>
             <?php endif ?>
 
         </div>

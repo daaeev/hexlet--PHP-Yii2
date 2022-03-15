@@ -15,18 +15,18 @@ use yii\i18n\Formatter;
                 <div class="d-flex justify-content-center mt-4">
                     <div class="d-flex flex-column mx-1 mx-lg-3 text-center">
                         <div class="h3 text-black-50"><?= count($user->comments) ?></div>
-                        <div class="text-muted"><?= ViewHelper::numToWord(count($user->comments), ['ответ', 'ответа', 'ответов']) ?></div>
+                        <div class="text-muted"><?= Yii::t('main', ViewHelper::numToWord(count($user->comments), ['ответ', 'ответа', 'ответов'])) ?></div>
                     </div>
                     <div class="d-flex flex-column mx-1 mx-lg-3 text-center">
                         <div class="h3 text-black-50"><?= $likesCount ?></div>
-                        <div class="text-muted"><?= ViewHelper::numToWord($likesCount, ['лайк', 'лайка', 'лайков']) ?></div>
+                        <div class="text-muted"><?= Yii::t('main', ViewHelper::numToWord($likesCount, ['лайк', 'лайка', 'лайков'])) ?></div>
                     </div>
                 </div>
             </div>
 
             <ul class="nav nav-pills justify-content-center" role="navigation">
-                <li class="nav-item"><a class="nav-link px-3 active" href="#resume" data-bs-toggle="tab">Резюме</a></li>
-                <li class="nav-item"><a class="nav-link px-3" href="#answers" data-bs-toggle="tab">Ответы</a></li>
+                <li class="nav-item"><a class="nav-link px-3 active" href="#resume" data-bs-toggle="tab"><?= Yii::t('main','Резюме') ?></a></li>
+                <li class="nav-item"><a class="nav-link px-3" href="#answers" data-bs-toggle="tab"><?= Yii::t('main','Ответы') ?></a></li>
             </ul>
 
             <div class="tab-content py-3">
@@ -40,10 +40,10 @@ use yii\i18n\Formatter;
                                     <div class="card border-8 flex-row mb-4 p-3">
                                         <div class="social-info col-md-2 text-center text-nowrap me-3 small">
                                             <p class="text-muted mb-0 h2 fw-lighter"><?= count($resume->comments) ?></p>
-                                            <p><?= ViewHelper::numToWord(count($resume->comments), ['ответ', 'ответа', 'ответов']) ?></p>
+                                            <p><?= Yii::t('main', ViewHelper::numToWord(count($resume->comments), ['ответ', 'ответа', 'ответов'])) ?></p>
                                             
                                             <p class="text-muted mb-0 h2 fw-lighter"><?= $resume->views ?></p>
-                                            <p><?= ViewHelper::numToWord($resume->views, ['просмотр', 'просмотра', 'просмотров']) ?></p>
+                                            <p><?= Yii::t('main', ViewHelper::numToWord($resume->views, ['просмотр', 'просмотра', 'просмотров'])) ?></p>
                                         </div>
 
                                         <div class="card-info w-100">
@@ -59,7 +59,7 @@ use yii\i18n\Formatter;
                                 <?php endforeach ?>
 
                             <?php else: ?>
-                                <p class="text-center bg-light py-4 fw-light">Список пуст</p>
+                                <p class="text-center bg-light py-4 fw-light"><?= Yii::t('main', 'Список пуст') ?></p>
                             <?php endif ?>
                         <!-- CARD -->
                         
@@ -78,7 +78,7 @@ use yii\i18n\Formatter;
                             <!-- CARD -->
                         <?php endforeach ?>
                     <?php else: ?>
-                        <p class="text-center bg-light py-4 fw-light">Список пуст</p>
+                        <p class="text-center bg-light py-4 fw-light"><?= Yii::t('main', 'Список пуст') ?></p>
                     <?php endif ?>
 
                 </div>

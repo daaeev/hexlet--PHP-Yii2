@@ -6,7 +6,7 @@ use app\components\helpers\UrlGen;
 <!-- ASIDE -->
 <aside class="col-md-3">
     <div class="bg-light rounded py-2 px-3">
-        <p class="fs-4 mb-3">Последние ответы</p>
+        <p class="fs-4 mb-3"><?= Yii::t('main', 'Последние ответы') ?></p>
 
         <?php if ($answers): ?>
             <?php foreach ($answers as $answer): ?>
@@ -19,7 +19,7 @@ use app\components\helpers\UrlGen;
                 <!-- CARD -->
             <?php endforeach ?>
         <?php else: ?>
-            <p class="text-center bg-light py-4 fw-light">На данный момент, свежих ответов не найдено</p>
+            <p class="text-center bg-light py-4 fw-light"><?= Yii::t('main', 'На данный момент, свежих ответов не найдено') ?></p>
         <?php endif ?>
 
     </div>

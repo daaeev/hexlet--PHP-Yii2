@@ -6,7 +6,7 @@ use app\components\helpers\interface\GetPaginationDataTrait;
 use app\components\helpers\interface\VacancieGetInterface;
 use app\exceptions\IDNotFoundException;
 use app\models\Vacancie;
-use yii\db\Expression;
+use Yii;
 
 /**
  * Класс-хелпер для получения данных из таблицы vacancie
@@ -53,11 +53,11 @@ class VacancieGetHelper implements VacancieGetInterface
     public function getFiltersData(): array
     {
         $level = [
-            '' => 'Выберите уровень',
-            'Джуниор' => 'Джуниор',
-            'Мидл' => 'Мидл',
-            'Сеньор' => 'Сеньор',
-            'Тимлид' => 'Тимлид',
+            '' => Yii::t('main', 'Выберите уровень'),
+            'Джуниор' => Yii::t('main', 'Джуниор'),
+            'Мидл' => Yii::t('main', 'Мидл'),
+            'Сеньор' => Yii::t('main', 'Сеньор'),
+            'Тимлид' => Yii::t('main', 'Тимлид'),
         ];
 
         $vacancies_technologies = Vacancie::find()
@@ -108,7 +108,7 @@ class VacancieGetHelper implements VacancieGetInterface
      */
     protected function normalizedTechnologiesFilter(array $technologies): array
     {
-        $norm_tech = ['' => 'Технологии'];
+        $norm_tech = ['' => Yii::t('main', 'Технологии')];
 
         foreach ($technologies as $tech) {
             $tech_array = explode(', ', $tech);

@@ -6,7 +6,7 @@ use app\exceptions\DBDataSaveException;
 use app\exceptions\ValidationFailedException;
 use app\models\Resume;
 use Parsedown;
-use PHPUnit\Framework\MockObject\MockObject;
+use Yii;
 use yii\base\Model;
 
 class CreateResumForm extends Model
@@ -35,13 +35,13 @@ class CreateResumForm extends Model
     public function attributeLabels()
     {
         return [
-            'title' => 'Заголовок',
-            'english' => 'Уровень английского',
+            'title' => Yii::t('main','Заголовок'),
+            'english' => Yii::t('main','Уровень английского'),
             'github' => 'Github',
-            'contact' => 'Контакты',
-            'description' => 'Описание',
-            'skills' => 'Навыки',
-            'achievements' => 'Достижения',
+            'contact' => Yii::t('main','Контакты'),
+            'description' => Yii::t('main','Описание'),
+            'skills' => Yii::t('main','Навыки'),
+            'achievements' => Yii::t('main','Достижения'),
         ];
     }
 
@@ -56,7 +56,7 @@ class CreateResumForm extends Model
     public function createResum($resume, $parser): bool
     {
         if (!$this->validate()) {
-            throw new ValidationFailedException('Валидация данных прошла неуспешно');
+            throw new ValidationFailedException(Yii::t('main', 'Валидация данных прошла неуспешно'));
         }
 
         $resume->title = $this->title;
@@ -69,7 +69,7 @@ class CreateResumForm extends Model
         $resume->achievements = $parser->line($this->achievements);
 
         if (!$resume->save()) {
-            throw new DBDataSaveException('Сохранение данных в бд прошло неуспешно');
+            throw new DBDataSaveException(Yii::t('main','Сохранение данных в бд прошло неуспешно'));
         }
 
         return true;

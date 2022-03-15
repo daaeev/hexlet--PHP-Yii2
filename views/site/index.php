@@ -12,13 +12,13 @@ use yii\i18n\Formatter;
     <div class="row">
         <div class="col-md-9 content-block">
             <?= Alert::widget() ?>
-            <h1>Резюме программистов</h1>
+            <h1><?= Yii::t('main', 'Резюме программистов') ?></h1>
 
             <div class="nav nav-pills justify-content-center mt-5">
-                <a href="<?= UrlGen::allResumes() ?>" class="nav-item nav-link link-dark resume-all">Все</a>
-                <a href="<?= UrlGen::allResumes('popular') ?>" class="nav-item nav-link link-dark resume-popular">Популрные</a>
-                <a href="<?= UrlGen::allResumes('new') ?>" class="nav-item nav-link link-dark resume-new">Новые</a>
-                <a href="<?= UrlGen::allResumes('norecomend') ?>" class="nav-item nav-link link-dark resume-norecomend">Без рекомендация</a>
+                <a href="<?= UrlGen::allResumes() ?>" class="nav-item nav-link link-dark resume-all"><?= Yii::t('main', 'Все') ?></a>
+                <a href="<?= UrlGen::allResumes('popular') ?>" class="nav-item nav-link link-dark resume-popular"><?= Yii::t('main', 'Популрные') ?></a>
+                <a href="<?= UrlGen::allResumes('new') ?>" class="nav-item nav-link link-dark resume-new"><?= Yii::t('main', 'Новые') ?></a>
+                <a href="<?= UrlGen::allResumes('norecomend') ?>" class="nav-item nav-link link-dark resume-norecomend"><?= Yii::t('main', 'Без рекомендаций') ?></a>
             </div>
 
             <div class="mt-5 card-block">
@@ -30,10 +30,10 @@ use yii\i18n\Formatter;
                             <div class="card card-noborder border-8 flex-row mb-4 pb-4">
                                 <div class="social-info col-md-2 text-center text-nowrap me-3 small">
                                     <p class="text-muted mb-0 h2 fw-lighter"><?= count($resume->comments) ?></p>
-                                    <p><?= ViewHelper::numToWord(count($resume->comments), ['ответ', 'ответа', 'ответов']) ?></p>
+                                    <p><?= Yii::t('main', ViewHelper::numToWord(count($resume->comments), ['ответ', 'ответа', 'ответов'])) ?></p>
                                     
                                     <p class="text-muted mb-0 h2 fw-lighter"><?= $resume->views ?></p>
-                                    <p><?= ViewHelper::numToWord($resume->views, ['просмотр', 'просмотра', 'просмотров']) ?></p>
+                                    <p><?= Yii::t('main', ViewHelper::numToWord($resume->views, ['просмотр', 'просмотра', 'просмотров'])) ?></p>
                                 </div>
 
                                 <div class="card-info w-100">
@@ -49,7 +49,7 @@ use yii\i18n\Formatter;
                         <?php endforeach ?>
 
                     <?php else: ?>
-                        <p class="text-center bg-light py-4 fw-light">Список пуст</p>
+                        <p class="text-center bg-light py-4 fw-light"><?= Yii::t('main', 'Список пуст') ?></p>
                     <?php endif ?>
                 <!-- CARD -->
 

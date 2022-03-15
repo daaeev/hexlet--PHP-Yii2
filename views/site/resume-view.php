@@ -15,29 +15,29 @@ use yii\i18n\Formatter;
             <?= Alert::widget() ?>
             <div class="mb-5">
                 <div class="d-flex">
-                    <h4 class="mb-4 me-3">Основное</h4>
+                    <h4 class="mb-4 me-3"><?= Yii::t('main', 'Основное') ?></h4>
                     <hr class="my-auto w-100">
                 </div>
                 <div class="row mb-3">
-                    <div class="col-sm-3"><b>Имя</b></div>
+                    <div class="col-sm-3"><b><?= Yii::t('main', 'Имя') ?></b></div>
                     <div class="col-sm-9"><a href="<?= UrlGen::profile($resume->author->id) ?>"><?= htmlspecialchars($resume->author->name) ?></a></div>
                 </div>
                 <div class="row mb-3">
-                    <div class="col-sm-3"><b>Описание</b></div>
+                    <div class="col-sm-3"><b><?= Yii::t('main', 'Описание') ?></b></div>
                     <div class="col-sm-9">
                         <p><?= $resume->description ?></p>
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <div class="col-sm-3"><b>Навыки</b></div>
+                    <div class="col-sm-3"><b><?= Yii::t('main', 'Навыки') ?></b></div>
                     <div class="col-sm-9">
                         <p><?= $resume->skills ?></p>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-3"><b>Владение английским</b></div>
+                    <div class="col-sm-3"><b><?= Yii::t('main', 'Владение английским') ?></b></div>
                     <div class="col-sm-9">
-                        <p><?= htmlspecialchars($resume->english) ?></p>
+                        <p><?= Yii::t('main', htmlspecialchars($resume->english)) ?></p>
                     </div>
                 </div>
                 <div class="row mt-3 mb-4">
@@ -47,14 +47,14 @@ use yii\i18n\Formatter;
 
                 <?php if ($resume->contact) : ?>
                     <div class="row mt-3 mb-4">
-                        <div class="col-sm-3"><b>Контакт</b></div>
+                        <div class="col-sm-3"><b><?= Yii::t('main', 'Контакт') ?></b></div>
                         <div class="col-sm-9"><?= htmlspecialchars($resume->contact) ?></div>
                     </div>
                 <?php endif ?>
 
                 <?php if ($resume->achievements) : ?>
                     <div class="row mt-3 mb-4">
-                        <div class="col-sm-3"><b>Достижения</b></div>
+                        <div class="col-sm-3"><b><?= Yii::t('main', 'Достижения') ?></b></div>
                         <div class="col-sm-9"><?= $resume->achievements ?></div>
                     </div>
                 <?php endif ?>
@@ -62,7 +62,7 @@ use yii\i18n\Formatter;
                 <hr>
             </div>
 
-            <div class="lead mb-3">Рекомендации</div>
+            <div class="lead mb-3"><?= Yii::t('main', 'Рекомендации') ?></div>
 
             <?php if ($resume->comments) : ?>
                 <?php foreach ($resume->comments as $comment) : if ($comment->parent_comment_id) continue; ?>
@@ -104,11 +104,11 @@ use yii\i18n\Formatter;
                                     <?php endforeach ?>
                                 <?php endif ?>
 
-                                <a class="d-block small text-muted" data-bs-toggle="collapse" href="#answer-<?= $comment->id ?>">Добавить комментарий</a>
+                                <a class="d-block small text-muted" data-bs-toggle="collapse" href="#answer-<?= $comment->id ?>"><?= Yii::t('main', 'Добавить комментарий') ?></a>
                                 <div class="collapse" id="answer-<?= $comment->id ?>">
                                     
                                     <?php if (Yii::$app->user->isGuest): ?>
-                                        <p class="text-center bg-light py-4 fw-light">Вы не <a href="<?= UrlGen::login() ?>">авторизованы</a></p>
+                                        <p class="text-center bg-light py-4 fw-light"><?= Yii::t('main', 'Вы не') ?> <a href="<?= UrlGen::login() ?>"><?= Yii::t('main', 'авторизованы') ?></a></p>
 
                                     <?php 
                                         elseif (
@@ -116,20 +116,20 @@ use yii\i18n\Formatter;
                                             && $this->params['user']->email_confirmed == User::EMAIL_CONFIRMED
                                         ): 
                                     ?>
-                                        <?php $form = ActiveForm::begin(['action' => "/create-comment/$resume->id/$comment->id"]) ?>
+                                        <?php $form = ActiveForm::begin(['action' => UrlGen::createComment($resume->id, $comment->id)]) ?>
                                             <div class="mb-3">
                                                 <?= $form->field($comment_form, 'content')->textarea()->label(false) ?>
-                                                <small class="form-text text-muted">Длина не может превышать 200 символов</small>
+                                                <small class="form-text text-muted"><?= Yii::t('main', 'Длина не может превышать 200 символов') ?></small>
                                             </div>
 
                                             <div class="mb-3">
-                                                <input type="submit" name="commit" value="Создать" class="btn btn-primary" data-disable-with="Создать">
+                                                <input type="submit" name="commit" value="<?= Yii::t('main', 'Создать') ?>" class="btn btn-primary" data-disable-with="<?= Yii::t('main', 'Создать') ?>">
                                             </div>
                                         <?php ActiveForm::end() ?>
                                     <?php elseif ($this->params['user']->status == User::STATUS_BANNED): ?>
-                                        <p class="text-center bg-light py-4 fw-light">Вы были заблокированы на этом сайте</p>
+                                        <p class="text-center bg-light py-4 fw-light"><?= Yii::t('main', 'Вы были заблокированы на этом сайте') ?></p>
                                     <?php elseif ($this->params['user']->email_confirmed == User::EMAIL_NOT_CONFIRMED): ?>
-                                        <p class="text-center bg-light py-4 fw-light"><a href="<?= UrlGen::account('settings') ?>">Подтвердите аккаунт для того, чтобы написать комментарий</a></p>
+                                        <p class="text-center bg-light py-4 fw-light"><a href="<?= UrlGen::account('settings') ?>"><?= Yii::t('main', 'Подтвердите аккаунт для того, чтобы написать комментарий') ?></a></p>
                                     <?php endif ?>
                                 </div>
                             </div>
@@ -138,11 +138,11 @@ use yii\i18n\Formatter;
                 <?php endforeach ?>
 
             <?php else : ?>
-                <p class="text-center bg-light py-4 fw-light">Список пуст</p>
+                <p class="text-center bg-light py-4 fw-light"><?= Yii::t('main', 'Список пуст') ?></p>
             <?php endif ?>
 
             <?php if (Yii::$app->user->isGuest): ?>
-                <p class="text-center bg-light py-4 fw-light">Вы не <a href="<?= UrlGen::login() ?>">авторизованы</a></p>
+                <p class="text-center bg-light py-4 fw-light"><?= Yii::t('main', 'Вы не') ?> <a href="<?= UrlGen::login() ?>"><?= Yii::t('main', 'авторизованы') ?></a></p>
 
             <?php 
                 elseif (
@@ -150,18 +150,18 @@ use yii\i18n\Formatter;
                     && $this->params['user']->email_confirmed == User::EMAIL_CONFIRMED
                 ): 
             ?>
-                <?php $form = ActiveForm::begin(['action' => "/create-comment/$resume->id"]) ?>
+                <?php $form = ActiveForm::begin(['action' => UrlGen::createComment($resume->id)]) ?>
                     <div class="mb-3">
-                        <?= $form->field($answer_form, 'content')->textarea(['rows' => "12", 'placeholder' => "Оставьте ваши рекомендации по улучшению резюме. Редактор поддерживает маркдаун"])->label(false) ?>
+                        <?= $form->field($answer_form, 'content')->textarea(['rows' => "12", 'placeholder' => Yii::t('main', 'Оставьте ваши рекомендации по улучшению резюме. Редактор поддерживает маркдаун')])->label(false) ?>
                     </div>
                     <div class="mb-3">
-                        <input type="submit" value="Создать" class="btn btn-primary" data-disable-with="Создать">
+                        <input type="submit" value="<?= Yii::t('main', 'Создать') ?>" class="btn btn-primary" data-disable-with="<?= Yii::t('main', 'Создать') ?>">
                     </div>
                 <?php ActiveForm::end() ?>
             <?php elseif ($this->params['user']->status == User::STATUS_BANNED): ?>
-                <p class="text-center bg-light py-4 fw-light">Вы были заблокированы на этом сайте</p>
+                <p class="text-center bg-light py-4 fw-light"><?= Yii::t('main', 'Вы были заблокированы на этом сайте') ?></p>
             <?php elseif ($this->params['user']->email_confirmed == User::EMAIL_NOT_CONFIRMED): ?>
-                <p class="text-center bg-light py-4 fw-light"><a href="<?= UrlGen::account('settings') ?>">Подтвердите аккаунт для того, чтобы написать свои рекомендации</a></p>
+                <p class="text-center bg-light py-4 fw-light"><a href="<?= UrlGen::account('settings') ?>"><?= Yii::t('main', 'Подтвердите аккаунт для того, чтобы написать свои рекомендации') ?></a></p>
             <?php endif ?>
 
         </div>

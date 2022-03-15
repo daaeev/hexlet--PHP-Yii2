@@ -2,6 +2,8 @@
 
 namespace app\components\helpers;
 
+use Yii;
+
 /**
  * Статический класс для генерации
  * ссылок, для перехода на страницы сайта
@@ -27,7 +29,7 @@ class UrlGen
      */
     public static function allResumes(string $category = "all"): string
     {
-        return '/resume/' . $category;
+        return self::languageCode() . '/resume/' . $category;
     }
 
     /**
@@ -36,7 +38,7 @@ class UrlGen
      */
     public static function allVacancies(): string
     {
-        return '/vacancies';
+        return self::languageCode() . '/vacancies';
     }
 
     /**
@@ -45,7 +47,7 @@ class UrlGen
      */
     public static function rating(): string
     {
-        return '/rating';
+        return self::languageCode() . '/rating';
     }
 
     /**
@@ -55,7 +57,7 @@ class UrlGen
      */
     public static function adminPanel(string $page = "user"): string
     {
-        return '/admin/' . $page;
+        return self::languageCode() . '/admin/' . $page;
     }
 
     /**
@@ -66,7 +68,7 @@ class UrlGen
      */
     public static function account(string $tab = "notify"): string
     {
-        return '/account/' . $tab;
+        return self::languageCode() . '/account/' . $tab;
     }
 
     /**
@@ -76,7 +78,7 @@ class UrlGen
      */
     public static function createPage(string $created): string
     {
-        return '/create/' . $created;
+        return self::languageCode() . '/create/' . $created;
     }
 
     /**
@@ -86,7 +88,7 @@ class UrlGen
      */
     public static function profile(int $user_id): string
     {
-        return '/profile/' . $user_id;
+        return self::languageCode() . '/profile/' . $user_id;
     }
 
     /**
@@ -95,7 +97,7 @@ class UrlGen
      */
     public static function login(): string
     {
-        return '/login';
+        return self::languageCode() . '/login';
     }
 
     /**
@@ -104,7 +106,7 @@ class UrlGen
      */
     public static function registration(): string
     {
-        return '/registration';
+        return self::languageCode() . '/registration';
     }
 
     /**
@@ -113,7 +115,7 @@ class UrlGen
      */
     public static function logout(): string
     {
-        return '/logout';
+        return self::languageCode() . '/logout';
     }
 
     /**
@@ -143,7 +145,7 @@ class UrlGen
      */
     public static function commentLike(int $id): string
     {
-        return '/resume/like/' . $id;
+        return self::languageCode() . '/resume/like/' . $id;
     }
 
     /**
@@ -153,7 +155,7 @@ class UrlGen
      */
     public static function allVacanciesWithFilters(): string
     {
-        return '/vacancies/filters';
+        return self::languageCode() . '/vacancies/filters';
     }
 
     /**
@@ -163,7 +165,7 @@ class UrlGen
      */
     public static function deleteNotify(int $notify_id): string
     {
-        return '/account/delete-notify/' . $notify_id;
+        return self::languageCode() . '/account/delete-notify/' . $notify_id;
     }
 
     /**
@@ -172,7 +174,7 @@ class UrlGen
      */
     public static function forgotPassPage(): string
     {
-        return '/forgot-pass';
+        return self::languageCode() . '/forgot-pass';
     }
 
     /**
@@ -182,7 +184,7 @@ class UrlGen
      */
     public static function fullChangePassPage(string $token): string
     {
-        return ((!empty($_SERVER['HTTPS'])) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . "/change-pass?token=$token";
+        return ((!empty($_SERVER['HTTPS'])) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . self::languageCode() . "/change-pass?token=$token";
     }
 
     /**
@@ -192,7 +194,7 @@ class UrlGen
      */
     public static function resumeEditPage(int $id): string
     {
-        return "/resume/edit/$id";
+        return self::languageCode() . "/resume/edit/$id";
     }
 
     /**
@@ -202,7 +204,7 @@ class UrlGen
      */
     public static function fullConfirmEmailPage(string $token): string
     {
-        return ((!empty($_SERVER['HTTPS'])) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . "/email/confirm?token=$token";
+        return ((!empty($_SERVER['HTTPS'])) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . self::languageCode() . "/email/confirm?token=$token";
     }
 
     /**
@@ -212,6 +214,26 @@ class UrlGen
      */
     public static function sendConfirmEmailPage(): string
     {
-        return '/email/send-confirm';
+        return self::languageCode() . '/email/send-confirm';
+    }
+
+    /**
+     * Генерация адреса страницы создания комментария
+     * @param int $resume_id идентификатор записи модели \App\Models\Resume
+     * @param int|null $comment_id идентификатор записи модели \App\Models\Comment
+     * @return string адресс страницы
+     */
+    public static function createComment(int $resume_id, int|null $comment_id = null): string
+    {
+        return self::languageCode() . "/create-comment/$resume_id" . ($comment_id ? "/$comment_id" : '');
+    }
+
+    /**
+     * Метод возвращает код текущего языка (со слешем в начале) для url-адреса
+     * @return string
+     */
+    protected static function languageCode()
+    {
+        return '/' . Yii::$app->language;
     }
 }

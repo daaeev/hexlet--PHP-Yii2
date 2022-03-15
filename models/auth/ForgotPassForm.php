@@ -10,6 +10,7 @@ use app\exceptions\ValidationFailedException;
 use yii\base\Model;
 use app\models\User;
 use yii\mail\MailerInterface;
+use Yii;
 
 /**
  * @property string $email
@@ -53,21 +54,21 @@ class ForgotPassForm extends Model
     public function sendMessageToUserMail($mailer, $userGetHelper): bool
     {
         if (!$this->validate()) {
-            throw new ValidationFailedException('Валидация данных прошла неуспешно');
+            throw new ValidationFailedException(Yii::t('main','Валидация данных прошла неуспешно'));
         }
 
         $token = $userGetHelper->getUserTokenByEmail($this->email);
 
         $link = UrlGen::fullChangePassPage($token);
-        $message = "Для изменения пароля, перейдите по следующей одноразовой ссылке - $link";
+        $message = Yii::t('main',"Для изменения пароля, перейдите по следующей одноразовой ссылке") . " - $link";
         $letter = $mailer->compose()
             ->setFrom('') // УКАЖИТЕ АДРЕС ОТПРАВИТЕЛЯ
             ->setTo($this->email)
-            ->setSubject('Восстановление пароля Hexlet')
+            ->setSubject(Yii::t('main','Восстановление пароля Hexlet'))
             ->setTextBody($message);
 
         if (!$letter->send()) {
-            throw new MailSendException('При отправке письма произошла ошибка, попробуйте заново');
+            throw new MailSendException(Yii::t('main','При отправке письма произошла ошибка, попробуйте заново'));
         }
 
         return true;

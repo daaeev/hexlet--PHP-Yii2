@@ -14,7 +14,7 @@ use yii\i18n\Formatter;
     <div class="row">
         <div class="col-md-9 content-block">
             <?= Alert::widget() ?>
-            <h1>Вакансии для разработчиков</h1>
+            <h1><?= Yii::t('main', 'Вакансии для разработчиков') ?></h1>
 
             <div class="p-3 mb-3 bg-light rounded-3">
 
@@ -30,15 +30,15 @@ use yii\i18n\Formatter;
                         <?= Html::dropDownList('filters[level]', null, $filters['level'], ['class' => 'form-control']) ?>
                     </div>
                     <div class="d-flex flex-column justify-content-start">
-                        <?= Html::input('text', 'filters[city]', null, ['class' => 'form-control', 'placeholder' => 'Город']) ?>
+                        <?= Html::input('text', 'filters[city]', null, ['class' => 'form-control', 'placeholder' => Yii::t('main', 'Город')]) ?>
                     </div>
                     <div class="d-flex flex-column justify-content-start">
                         <?= Html::dropDownList('filters[technologies]', null, $filters['technologies'], ['class' => 'form-control']) ?>
                     </div>
                     <div class="col-auto d-flex justify-content-end">
                         <div class="mt-0">
-                            <input type="submit" value="Найти" class="btn btn-primary me-2" data-disable-with="Найти">
-                            <a class="btn btn-outline-secondary" href="<?= UrlGen::allVacancies() ?>">Сбросить</a>
+                            <input type="submit" value="<?= Yii::t('main', 'Найти') ?>" class="btn btn-primary me-2" data-disable-with="<?= Yii::t('main', 'Найти') ?>">
+                            <a class="btn btn-outline-secondary" href="<?= UrlGen::allVacancies() ?>"><?= Yii::t('main', 'Сбросить') ?></a>
                         </div>
                     </div>
                 <?php ActiveForm::end() ?>
@@ -62,7 +62,7 @@ use yii\i18n\Formatter;
                     <!-- CARD -->
 
                 <?php else: ?>
-                        <p class="text-center bg-light py-4 fw-light">Список вакансий пуст</p>
+                        <p class="text-center bg-light py-4 fw-light"><?= Yii::t('main', 'Список вакансий пуст') ?></p>
                 <?php endif ?>
 
             </div>

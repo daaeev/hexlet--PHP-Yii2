@@ -9,14 +9,14 @@ $position = 1;
 <div class="container-md" id="content">
     <div class="row">
         <div class="col-md-9 content-block">
-            <h1>Вакансии для разработчиков</h1>
+            <h1><?= Yii::t('main', 'Рейтинг пользователей') ?></h1>
 
             <table class="my-5 table table-striped">
                 <tbody>
                     <tr>
                         <th>#</th>
-                        <th>Количество лайков</th>
-                        <th>Пользователь</th>
+                        <th><?= Yii::t('main', 'Количество лайков') ?></th>
+                        <th><?= Yii::t('main', 'Пользователь') ?></th>
                     </tr>
                     <?php foreach ($users as $user): ?>
                         <tr>

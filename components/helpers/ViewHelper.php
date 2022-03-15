@@ -51,8 +51,12 @@ class ViewHelper
      */
     public static function createVacancieTitle($vac): string
     {
-        $title = "$vac->level $vac->position";
-        $title .= self::createSalaryTitle($vac) ? ' ' . self::createSalaryTitle($vac) . ' ' : ' ';
+        $level = Yii::t('main', $vac->level);
+
+        $title = "$level $vac->position";
+
+        $salary_title = self::createSalaryTitle($vac);
+        $title .= ($salary_title ? ' ' . $salary_title . ' ' : ' ');
         $title .= "- $vac->company";
 
         return $title;
@@ -69,15 +73,16 @@ class ViewHelper
         $title = '';
 
         if (isset($vac->money_from) && isset($vac->money_to)) {
-            $title .= "от $vac->money_from до $vac->money_to";
+            $title .= Yii::t('main', 'от') . " $vac->money_from " . Yii::t('main', 'до') . " $vac->money_to";
         } else if (isset($vac->money_from)) {
-            $title .= "от $vac->money_from";
+            $title .= Yii::t('main', 'от') . " $vac->money_from";
         } else if (isset($vac->money_to)) {
-            $title .= "до $vac->money_to";
+            $title .= Yii::t('main', 'до') . " $vac->money_to";
         }
 
         if ($title && $vac->money) {
-            $title .= " $vac->currency ($vac->money)";
+            $money = Yii::t('main', $vac->money);
+            $title .= " $vac->currency ($money)";
         } else if ($title) {
             $title .= " $vac->currency";
         }
@@ -122,17 +127,13 @@ class ViewHelper
     {
         switch ($status) {
             case Resume::STATUS_NOT_CONFIRMED:
-                return '<p class="card-header text-warning">Не проверено</p>';
-                break;
+                return '<p class="card-header text-warning">' . Yii::t('main', 'Не проверено') . '</p>';
             case Resume::STATUS_CONFIRMED:
-                return '<p class="card-header text-success">Проверено<span class="ms-3"><a href="' . UrlGen::resume($id) . '"><span class="bi bi-eye text-muted"></span></a></span></p>';
-                break;
+                return '<p class="card-header text-success">' . Yii::t('main', 'Проверено') . '<span class="ms-3"><a href="' . UrlGen::resume($id) . '"><span class="bi bi-eye text-muted"></span></a></span></p>';
             case Resume::STATUS_ON_DRAFT:
-                return '<p class="card-header">В черновик<span class="ms-3"><a href="' . UrlGen::resumeEditPage($id) . '"><span class="bi bi-pencil-square text-muted"></span></a></span></p>';
-                break;
+                return '<p class="card-header">' . Yii::t('main', 'В черновик') . '<span class="ms-3"><a href="' . UrlGen::resumeEditPage($id) . '"><span class="bi bi-pencil-square text-muted"></span></a></span></p>';
             case Resume::STATUS_BANNED:
-                return '<p class="card-header text-danger">Забанено</p>';
-                break;
+                return '<p class="card-header text-danger">' . Yii::t('main', 'Забанено') . '</p>';
         }
     }
 
@@ -146,13 +147,13 @@ class ViewHelper
     {
         switch ($status) {
             case Vacancie::STATUS_NOT_CONFIRMED:
-                return '<p class="card-header text-warning">Не проверено</p>';
+                return '<p class="card-header text-warning">' . Yii::t('main', 'Не проверено') . '</p>';
                 break;
             case Vacancie::STATUS_CONFIRMED:
-                return '<p class="card-header text-success">Проверено<span class="ms-3"><a href="' . UrlGen::vacancie($id) . '"><span class="bi bi-eye text-muted"></span></a></span></p>';
+                return '<p class="card-header text-success">' . Yii::t('main', 'Проверено') . '<span class="ms-3"><a href="' . UrlGen::vacancie($id) . '"><span class="bi bi-eye text-muted"></span></a></span></p>';
                 break;
             case Vacancie::STATUS_BANNED:
-                return '<p class="card-header text-danger">Забанено</p>';
+                return '<p class="card-header text-danger">' . Yii::t('main', 'Забанено') . '</p>';
                 break;
         }
     }

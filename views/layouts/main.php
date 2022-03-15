@@ -23,14 +23,22 @@ MainAsset::register($this);
         <div class="left-block d-flex align-items-center">        
             <a class="navbar-brand link-dark" href="<?= UrlGen::home() ?>">Hexlet CV</a>
             <div class="nav-menu">
-                <a class="link link-dark" href="<?= UrlGen::allResumes() ?>">Резюме</a>
-                <a class="link link-dark" href="<?= UrlGen::allVacancies() ?>">Вакансии</a>
-                <a class="link link-dark" href="<?= UrlGen::rating() ?>">Рейтинг</a>
+                <a class="link link-dark" href="<?= UrlGen::allResumes() ?>"><?= Yii::t('main', 'Резюме') ?></a>
+                <a class="link link-dark" href="<?= UrlGen::allVacancies() ?>"><?= Yii::t('main', 'Вакансии') ?></a>
+                <a class="link link-dark" href="<?= UrlGen::rating() ?>"><?= Yii::t('main', 'Рейтинг') ?></a>
 
                 <?php if (Yii::$app->user->can('adminPanel')): ?>
-                    <a class="link link-dark" href="<?= UrlGen::adminPanel() ?>">Админ панель</a>
+                    <a class="link link-dark" href="<?= UrlGen::adminPanel() ?>"><?= Yii::t('main', 'Админ панель') ?></a>
                 <?php endif ?>
-
+            </div>
+            <div class="px-3 dropdown">
+                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                    <?= Yii::t('main', 'Язык') ?>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    <li><?= Html::a('Русский', ['/', 'language' => 'ru'], ['class' => 'dropdown-item']) ?></li
+                    <li><?= Html::a('English', ['/', 'language' => 'en'], ['class' => 'dropdown-item']) ?></li>
+                </ul>
             </div>
         </div>
 
@@ -39,10 +47,10 @@ MainAsset::register($this);
         <div class="right-block d-flex align-items-center">
             <ul class="nav nav-pills">
                 <li class="nav-item">
-                    <a class="nav-link link-dark" href="<?= UrlGen::login() ?>">Войти</a>
+                    <a class="nav-link link-dark" href="<?= UrlGen::login() ?>"><?= Yii::t('main', 'Войти') ?></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link link-dark" href="<?= UrlGen::registration() ?>">Регистрация </a>
+                    <a class="nav-link link-dark" href="<?= UrlGen::registration() ?>"><?= Yii::t('main', 'Регистрация') ?> </a>
                 </li>
             </ul>
         </div>
@@ -58,11 +66,11 @@ MainAsset::register($this);
 
             <div class="dropdown block-element">
                 <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                    Добавить
+                    <?= Yii::t('main', 'Добавить') ?>
                 </button>
                 <ul class="dropdown-menu add-menu" aria-labelledby="dropdownMenuButton1">
-                    <li><a class="dropdown-item" href="<?= UrlGen::createPage('resume') ?>">Резюме</a></li>
-                    <li><a class="dropdown-item" href="<?= UrlGen::createPage('vacancie') ?>">Вакансию</a></li>
+                    <li><a class="dropdown-item" href="<?= UrlGen::createPage('resume') ?>"><?= Yii::t('main', 'Резюме') ?></a></li>
+                    <li><a class="dropdown-item" href="<?= UrlGen::createPage('vacancie') ?>"><?= Yii::t('main', 'Вакансию') ?></a></li>
                 </ul>
             </div>
             
@@ -75,11 +83,11 @@ MainAsset::register($this);
                         <span class="username"><?= htmlspecialchars($this->params['user']->name) ?></span><br>
                         <span class="email"><?= htmlspecialchars($this->params['user']->email) ?></span>
                     </li>
-                    <li><a class="dropdown-item" href="<?= UrlGen::profile($this->params['user']->id) ?>">Мой профиль</a></li>
-                    <li><a class="dropdown-item" href="<?= UrlGen::account('resume') ?>">Мои резюме</a></li>
-                    <li><a class="dropdown-item" href="<?= UrlGen::account('vacancie') ?>">Мои вакансии</a></li>
-                    <li><a class="dropdown-item" href="<?= UrlGen::account('settings') ?>">Настройки</a></li>
-                    <li><a class="dropdown-item btn-logout" href="<?= UrlGen::logout() ?>">Выход</a></li>
+                    <li><a class="dropdown-item" href="<?= UrlGen::profile($this->params['user']->id) ?>"><?= Yii::t('main', 'Мой профиль') ?></a></li>
+                    <li><a class="dropdown-item" href="<?= UrlGen::account('resume') ?>"><?= Yii::t('main', 'Мои резюме') ?></a></li>
+                    <li><a class="dropdown-item" href="<?= UrlGen::account('vacancie') ?>"><?= Yii::t('main', 'Мои вакансии') ?></a></li>
+                    <li><a class="dropdown-item" href="<?= UrlGen::account('settings') ?>"><?= Yii::t('main', 'Настройки') ?></a></li>
+                    <li><a class="dropdown-item btn-logout" href="<?= UrlGen::logout() ?>"><?= Yii::t('main', 'Выход') ?></a></li>
                 </ul>
             </div>
         </div>

@@ -47,6 +47,9 @@ $config = [
         ],
         'db' => $db,
         'urlManager' => [
+            'class' => 'codemix\localeurls\UrlManager',
+            'languages' => ['en', 'ru'],
+            'enableDefaultLanguageUrlCode' => true,
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
@@ -74,6 +77,14 @@ $config = [
                 'change-pass' => 'authorization/change-pass',
                 'email/confirm' => 'authorization/email-confirm',
                 'email/send-confirm' => 'site/send-mail-to-confirm',
+            ],
+        ],
+        'i18n' => [
+            'translations' => [
+                'main' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'sourceLanguage' => 'ru',
+                ],
             ],
         ],
         'mailer' => [

@@ -9,14 +9,14 @@ use app\components\helpers\ViewHelper;
     <div class="row">
         <div class="col-md-3">
             <ul class="nav flex-column nav-pills">
-                <li class="nav-item"><a href="<?= UrlGen::account('notify') ?>" class="nav-link link-dark">Уведомления</a></li>
-                <li class="nav-item"><a href="<?= UrlGen::account('resume') ?>" class="nav-link link-dark">Мои резюме</a></li>
-                <li class="nav-item"><a href="" class="nav-link link-dark active">Мои вакансии</a></li>
-                <li class="nav-item"><a href="<?= UrlGen::account('settings') ?>" class="nav-link link-dark">Настройки</a></li>
+                <li class="nav-item"><a href="<?= UrlGen::account('notify') ?>" class="nav-link link-dark"><?= Yii::t('main', 'Уведомления') ?></a></li>
+                <li class="nav-item"><a href="<?= UrlGen::account('resume') ?>" class="nav-link link-dark"><?= Yii::t('main', 'Мои резюме') ?></a></li>
+                <li class="nav-item"><a href="" class="nav-link link-dark active"><?= Yii::t('main', 'Мои вакансии') ?></a></li>
+                <li class="nav-item"><a href="<?= UrlGen::account('settings') ?>" class="nav-link link-dark"><?= Yii::t('main', 'Настройки') ?></a></li>
             </ul>
         </div>
         <div class="col-md-9">
-            <h2 class="h2 mb-4">Мои вакансии</h2>
+            <h2 class="h2 mb-4"><?= Yii::t('main', 'Мои вакансии') ?></h2>
 
             <?php if ($vacancies): ?>
                 <?php foreach ($vacancies as $vacancie): ?>

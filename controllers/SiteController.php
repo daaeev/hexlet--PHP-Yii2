@@ -265,7 +265,7 @@ class SiteController extends Controller
         $helper = Yii::$container->get(VacancieGetInterface::class);
         $data = $helper->getAllByFilters(Yii::$app->request->post('filters'));
         $filters = $helper->getFiltersData();
-        
+
         return $this->render('vacancies', compact('data', 'filters'));
     }
 

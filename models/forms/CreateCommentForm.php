@@ -7,9 +7,8 @@ use app\exceptions\DBDataSaveException;
 use app\exceptions\IDNotFoundException;
 use app\exceptions\ValidationFailedException;
 use app\models\Comment;
-use app\models\Resume;
+use Yii;
 use Parsedown;
-use PHPUnit\Framework\MockObject\MockObject;
 use yii\base\Model;
 
 /**
@@ -32,7 +31,7 @@ class CreateCommentForm extends Model
     public function attributeLabels()
     {
         return [
-            'content' => 'Содержимое комментария',
+            'content' => Yii::t('main', 'Содержимое комментария'),
         ];
     }
 
@@ -61,19 +60,19 @@ class CreateCommentForm extends Model
         $is_comment = $parent_comment_id ? true : false;
 
         if (!$this->validate()) {
-            throw new ValidationFailedException('Валидация данных прошла неуспешно');
+            throw new ValidationFailedException(Yii::t('main', 'Валидация данных прошла неуспешно'));
         }
             
         if ($is_comment && (iconv_strlen($this->content) > 200)) {
-            throw new ValidationFailedException('Валидация данных прошла неуспешно');
+            throw new ValidationFailedException(Yii::t('main', 'Валидация данных прошла неуспешно'));
         }
 
         if (!$validator->resumeExist($resume_id)) {
-            throw new IDNotFoundException('Резюме с id ' . $resume_id . ' не существует');
+            throw new IDNotFoundException(Yii::t('main', 'Валидация данных прошла неуспешно'));
         }
 
         if ($is_comment && !$validator->commentExist($parent_comment_id)) {
-            throw new IDNotFoundException('Комментария с id ' . $parent_comment_id . ' не существует');
+            throw new IDNotFoundException(Yii::t('main', 'Валидация данных прошла неуспешно'));
         }
 
         $comment->resume_id = $resume_id;
@@ -81,7 +80,7 @@ class CreateCommentForm extends Model
         $comment->content = $is_comment ? htmlspecialchars($this->content) : $parser->line($this->content);
 
         if (!$comment->save()) {
-            throw new DBDataSaveException('Сохранение комментария в базу данных прошло неуспешно');
+            throw new DBDataSaveException(Yii::t('main', 'Сохранение комментария в базу данных прошло неуспешно'));
         }
 
         return true;
