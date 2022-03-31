@@ -63,6 +63,16 @@ class SiteController extends Controller
     }
 
     /**
+     * Рендеринг страницы 'О проекте'
+     *
+     * @return string результат рендеринга
+     */
+    public function actionAbout()
+    {
+        return $this->render('about');
+    }
+
+    /**
      * Главная страница приложения на которой
      * отображаются резюме программистов
      * @param string $category название категории резюме,

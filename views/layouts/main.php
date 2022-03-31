@@ -102,9 +102,9 @@ MainAsset::register($this);
         <div class="container-md">
             <div class="row justify-content-lg-around">
                 <div class="col-sm-6 col-md-4 col-lg-auto">
-                    <p class="fs-4 mb-2">Title</p>
+                    <p class="fs-4 mb-2">Hexlet ©</p>
                     <ul class="list-unstyled">
-                        <li><a href="#" class="link-dark">Link</a></li>
+                        <li><a href="<?= UrlGen::aboutPage() ?>" class="link-dark">О проекте</a></li>
                         <li><a href="#" class="link-dark">Link</a></li>
                         <li><a href="#" class="link-dark">Link</a></li>
                     </ul>

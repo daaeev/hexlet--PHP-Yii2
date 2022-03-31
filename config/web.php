@@ -66,6 +66,7 @@ $config = [
                 'resume/edit/<id:\d+>' => 'site/resume-edit',
                 'vacancie/<id:\d+>' => 'site/vacancie-view',
                 'account/delete-notify/<notify_id:\d+>' => 'site/delete-notify',
+                'about' => 'site/about',
 
                 'create-comment/<resume_id:\d+>/<parent_comment_id:\d+>' => 'site/create-comment',
                 'create-comment/<resume_id:\d+>' => 'site/create-comment',

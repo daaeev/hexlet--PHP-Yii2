@@ -239,6 +239,7 @@ return [
     'Регистрация' => 'Registration',
     'Забыли пароль?' => 'Forgot your password?',
     'Изменение пароля' => 'Change password',
+    'О проекте' => 'About project',
 
     // SiteController
 
@@ -247,4 +248,11 @@ return [
     'Возникла ошибка в сохранении данных' => 'There was an error in saving data',
     'Вы убрали отметку "Мне нравится"' => 'You unchecked the "Like" box',
     'Вы поставили отметку "Мне нравится"' => 'You checked "Like"',
+
+    // views/about
+    'Цель Hexlet CV - предоставить платформу для сообщества, где вы получите рекомендации на резюме от участников сообщества и профессиональных HR.' => 'The purpose of Hexlet CV is to provide a community platform where you get resume recommendations from community members and professional HR.',
+    'Взаимодействие на Hexlet CV строится на основе резюме и рекомендаций на них. На конкретное резюме каждый участник сообщества дает только одну рекомендацию.' => 'Interactions on Hexlet CV are based on resumes and resume recommendations. On a particular resume, each community member provides only one recommendation.',
+    'Присоединяйтесь к сообществу, публикуйте резюме и оставляйте рекомендации другим участникам. Расскажите о сайте коллегам и друзьям!' => 'Join the community, post resumes, and leave recommendations for other members. Tell your colleagues and friends about the site!',
+    'Исходный код платформы Hexlet CV (PHP, Yii2) доступен на GitHub.' => 'The source code for the Hexlet CV platform (PHP, Yii2) is available on GitHub.',
+    'Исходный код' => 'Source code',
 ];

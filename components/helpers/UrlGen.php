@@ -229,6 +229,16 @@ class UrlGen
     }
 
     /**
+     * Генерация адреса страницы 'О проекре'
+     *
+     * @return string адресс страницы
+     */
+    public static function aboutPage(): string
+    {
+        return self::languageCode() . '/about';
+    }
+
+    /**
      * Метод возвращает код текущего языка (со слешем в начале) для url-адреса
      * @return string
      */
