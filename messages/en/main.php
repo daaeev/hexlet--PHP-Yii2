@@ -222,4 +222,29 @@ return [
 
     'Упс, а тут пусто' => 'Oops, its empty.',
     'Такое бывает, когда страницу удалили или в адрес случайно закралась ошибка. Но ничего страшного, можно просто тыкнуть на любой пункт меню сверху и попасть-таки в нужное место.' => 'This happens when the page was deleted or the address accidentally crept into the error. But thats okay, you can just click on any menu item at the top and still get to the right place.',
+
+    // views (title)
+    'Главная страница' => 'Main page',
+    'Уведомления' => 'Notifications',
+    'Мои резюме' => 'My resumes',
+    'Настройки профиля' => 'Profile settings',
+    'Мои вакансии' => 'My vacancies',
+    'Ошибка' => 'Error',
+    'Профиль' => 'Profile',
+    'Рейтинг' => 'Rating',
+    'Создание резюме' => 'Creating a resume',
+    'Создание вакансии' => 'Create a job',
+    'Вакансии' => 'Jobs',
+    'Логин' => 'Login',
+    'Регистрация' => 'Registration',
+    'Забыли пароль?' => 'Forgot your password?',
+    'Изменение пароля' => 'Change password',
+
+    // SiteController
+
+    'Данные успешно изменены' => 'The data has been successfully changed',
+    'Что-то пошло не так...' => 'Something went wrong...',
+    'Возникла ошибка в сохранении данных' => 'There was an error in saving data',
+    'Вы убрали отметку "Мне нравится"' => 'You unchecked the "Like" box',
+    'Вы поставили отметку "Мне нравится"' => 'You checked "Like"',
 ];

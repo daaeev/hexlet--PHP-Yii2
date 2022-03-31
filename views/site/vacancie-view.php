@@ -3,6 +3,7 @@
 use app\components\helpers\UrlGen;
 use app\components\helpers\ViewHelper;
 
+$this->title = Yii::t('main', htmlspecialchars($vacancie->position));
 ?>
 <!-- CONTENT -->
 <div class="container-md" id="content">

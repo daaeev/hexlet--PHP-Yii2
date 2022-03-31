@@ -3,6 +3,7 @@
 use app\components\helpers\UrlGen;
 use app\widgets\Alert;
 
+$this->title = Yii::t('main', 'Уведомления');
 ?>
 <!-- CONTENT -->
 <div class="container-md" id="content">

@@ -5,6 +5,7 @@ use app\widgets\Alert;
 use yii\bootstrap4\ActiveForm;
 use app\models\User;
 
+$this->title = Yii::t('main', 'Настройки профиля');
 ?>
 <!-- CONTENT -->
 <div class="container-md" id="content">

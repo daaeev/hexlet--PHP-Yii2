@@ -3,6 +3,8 @@
 use app\components\helpers\UrlGen;
 use yii\bootstrap4\ActiveForm;
 
+$this->title = Yii::t('main', 'Изменение пароля');
+
 ?>
 <!-- CONTENT -->
 <div class="row my-4">

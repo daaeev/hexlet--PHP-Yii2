@@ -7,6 +7,7 @@ use app\widgets\Alert;
 use yii\bootstrap4\ActiveForm;
 use yii\i18n\Formatter;
 
+$this->title = Yii::t('main', htmlspecialchars($resume->title));
 ?>
 <!-- CONTENT -->
 <div class="container-md" id="content">

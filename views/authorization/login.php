@@ -3,6 +3,8 @@
 use app\components\helpers\UrlGen;
 use app\widgets\Alert;
 use yii\bootstrap4\ActiveForm;
+
+$this->title = Yii::t('main', 'Логин');
 ?>
 <!-- CONTENT -->
 <div class="row my-4">

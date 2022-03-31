@@ -2,6 +2,7 @@
 
 use app\components\helpers\UrlGen;
 
+$this->title = Yii::t('main', 'Рейтинг');
 $position = 1;
 
 ?>

@@ -4,6 +4,8 @@ use app\components\helpers\UrlGen;
 use yii\bootstrap4\ActiveForm;
 use app\models\User;
 
+$this->title = Yii::t('main', 'Создание резюме');
+
 $english_levels = [
     'Не знаю' => Yii::t('main','Не знаю'),
     'Начальные знания' => Yii::t('main','Начальные знания'),

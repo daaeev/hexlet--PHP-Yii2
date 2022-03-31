@@ -6,6 +6,7 @@ use app\widgets\Alert;
 use yii\bootstrap4\LinkPager;
 use yii\i18n\Formatter;
 
+$this->title = Yii::t('main', 'Главная страница');
 ?>
 <!-- CONTENT -->
 <div class="container-md" id="content">

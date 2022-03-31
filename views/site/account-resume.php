@@ -3,6 +3,7 @@
 use app\components\helpers\UrlGen;
 use app\components\helpers\ViewHelper;
 
+$this->title = Yii::t('main', 'Мои резюме');
 ?>
 <!-- CONTENT -->
 <div class="container-md" id="content">

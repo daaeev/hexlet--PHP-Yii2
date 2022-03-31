@@ -147,9 +147,9 @@ class SiteController extends Controller
 
                     $user->updateCounters(['likes_count' => 1]);
 
-                    Yii::$app->session->setFlash('success', 'Вы поставили отметку "Мне нравится"');
+                    Yii::$app->session->setFlash('success', Yii::t('main', 'Вы поставили отметку "Мне нравится"'));
                 } else {
-                    Yii::$app->session->setFlash('error', 'Возникла ошибка в сохранении данных');
+                    Yii::$app->session->setFlash('error', Yii::t('main', 'Возникла ошибка в сохранении данных'));
                 }
             }
         } else if (Yii::$app->request->isDelete) {
@@ -166,9 +166,9 @@ class SiteController extends Controller
                         ->one();
                         
                     $user->updateCounters(['likes_count' => -1]);
-                    Yii::$app->session->setFlash('success', 'Вы убрали отметку "Мне нравится"');
+                    Yii::$app->session->setFlash('success', Yii::t('main', 'Вы убрали отметку "Мне нравится"'));
                 } else {
-                    Yii::$app->session->setFlash('error', 'Возникла ошибка в сохранении данных');
+                    Yii::$app->session->setFlash('error', Yii::t('main', 'Возникла ошибка в сохранении данных'));
                 }
             }
         }
@@ -207,7 +207,7 @@ class SiteController extends Controller
             return $this->redirect(Yii::$app->request->referrer);
         }
 
-        Yii::$app->session->setFlash('warning', 'Что-то пошло не так...');
+        Yii::$app->session->setFlash('warning', Yii::t('main', 'Что-то пошло не так...'));
 
         return $this->redirect(Yii::$app->request->referrer);
     }
@@ -326,7 +326,7 @@ class SiteController extends Controller
         if ($model->load(Yii::$app->request->post(), 'AccountSettingsForm')) {
             try {
                 $model->saveUserSettings($this->view->params['user']);
-                Yii::$app->session->setFlash('success', 'Данные успешно изменены');
+                Yii::$app->session->setFlash('success', Yii::t('main', 'Данные успешно изменены'));
             } catch (DBDataSaveException|ValidationFailedException $e) {
                 Yii::$app->session->setFlash('error', $e->getMessage());
             }
@@ -635,7 +635,7 @@ class SiteController extends Controller
 
         try {
             $mailer->compose()
-                ->setFrom('') // УКАЖИТЕ АДРЕС ОТПРАВИТЕЛЯ
+                ->setFrom('LfdblGbhju@gmail.com') // УКАЖИТЕ АДРЕС ОТПРАВИТЕЛЯ
                 ->setTo($this->view->params['user']->email)
                 ->setSubject(Yii::t('main','Подтверждение аккаунта Hexlet'))
                 ->setTextBody($message)

@@ -1,3 +1,8 @@
+<?php
+
+$this->title = Yii::t('main', 'Ошибка');
+?>
+
 <!-- CONTENT -->
 <div class="container-md" id="content">
     <div class="row">

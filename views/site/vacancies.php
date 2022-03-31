@@ -8,6 +8,7 @@ use yii\bootstrap4\Html;
 use yii\bootstrap4\LinkPager;
 use yii\i18n\Formatter;
 
+$this->title = Yii::t('main', 'Вакансии');
 ?>
 <!-- CONTENT -->
 <div class="container-md" id="content">

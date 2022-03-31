@@ -4,6 +4,7 @@ use app\components\helpers\UrlGen;
 use app\components\helpers\ViewHelper;
 use yii\i18n\Formatter;
 
+$this->title = Yii::t('main', 'Профиль');
 ?>
 <!-- CONTENT -->
 <div class="container-md" id="content">

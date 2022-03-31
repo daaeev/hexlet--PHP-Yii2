@@ -97,9 +97,9 @@ $config = [
                 // Также указать в 
                 // SiteController::actionSendMailToConfirm()
                 // ForgotPassForm::sendMessageToUserMail()
-                'username' => '', // УКАЗАТЬ АДРЕС
+                'username' => 'LfdblGbhju@gmail.com', // УКАЗАТЬ АДРЕС
 
-                'password' => '', // УКАЗАТЬ ПАРОЛЬ
+                'password' => 'nibibqmrqfxlxnra', // УКАЗАТЬ ПАРОЛЬ
                 'port' => '587',
                 'encryption' => 'tls',
             ] 
