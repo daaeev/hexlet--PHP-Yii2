@@ -645,7 +645,7 @@ class SiteController extends Controller
 
         try {
             $mailer->compose()
-                ->setFrom('LfdblGbhju@gmail.com') // УКАЖИТЕ АДРЕС ОТПРАВИТЕЛЯ
+                ->setFrom('') // УКАЖИТЕ АДРЕС ОТПРАВИТЕЛЯ
                 ->setTo($this->view->params['user']->email)
                 ->setSubject(Yii::t('main','Подтверждение аккаунта Hexlet'))
                 ->setTextBody($message)

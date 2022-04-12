@@ -13,10 +13,10 @@ $this->title = Yii::t('main', 'Изменение пароля');
         <?php $form = ActiveForm::begin() ?>
             <div class="form-inputs">
                 <div class="mb-3">
-                    <?= $form->field($model, 'password')->input('password')->label( Yii::t('main', 'Новый пароль') . ' *') ?>
+                    <?= $form->field($model, 'password')->input('password')->label(Yii::t('main', 'Новый пароль') . ' *') ?>
                 </div>
                 <div class="mb-3">
-                    <?= $form->field($model, 'password_repeat')->input('password')->label( Yii::t('main', 'Подтвердите пароль') ' *') ?>
+                    <?= $form->field($model, 'password_repeat')->input('password')->label(Yii::t('main', 'Подтвердите пароль') . ' *') ?>
                 </div>
             </div>
             <div class="mb-3">

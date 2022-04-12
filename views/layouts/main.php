@@ -85,7 +85,7 @@ MainAsset::register($this);
                     </li>
                     <li><a class="dropdown-item" href="<?= UrlGen::profile($this->params['user']->id) ?>"><?= Yii::t('main', 'Мой профиль') ?></a></li>
                     <li><a class="dropdown-item" href="<?= UrlGen::account('resume') ?>"><?= Yii::t('main', 'Мои резюме') ?></a></li>
-                    <li><a class="dropdown-item" href="<?= UrlGen::account('vacancie') ?>"><?= Yii::t('main', 'Мои вакансии') ?></a></li>
+                    <li><a class="dropdown-item" href="<?= UrlGen::account('vacancies') ?>"><?= Yii::t('main', 'Мои вакансии') ?></a></li>
                     <li><a class="dropdown-item" href="<?= UrlGen::account('settings') ?>"><?= Yii::t('main', 'Настройки') ?></a></li>
                     <li><a class="dropdown-item btn-logout" href="<?= UrlGen::logout() ?>"><?= Yii::t('main', 'Выход') ?></a></li>
                 </ul>

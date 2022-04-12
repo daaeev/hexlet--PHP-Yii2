@@ -62,7 +62,7 @@ class ForgotPassForm extends Model
         $link = UrlGen::fullChangePassPage($token);
         $message = Yii::t('main',"Для изменения пароля, перейдите по следующей одноразовой ссылке") . " - $link";
         $letter = $mailer->compose()
-            ->setFrom('LfdblGbhju@gmail.com') // УКАЖИТЕ АДРЕС ОТПРАВИТЕЛЯ
+            ->setFrom('') // УКАЖИТЕ АДРЕС ОТПРАВИТЕЛЯ
             ->setTo($this->email)
             ->setSubject(Yii::t('main','Восстановление пароля Hexlet'))
             ->setTextBody($message);
